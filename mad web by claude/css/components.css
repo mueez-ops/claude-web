@@ -1,0 +1,360 @@
+/* ==========================================================================
+   AIAT — components.css
+   Reusable pieces: buttons, chips, badges, cards, form fields, icons.
+   Uses only the tokens defined in base.css.
+   ========================================================================== */
+
+/* --- Icons: thin line, 1.5px stroke, inherit text color ------------------ */
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- Buttons ------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 48px;                    /* comfortable thumb target */
+  padding: 0 var(--sp-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;             /* no browser-default grey on <button> */
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+}
+.btn .icon { width: 1.15em; height: 1.15em; }
+
+/* Primary: teal fill — "Join a class", "Request a seat", form submit */
+.btn--primary { background: var(--teal); color: var(--paper); }
+.btn--primary:hover { background: var(--teal-deep); }
+
+/* Secondary: teal outline */
+.btn--secondary { border-color: var(--teal); color: var(--teal); background: transparent; }
+.btn--secondary:hover { background: var(--teal-soft); }
+
+/* Text link with arrow — "See all lectures →" */
+.btn--link {
+  min-height: 44px;
+  padding: 0;
+  color: var(--teal);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--gold);
+  border-radius: 0;
+}
+.btn--link .icon { transition: transform var(--dur) var(--ease); }
+.btn--link:hover .icon { transform: translateX(3px); }
+
+/* Gold on dark surfaces (deep teal, footer) */
+.btn--gold { background: var(--gold); color: var(--teal-deep); }
+.btn--gold:hover { background: color-mix(in srgb, var(--gold) 85%, white); }
+
+/* Light outline on dark surfaces */
+.btn--on-dark { border-color: color-mix(in srgb, var(--paper) 50%, transparent); color: var(--paper); }
+.btn--on-dark:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Muharram mode: crimson fill, quiet */
+.btn--mourning { background: var(--crimson); color: var(--mourning-text); }
+.btn--mourning:hover { background: color-mix(in srgb, var(--crimson) 80%, black); }
+
+/* Small size for inside cards */
+.btn--sm { min-height: 40px; padding: 0 var(--sp-4); font-size: var(--fs-label); letter-spacing: 0.08em; }
+
+/* Disabled and loading states */
+.btn:disabled,
+.btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+.btn.is-loading { cursor: progress; }
+.btn.is-loading .btn__spinner { display: inline-block; }
+.btn__spinner {
+  display: none;
+  width: 1em; height: 1em;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.8s linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+/* --- Filter chips (class finder, library) -------------------------------- */
+.chip-group { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 40px;
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.chip:hover { border-color: var(--teal); }
+.chip[aria-pressed="true"] {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+/* Small check mark appears on selected chips, so state isn't color-only */
+.chip__check { display: none; }
+.chip[aria-pressed="true"] .chip__check { display: block; }
+
+/* Two-way toggle — Pakistan time / your time */
+.toggle {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+}
+.toggle__opt {
+  min-height: 34px;
+  padding: 0 var(--sp-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  cursor: pointer;
+}
+.toggle__opt[aria-pressed="true"] { background: var(--teal); color: var(--paper); }
+
+/* --- Badges / tags ------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.3em 0.75em;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.badge::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.badge--open     { background: var(--teal-soft); color: var(--status-open); }
+.badge--soon     { background: color-mix(in srgb, var(--gold) 18%, var(--paper)); color: var(--gold-text); }
+.badge--full     { background: var(--paper-2); color: var(--status-full); }
+.badge--tag      { background: var(--teal-soft); color: var(--teal); }
+.badge--tag::before { display: none; }
+
+/* Live now: crimson fill, light text, slow pulse on the dot */
+.badge--live { background: var(--crimson); color: var(--mourning-text); }
+.badge--live::before { animation: live-pulse 2s ease-in-out infinite; }
+@keyframes live-pulse { 50% { opacity: 0.25; } }
+
+/* --- Cards: hairline-framed, no shadows ---------------------------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--gold);
+  border-radius: var(--radius);
+}
+.card--alt { background: var(--paper-2); }
+.card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-3); }
+.card__eyebrow { color: var(--gold-text); }
+.card__title { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 500; line-height: 1.2; color: var(--teal); }
+.card__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-2) var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small);
+}
+.card__meta dt { color: color-mix(in srgb, var(--ink) 65%, var(--paper)); }
+.card__meta dd { margin: 0; }
+.card__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+
+/* Image area (always a real AIAT photo; placeholder frame until provided) */
+.card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin: calc(var(--sp-5) * -1) calc(var(--sp-5) * -1) 0;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.card__media img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.08) saturate(0.95); }
+
+/* Photo placeholder — used everywhere until real photos arrive */
+.photo-ph {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, var(--line) 14px 15px),
+    var(--paper-2);
+  color: var(--gold-text);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: var(--sp-4);
+}
+.surface-dark .photo-ph,
+.surface-mourning .photo-ph {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,0.06) 14px 15px),
+    rgba(255,255,255,0.03);
+  color: var(--gold);
+}
+.surface-mourning .photo-ph { color: var(--mourning-muted); }
+
+/* Light YouTube embed: thumbnail + play button, player loads on tap */
+.yt-lite {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  background: var(--teal-deep);
+  cursor: pointer;
+  overflow: hidden;
+}
+.yt-lite__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 64px; height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: rgba(12, 42, 48, 0.7);
+  color: var(--paper);
+  transition: background-color var(--dur) var(--ease);
+}
+.yt-lite:hover .yt-lite__play { background: var(--teal); }
+
+/* Photo areas and placeholders on dark surfaces */
+.surface-dark .card__media,
+.surface-mourning .card__media { background: transparent; }
+.surface-dark .todo { color: var(--gold); }
+.surface-mourning .todo { color: var(--mourning-text); background: rgba(217, 214, 208, 0.08); border-bottom-color: var(--mourning-muted); }
+
+/* Muharram-mode card */
+.surface-mourning .card {
+  background: var(--mourning-2);
+  border-color: rgba(217, 214, 208, 0.1);
+  border-top-color: var(--crimson);
+}
+.surface-mourning .card__title { color: var(--mourning-text); }
+.surface-mourning .card__eyebrow { color: var(--mourning-muted); }
+.surface-mourning .card__meta { border-top-color: rgba(217, 214, 208, 0.1); }
+.surface-mourning .card__meta dt { color: var(--mourning-muted); }
+
+/* --- Form fields --------------------------------------------------------- */
+.field { display: flex; flex-direction: column; gap: var(--sp-2); }
+.field__label { font-size: var(--fs-small); font-weight: 600; color: var(--teal); }
+.field__optional { font-weight: 400; color: color-mix(in srgb, var(--ink) 65%, var(--paper)); }
+.field__hint { font-size: var(--fs-small); color: color-mix(in srgb, var(--ink) 70%, var(--paper)); }
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-body);         /* 16px stops iOS zooming on focus */
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+.select {
+  appearance: none;
+  padding-right: var(--sp-7);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23123D45' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-4) center;
+  background-size: 18px;
+}
+.input::placeholder,
+.textarea::placeholder { color: color-mix(in srgb, var(--ink) 62%, var(--paper)); }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--teal); }
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 45%, transparent);
+}
+.input:disabled, .select:disabled, .textarea:disabled { background: var(--paper-2); opacity: 0.7; cursor: not-allowed; }
+
+/* Error state: border + icon + message, so it isn't color-only */
+.field.is-invalid .input,
+.field.is-invalid .select,
+.field.is-invalid .textarea { border-color: var(--crimson); }
+.field__error {
+  display: none;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-small);
+  color: var(--crimson);
+}
+.field.is-invalid .field__error { display: flex; }
+
+/* Segmented radio choice — In person / Online */
+.segmented { display: flex; flex-wrap: wrap; gap: var(--sp-2); border: 0; padding: 0; margin: 0; }
+.segmented legend { padding: 0; margin-bottom: var(--sp-2); }
+.segmented__opt { position: relative; }
+.segmented__opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.segmented__opt span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+.segmented__opt input:checked + span { background: var(--teal-soft); border-color: var(--teal); color: var(--teal); }
+.segmented__opt input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Form status messages: success / error */
+.notice {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-left: 2px solid var(--gold);
+  background: var(--paper-2);
+  font-size: var(--fs-small);
+}
+.notice--success { border-left-color: var(--status-open); }
+.notice--error { border-left-color: var(--crimson); }
+.notice__title { font-weight: 600; color: var(--teal); }

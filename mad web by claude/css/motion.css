@@ -1,0 +1,80 @@
+/* ==========================================================================
+   AIAT — motion.css
+   Layout and starting states for scroll-driven sequences. Without JS,
+   without GSAP, or with reduced motion, everything here shows as a plain,
+   fully readable list. JS adds .is-pinned only when motion is allowed.
+   ========================================================================== */
+
+/* --- Proof sequence: static default (phones, reduced motion, no JS) ------ */
+.proof {
+  background: var(--teal-deep);
+  color: var(--paper);
+}
+.proof__stage {
+  display: grid;
+  gap: var(--sp-6);
+  padding-block: var(--sp-section);
+}
+.proof__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: 70vh;
+  overflow: hidden;
+}
+.proof__photo { position: absolute; inset: 0; background: var(--teal-deep); }   /* solid, so crossfades don't show through */
+.proof__photo + .proof__photo { opacity: 0; }   /* static mode: show the first */
+
+.proof__facts { display: grid; gap: var(--sp-6); }
+.proof__fact {
+  display: grid;
+  gap: var(--sp-2);
+  padding-top: var(--sp-4);
+  border-top: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+}
+.proof__index { color: var(--gold); }
+.proof__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--paper);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.proof__text { font-size: var(--fs-lead); max-width: 28ch; color: color-mix(in srgb, var(--paper) 85%, var(--teal-deep)); }
+
+.proof__progress { display: none; }
+
+/* Two columns from tablet up */
+@media (min-width: 768px) {
+  .proof__stage { grid-template-columns: 5fr 6fr; align-items: center; gap: var(--sp-8); }
+  .proof__media { max-height: none; }
+}
+
+/* --- Proof sequence: pinned mode (desktop, motion allowed) --------------- */
+/* Facts stack in one place and arrive one at a time; JS drives opacity. */
+.proof.is-pinned .proof__stage { min-height: 100vh; padding-block: var(--sp-7); }
+.proof.is-pinned .proof__facts { position: relative; min-height: 22rem; }
+.proof.is-pinned .proof__fact {
+  position: absolute;
+  inset: 0 0 auto 0;
+  opacity: 0;
+}
+.proof.is-pinned .proof__progress {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-6);
+}
+.proof__tick {
+  flex: 1;
+  height: 1px;
+  background: color-mix(in srgb, var(--paper) 22%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+.proof__tick span {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}
