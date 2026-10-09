@@ -18,7 +18,7 @@
 
   <!-- Styleguide-only layout: not used on the real site -->
   <style>
-    .sg-header { padding-block: var(--sp-7) var(--sp-6); border-bottom: 1px solid var(--line); }
+    .sg-header { padding-block: var(--sp-6) var(--sp-4); }
     .sg-header__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-7); }
     .sg-wordmark { display: flex; align-items: center; gap: var(--sp-3); color: var(--teal); text-decoration: none; }
     .sg-wordmark__mark { width: 44px; height: 44px; color: var(--teal); }
@@ -78,15 +78,19 @@
     .sg-icon .icon { width: 28px; height: 28px; }
 
     .sg-review { padding-block: var(--sp-8); }
+    .sg-chapter-intro { padding-block: var(--sp-8) var(--sp-6); display: grid; gap: var(--sp-3); }
+    .sg-chapter-intro p { max-width: 62ch; }
+    .sg-kicker { font-size: var(--fs-small); font-weight: 500; color: var(--gold-text); }
+    .sg-divider { padding-block: var(--sp-8) var(--sp-4); border-top: 1px solid var(--line); }
     .sg-review ol { padding-left: 1.25em; display: grid; gap: var(--sp-3); max-width: 70ch; }
     .sg-scroll-hint { padding-block: var(--sp-6); text-align: center; color: color-mix(in srgb, var(--ink) 70%, var(--paper)); }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#palette">Skip to content</a>
+  <a class="skip-link" href="#proof-intro">Skip to content</a>
 
   <!-- ================================================================
-       Header: wordmark placeholder + section index
+       Header: wordmark placeholder + index
        ================================================================ -->
   <header class="sg-header">
     <div class="container">
@@ -102,36 +106,133 @@
           <span class="sg-wordmark__text">Ali Ibn-e-Abitalib<br>Islamic Institution</span>
         </a>
         <nav class="sg-nav" aria-label="Styleguide sections">
+          <a href="#proof-intro">Proof</a>
+          <a href="#year-intro">The Year</a>
+          <a href="#muharram-intro">Muharram</a>
           <a href="#palette">Palette</a>
           <a href="#type">Type</a>
-          <a href="#structure">Structure</a>
           <a href="#buttons">Buttons</a>
-          <a href="#chips">Chips</a>
           <a href="#cards">Cards</a>
           <a href="#forms">Forms</a>
-          <a href="#icons">Icons</a>
-          <a href="#motion">Motion</a>
           <a href="#review">For review</a>
         </nav>
       </div>
-      <p class="t-label" style="color: var(--gold-text)">Phase 0 · Internal styleguide · Not for the public</p>
-      <h1 class="t-display" id="top" style="margin-top: var(--sp-3)">The visual system</h1>
-      <p class="t-lead t-muted" style="max-width: 52ch; margin-top: var(--sp-4)">
-        Colors, type, components and one motion sample for the AIAT website.
-        Every piece on this page is built from the same CSS the real pages will use.
+      <h1 class="t-h1" id="top">Styleguide</h1>
+      <p class="t-lead t-muted" style="max-width: 56ch; margin-top: var(--sp-3)">
+        Phase 0, for internal review. It starts with the three places where the site
+        tells its story through scrolling, then lists the parts every page is built from.
       </p>
     </div>
   </header>
 
   <main>
     <!-- ================================================================
-         01 — Palette
+         Scroll chapter 1 — Proof (homepage 8.2)
+         ================================================================ -->
+    <div class="container sg-chapter-intro" id="proof-intro">
+      <p class="sg-kicker">Scroll chapter · homepage, right after the first screen</p>
+      <h2 class="t-h2">Proof</h2>
+      <p>The section holds still while you scroll. A photo opens, a line travels from 1992 to Quetta in 2018,
+      the room goes dark and ten lamps are lit for the ten nights, then the Hijri year turns as a ring
+      with the six programs placed on it. The ring, the "today" mark and the current Hijri year are real
+      and calculated live.</p>
+    </div>
+
+    <!-- TODO: replace the two photo placeholders with real AIAT photos (WebP) -->
+    <section class="proof" data-proof aria-label="AIAT in four facts">
+      <div class="container proof__pin">
+        <div class="proof__stage">
+          <figure class="proof__photo proof__photo--a"><div class="photo-ph">The institute</div></figure>
+          <figure class="proof__photo proof__photo--b"><div class="photo-ph">A class in Quetta</div></figure>
+          <svg class="proof__svg" viewBox="0 0 800 600" aria-hidden="true"></svg>
+        </div>
+
+        <div>
+          <div class="proof__caps">
+            <div class="proof__cap">
+              <span class="proof__mask"><span class="proof__big">1992</span></span>
+              <span class="proof__mask"><span class="proof__line">The institution was founded.</span></span>
+            </div>
+            <div class="proof__cap">
+              <span class="proof__mask"><span class="proof__big">2018</span></span>
+              <span class="proof__mask"><span class="proof__line">Serving the community in Quetta since then.</span></span>
+            </div>
+            <div class="proof__cap">
+              <span class="proof__mask"><span class="proof__big">Ten nights</span></span>
+              <span class="proof__mask"><span class="proof__line">Of Muharram, every year. The head of the institute speaks each night, livestreamed on YouTube.</span></span>
+            </div>
+            <div class="proof__cap">
+              <span class="proof__mask"><span class="proof__big">Six programs</span></span>
+              <span class="proof__mask"><span class="proof__line">Through the year, from Muharram to the January winter camp.</span></span>
+            </div>
+          </div>
+          <div class="proof__progress" aria-hidden="true">
+            <span class="proof__tick"><span></span></span>
+            <span class="proof__tick"><span></span></span>
+            <span class="proof__tick"><span></span></span>
+            <span class="proof__tick"><span></span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         Scroll chapter 2 — The Year (homepage 8.4)
+         ================================================================ -->
+    <div class="container sg-chapter-intro" id="year-intro">
+      <p class="sg-kicker">Scroll chapter · homepage, after the class finder</p>
+      <h2 class="t-h2">The Year</h2>
+      <p>On a computer, scrolling down moves the twelve Hijri months sideways, with a gold line where today falls.
+      On a phone it's a simple list. The programs here are a sample; the real ones will come from <code>data/programs.js</code>.</p>
+    </div>
+
+    <section class="year" data-year aria-labelledby="year-title">
+      <div class="year__pin">
+        <div class="container year__head">
+          <p class="section-label"><span class="section-label__num">04</span> — The Year</p>
+          <h3 class="t-h2" id="year-title">The year at AIAT</h3>
+          <p class="year__today" data-hijri-today></p>
+        </div>
+        <div class="container year__viewport">
+          <div class="year__track" data-year-track></div>
+        </div>
+        <div class="year__progress" aria-hidden="true"><span></span></div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         Scroll chapter 3 — the way into Muharram (homepage 8.5)
+         ================================================================ -->
+    <div class="container sg-chapter-intro" id="muharram-intro">
+      <p class="sg-kicker">Scroll chapter · homepage, leading to muharram.html</p>
+      <h2 class="t-h2">Into Muharram</h2>
+      <p>As you scroll in, the page slowly darkens to the Muharram colors, a crimson line drops, and one sentence
+      arrives word by word. No effects beyond that: it should feel quiet.</p>
+    </div>
+
+    <section class="threshold" data-threshold aria-labelledby="threshold-text">
+      <div class="container threshold__inner">
+        <p class="section-label"><span class="section-label__num">05</span> — Muharram</p>
+        <div class="threshold__rule" aria-hidden="true"></div>
+        <p class="threshold__text" id="threshold-text">For the first ten nights of Muharram, the head of the institute speaks every night.</p>
+        <div data-threshold-after>
+          <a class="btn btn--on-dark" href="#muharram-intro">The ten nights</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container sg-divider">
+      <p class="sg-kicker">Reference</p>
+      <h2 class="t-h1">The parts</h2>
+    </div>
+
+    <!-- ================================================================
+         Palette
          ================================================================ -->
     <section class="sg-section" id="palette" aria-labelledby="palette-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">01</span> — Palette</p>
-        <h2 class="t-h1" id="palette-title">Teal, ivory and gold</h2>
-        <p class="t-lead sg-intro">Taken from the logo. Ivory instead of white, teal for weight, gold only as a thin accent.</p>
+        <h2 class="t-h2" id="palette-title">Palette</h2>
+        <p class="sg-intro">Taken from the logo: ivory instead of white, teal for weight, gold as a thin accent.</p>
 
         <div class="sg-swatches" data-swatches="brand"></div>
 
@@ -153,13 +254,12 @@
     </section>
 
     <!-- ================================================================
-         02 — Typography
+         Typography
          ================================================================ -->
     <section class="sg-section" id="type" aria-labelledby="type-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">02</span> — Typography</p>
-        <h2 class="t-h1" id="type-title">Calm, large, never heavy</h2>
-        <p class="t-lead sg-intro">Nothing heavier than 600. Headings in Cormorant Garamond, everything you read or tap in Manrope.</p>
+        <h2 class="t-h2" id="type-title">Type</h2>
+        <p class="sg-intro">Cormorant Garamond for headings, Manrope for everything you read or tap. Nothing heavier than 600.</p>
 
         <!-- Font families -->
         <div class="sg-fonts">
@@ -226,13 +326,12 @@
     </section>
 
     <!-- ================================================================
-         03 — Structure: numbered labels, hairlines, placeholders
+         Structure: numbered labels, hairlines, placeholders
          ================================================================ -->
     <section class="sg-section" id="structure" aria-labelledby="structure-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">03</span> — Structure</p>
-        <h2 class="t-h1" id="structure-title">Hairlines instead of boxes</h2>
-        <p class="t-lead sg-intro">Every homepage chapter opens with a small numbered label and a gold hairline. No drop shadows anywhere.</p>
+        <h2 class="t-h2" id="structure-title">Section labels and placeholders</h2>
+        <p class="sg-intro">Each homepage chapter opens with a small numbered label and a gold hairline. No drop shadows.</p>
 
         <div style="display: grid; gap: var(--sp-5); max-width: 640px">
           <p class="section-label"><span class="section-label__num">01</span> — Now</p>
@@ -255,13 +354,12 @@
     </section>
 
     <!-- ================================================================
-         04 — Buttons
+         Buttons
          ================================================================ -->
     <section class="sg-section" id="buttons" aria-labelledby="buttons-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">04</span> — Buttons</p>
-        <h2 class="t-h1" id="buttons-title">One clear action per place</h2>
-        <p class="t-lead sg-intro">At least 48px tall, so they're easy to tap. Primary teal is kept for the action that matters most on screen.</p>
+        <h2 class="t-h2" id="buttons-title">Buttons</h2>
+        <p class="sg-intro">At least 48px tall so they're easy to tap. The teal fill is kept for the main action on screen.</p>
 
         <!-- Light surface -->
         <div class="sg-row">
@@ -311,13 +409,12 @@
     </section>
 
     <!-- ================================================================
-         05 — Chips, toggle, badges
+         Chips, toggle, badges
          ================================================================ -->
     <section class="sg-section" id="chips" aria-labelledby="chips-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">05</span> — Chips &amp; badges</p>
-        <h2 class="t-h1" id="chips-title">Filters people can feel</h2>
-        <p class="t-lead sg-intro">Selected chips get a tint, a teal border and a check mark, so the state never depends on color alone. Tap them.</p>
+        <h2 class="t-h2" id="chips-title">Filters and badges</h2>
+        <p class="sg-intro">A selected filter gets a tint, a border and a check mark, so it doesn't rely on color alone. Tap them.</p>
 
         <!-- Filter chips (class finder) -->
         <p class="t-label t-muted" style="margin-bottom: var(--sp-3)">Subject</p>
@@ -354,13 +451,12 @@
     </section>
 
     <!-- ================================================================
-         06 — Cards
+         Cards
          ================================================================ -->
     <section class="sg-section" id="cards" aria-labelledby="cards-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">06</span> — Cards</p>
-        <h2 class="t-h1" id="cards-title">Cards for classes, programs and lectures</h2>
-        <p class="t-lead sg-intro">Hairline frame, gold top rule, no shadow. Details marked <span class="todo">[TODO]</span> are placeholders until the real data arrives.</p>
+        <h2 class="t-h2" id="cards-title">Cards</h2>
+        <p class="sg-intro">Hairline frame, gold top rule, no shadow. Details marked <span class="todo">[TODO]</span> are placeholders until the real data arrives.</p>
 
         <div class="sg-grid">
           <!-- Class card (class finder) -->
@@ -447,13 +543,12 @@
     </section>
 
     <!-- ================================================================
-         07 — Form fields
+         Form fields
          ================================================================ -->
     <section class="sg-section" id="forms" aria-labelledby="forms-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">07</span> — Form fields</p>
-        <h2 class="t-h1" id="forms-title">Forms that are easy on a phone</h2>
-        <p class="t-lead sg-intro">Labels always visible above the field, 16px text so phones don't zoom in, and errors that say what to fix. Try sending this demo empty.</p>
+        <h2 class="t-h2" id="forms-title">Form fields</h2>
+        <p class="sg-intro">Labels always visible above the field, 16px text so phones don't zoom in, and errors that say what to fix. Try sending this demo empty.</p>
 
         <!-- Demo form: not connected to Formspree -->
         <form class="sg-form" novalidate data-demo-form>
@@ -538,13 +633,12 @@
     </section>
 
     <!-- ================================================================
-         08 — Icons
+         Icons
          ================================================================ -->
     <section class="sg-section" id="icons" aria-labelledby="icons-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">08</span> — Icons</p>
-        <h2 class="t-h1" id="icons-title">Thin line, used sparingly</h2>
-        <p class="t-lead sg-intro">1.5px stroke, rounded ends, drawn on a 24px grid and written inline, so there's no icon library to load.</p>
+        <h2 class="t-h2" id="icons-title">Icons</h2>
+        <p class="sg-intro">1.5px stroke, rounded ends, drawn on a 24px grid and written inline, so there's no icon library to load.</p>
 
         <div class="sg-icons">
           <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Calendar</div>
@@ -562,88 +656,84 @@
     </section>
 
     <!-- ================================================================
-         09 — Motion sample: Proof sequence (homepage 8.2)
-         ================================================================ -->
-    <section class="sg-section" id="motion" aria-labelledby="motion-title" style="border-bottom: 0; padding-bottom: 0">
-      <div class="container">
-        <p class="section-label"><span class="section-label__num">09</span> — Motion sample</p>
-        <h2 class="t-h1" id="motion-title">Proof, one fact at a time</h2>
-        <p class="t-lead sg-intro">
-          A sample of homepage section 8.2. On desktop the section pins in place: as you scroll, the photo changes
-          and each fact arrives on its own, with counts rising. On phones it becomes a simple list that fades in.
-          With reduced motion turned on, everything is simply there.
-        </p>
-        <p class="t-small t-muted">Only facts already confirmed in the brief are used. Students taught and Facebook followers are left out until the numbers are provided.</p>
-      </div>
-      <p class="sg-scroll-hint t-label">Scroll ↓</p>
-    </section>
-
-    <!-- The sample itself — markup the real homepage will reuse -->
-    <!-- TODO: replace the four photo placeholders with real AIAT photos (WebP) -->
-    <section class="proof surface-dark" id="proof" aria-label="AIAT in numbers (sample)">
-      <div class="container proof__stage">
-        <div class="proof__media">
-          <div class="proof__photo"><div class="photo-ph">Photo · the institute<br>TODO</div></div>
-          <div class="proof__photo"><div class="photo-ph">Photo · a class in Quetta<br>TODO</div></div>
-          <div class="proof__photo"><div class="photo-ph">Photo · a Muharram night<br>TODO</div></div>
-          <div class="proof__photo"><div class="photo-ph">Photo · the yearly programs<br>TODO</div></div>
-        </div>
-
-        <div>
-          <ol class="proof__facts" role="list">
-            <li class="proof__fact">
-              <span class="t-label proof__index">01 / 04</span>
-              <span class="proof__num" data-count="1992" data-from="1960">1992</span>
-              <span class="proof__text">The institution was founded.</span>
-            </li>
-            <li class="proof__fact">
-              <span class="t-label proof__index">02 / 04</span>
-              <span class="proof__num" data-count="2018" data-from="1992">2018</span>
-              <span class="proof__text">Serving the community in Quetta since this year.</span>
-            </li>
-            <li class="proof__fact">
-              <span class="t-label proof__index">03 / 04</span>
-              <span class="proof__num" data-count="10">10</span>
-              <span class="proof__text">Nights of Muharram every year, livestreamed on YouTube.</span>
-            </li>
-            <li class="proof__fact">
-              <span class="t-label proof__index">04 / 04</span>
-              <span class="proof__num" data-count="6">6</span>
-              <span class="proof__text">Programs through the year, from Muharram to the January winter camp.</span>
-            </li>
-          </ol>
-          <div class="proof__progress" aria-hidden="true">
-            <span class="proof__tick"><span></span></span>
-            <span class="proof__tick"><span></span></span>
-            <span class="proof__tick"><span></span></span>
-            <span class="proof__tick"><span></span></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         10 — For review: decisions to approve
+         For review: decisions to approve
          ================================================================ -->
     <section class="sg-review" id="review" aria-labelledby="review-title">
       <div class="container">
-        <p class="section-label"><span class="section-label__num">10</span> — For review</p>
-        <h2 class="t-h1" id="review-title" style="margin-bottom: var(--sp-5)">Decisions for Mueez</h2>
+        <h2 class="t-h2" id="review-title" style="margin-bottom: var(--sp-5)">Decisions to approve</h2>
         <ol class="t-body">
-          <li><b>--gold-text darkened</b> from #8A6631 to <b>#805D2B</b>. The original failed AA (4.2:1) on the --paper-2 card color. The new value passes on all three light surfaces and looks almost the same.</li>
-          <li><b>Crimson is used as a fill, not for text.</b> #7A1F1F on the near-black background is only 1.9:1, so in Muharram mode it's used for button and badge fills (with light text, 7:1), hairlines and the top rule of cards. Secondary text there uses a new <b>--mourning-muted</b> (#9C9893, 6.8:1).</li>
-          <li><b>Added helper tokens</b> within the existing roles: <b>--mourning-2</b> (raised cards in Muharram mode), <b>--line-strong</b> (form field borders need 3:1), and two status colors for class cards (<b>--status-open</b>, <b>--status-full</b>).</li>
-          <li><b>Years appear without counting up from zero.</b> In the proof sequence, 1992 and 2018 count over a short range, so they read as dates, not as numbers racing up. Counts like 10 and 6 rise from zero.</li>
-          <li><b>Logo:</b> <code>images/logo.png</code> isn't in the folder yet, so a simple line mark stands in at the top of this page.</li>
-          <li><b>Fonts:</b> the four fonts from the brief work well together. No alternative is proposed.</li>
+          <li><b>Three scroll chapters, and only three:</b> Proof, The Year and the way into Muharram, the places the brief marks for scrolling. Everything else on the site stays still and simple.</li>
+          <li><b>Proof tells the story with drawings, not counters.</b> A photo opens, a timeline draws from 1992 to 2018, ten lamps light for the ten nights, then the Hijri year turns as a ring with the six programs on it. It runs on phones too, with the drawing above the words.</li>
+          <li><b>Placements on the year ring and in The Year are approximate:</b> Shab-e-Qadr sits in the last third of Ramadan, Eid prayers on 1 Shawwal. <span class="todo">[TODO: confirm which Eid prayers the institute holds]</span>. The winter camp is placed in whichever Hijri month next January falls in, calculated automatically.</li>
+          <li><b>--gold-text darkened</b> from #8A6631 to <b>#805D2B</b>. The original failed AA (4.2:1) on the --paper-2 card color.</li>
+          <li><b>Crimson is a fill, not a text color.</b> On near-black it's only 1.9:1, so it's used for fills (with light text, 7:1), hairlines and card edges. Secondary text in Muharram mode uses <b>--mourning-muted</b> (#9C9893, 6.8:1).</li>
+          <li><b>Added helper tokens</b> within the existing roles: --mourning-2, --line-strong, --status-open, --status-full.</li>
+          <li><b>Logo:</b> <code>images/logo.png</code> isn't in the folder yet, so a simple line mark stands in for it.</li>
         </ol>
       </div>
     </section>
   </main>
 
   <!-- GSAP + ScrollTrigger (the only allowed library), from CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/calendar.js"></script>
+
+  <script>
+    /* --- Sample programs for the scroll chapters ------------------------- */
+    // Styleguide only. From Phase 1 the real list lives in data/programs.js.
+    window.AIAT_PROGRAMS = [
+      { name: "The first ten nights", short: "Muharram", hijri: { month: 1, day: 5 }, when: "1–10 Muharram · livestreamed", mourning: true },
+      { name: "Ramadan", hijri: { month: 9, day: 1 }, when: "[dates — TODO]" },
+      { name: "Shab-e-Qadr", hijri: { month: 9, day: 21 }, when: "[nights — TODO]" },
+      { name: "Eid prayers", hijri: { month: 10, day: 1 }, when: "[which Eids, time and place — TODO]" },
+      { name: "Eid al-Ghadir", hijri: { month: 12, day: 18 }, when: "18 Dhu al-Hijjah" },
+      { name: "Winter camp", gregorian: function () { return AIATCalendar.nextJanuary(); }, when: "January · boys aged 10–17 · [dates — TODO]" }
+    ];
+
+    /* --- The Year: build the twelve months from the sample programs ------ */
+    (function () {
+      var C = window.AIATCalendar;
+      var track = document.querySelector("[data-year-track]");
+      if (!C || !track) return;
+      var today = C.hijri();
+
+      // "[...]" in a date line means a missing fact: show it as a placeholder
+      function whenHtml(str) {
+        return str.replace(/\[([^\]]+)\]/g, '<span class="todo">[$1]</span>');
+      }
+
+      var todayEl = document.querySelector("[data-hijri-today]");
+      if (todayEl && today) todayEl.textContent = "Today is " + C.format(today);
+
+      C.HIJRI_MONTHS.forEach(function (m, i) {
+        var month = i + 1;
+        var events = AIAT_PROGRAMS.filter(function (p) {
+          var h = p.hijri || C.hijri(p.gregorian());
+          return h && h.month === month;
+        });
+        var el = document.createElement("article");
+        el.className = "year__month" + (events.length ? "" : " is-quiet");
+        el.innerHTML =
+          '<span class="year__num">' + String(month).padStart(2, "0") + "</span>" +
+          '<h4 class="year__name">' + m.en + "</h4>" +
+          '<span class="year__ar" lang="ar" dir="rtl">' + m.ar + "</span>" +
+          (events.length ? '<div class="year__events">' + events.map(function (p) {
+            return '<div class="year__event' + (p.mourning ? " year__event--mourning" : "") + '">' +
+              '<span class="year__event-title">' + p.name + "</span>" +
+              '<span class="year__event-when">' + whenHtml(p.when) + "</span></div>";
+          }).join("") + "</div>" : "");
+        if (today && today.month === month) {
+          var here = document.createElement("div");
+          here.className = "year__here";
+          here.style.left = ((today.day - 1) / 30 * 100) + "%";
+          here.innerHTML = "<span>We are here · " + today.day + " " + m.en + "</span>";
+          el.appendChild(here);
+        }
+        track.appendChild(el);
+      });
+    })();
+  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -801,94 +891,10 @@
             '<p>This is only a demo — nothing was sent.</p></div></div>';
         });
       });
-
-      /* --- Motion sample: Proof sequence (GSAP + ScrollTrigger) -------- */
-      // If GSAP didn't load (offline), the static list stays as it is.
-      if (!window.gsap || !window.ScrollTrigger) return;
-      gsap.registerPlugin(ScrollTrigger);
-
-      var proof = document.querySelector(".proof");
-      var facts = gsap.utils.toArray(".proof__fact");
-      var photos = gsap.utils.toArray(".proof__photo");
-      var ticks = gsap.utils.toArray(".proof__tick span");
-
-      // Writes a counted value into a number element (whole numbers only)
-      function setNum(el, v) { el.textContent = Math.round(v); }
-
-      var mm = gsap.matchMedia();
-
-      // Desktop / tablet with motion allowed: pinned, scrubbed sequence
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", function () {
-        proof.classList.add("is-pinned");
-
-        var tl = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: proof,
-            start: "top top",
-            end: "+=" + facts.length * 90 + "%",
-            pin: true,
-            scrub: 0.6,
-            anticipatePin: 1
-          }
-        });
-
-        facts.forEach(function (fact, i) {
-          var num = fact.querySelector(".proof__num");
-          var to = Number(num.dataset.count);
-          var from = Number(num.dataset.from || 0);
-          var counter = { v: from };
-          var at = i;                       // one unit of scroll per fact
-
-          // The fact arrives: fades up and its number counts to the real value
-          tl.fromTo(fact, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.35 }, at);
-          tl.to(counter, {
-            v: to, duration: 0.45, ease: "power1.out",
-            onUpdate: function () { setNum(num, counter.v); }
-          }, at);
-          setNum(num, from);
-
-          // Its photo crossfades in, and its progress tick fills
-          if (i > 0) tl.to(photos[i], { autoAlpha: 1, duration: 0.35 }, at);
-          tl.to(ticks[i], { scaleX: 1, duration: 0.6 }, at);
-
-          // It leaves before the next one arrives (the last one stays)
-          if (i < facts.length - 1) tl.to(fact, { autoAlpha: 0, y: -24, duration: 0.25 }, at + 0.75);
-        });
-
-        // A short hold on the last fact before the section unpins
-        tl.to({}, { duration: 0.4 });
-
-        // Cleanup when the media query stops matching (e.g. window resized)
-        return function () {
-          proof.classList.remove("is-pinned");
-          facts.forEach(function (f) { var n = f.querySelector(".proof__num"); n.textContent = n.dataset.count; });
-        };
-      });
-
-      // Phones with motion allowed: each fact fades in and counts up once
-      mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", function () {
-        facts.forEach(function (fact) {
-          var num = fact.querySelector(".proof__num");
-          var counter = { v: Number(num.dataset.from || 0) };
-          setNum(num, counter.v);
-          gsap.from(fact, {
-            autoAlpha: 0, y: 20, duration: 0.8, ease: "power2.out",
-            scrollTrigger: { trigger: fact, start: "top 85%", once: true }
-          });
-          gsap.to(counter, {
-            v: Number(num.dataset.count), duration: 1.2, ease: "power1.out",
-            onUpdate: function () { setNum(num, counter.v); },
-            scrollTrigger: { trigger: fact, start: "top 85%", once: true }
-          });
-        });
-
-        // Cleanup: put the real numbers back if the media query stops matching
-        return function () {
-          facts.forEach(function (f) { var n = f.querySelector(".proof__num"); n.textContent = n.dataset.count; });
-        };
-      });
     });
   </script>
+
+  <!-- Scroll chapters: Proof, The Year, Muharram -->
+  <script src="js/motion.js"></script>
 </body>
 </html>

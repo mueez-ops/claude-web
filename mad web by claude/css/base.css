@@ -142,23 +142,29 @@ a { color: inherit; }
 }
 
 /* --- Numbered section label: "01 — The Year" ----------------------------- */
+/* Italic serif numeral, plain-case name, then a hairline to the edge. */
 .section-label {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--sp-3);
   color: var(--gold-text);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
-.section-label__num { font-variant-numeric: tabular-nums; }
+.section-label__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  font-variant-numeric: lining-nums;
+}
 .section-label::after {
   content: "";
   flex: 1;
   height: 1px;
+  align-self: center;
   background: var(--gold);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 /* --- Gold hairline rule -------------------------------------------------- */

@@ -1,80 +1,260 @@
 /* ==========================================================================
    AIAT — motion.css
-   Layout and starting states for scroll-driven sequences. Without JS,
-   without GSAP, or with reduced motion, everything here shows as a plain,
-   fully readable list. JS adds .is-pinned only when motion is allowed.
+   Layout for the three scroll-driven chapters: Proof, The Year and the
+   Muharram threshold.
+
+   Every chapter has a STATIC default: without JS, without GSAP, or with
+   reduced motion, it is a plain, readable layout. js/motion.js adds the
+   class .is-scrolly only when motion is allowed, and that switches on the
+   pinned stage styles below.
    ========================================================================== */
 
-/* --- Proof sequence: static default (phones, reduced motion, no JS) ------ */
+
+/* ==========================================================================
+   1. PROOF — a photo opens, a timeline draws, ten lamps light, the year turns
+   ========================================================================== */
+
+/* --- Static default: facts as a list beside one photo -------------------- */
 .proof {
+  position: relative;
   background: var(--teal-deep);
   color: var(--paper);
+  overflow: hidden;
 }
-.proof__stage {
+.proof__pin {
   display: grid;
   gap: var(--sp-6);
   padding-block: var(--sp-section);
 }
-.proof__media {
+.proof__stage {
   position: relative;
-  aspect-ratio: 4 / 5;
-  max-height: 70vh;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+.proof__photo {
+  position: absolute;
+  inset: 0;
+  margin: 0;
   overflow: hidden;
 }
-.proof__photo { position: absolute; inset: 0; background: var(--teal-deep); }   /* solid, so crossfades don't show through */
-.proof__photo + .proof__photo { opacity: 0; }   /* static mode: show the first */
+.proof__photo--b,
+.proof__svg { display: none; }       /* scenes only exist in scrolly mode */
 
-.proof__facts { display: grid; gap: var(--sp-6); }
-.proof__fact {
-  display: grid;
-  gap: var(--sp-2);
-  padding-top: var(--sp-4);
-  border-top: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
-}
-.proof__index { color: var(--gold); }
-.proof__num {
+.proof__caps { display: grid; gap: var(--sp-6); align-content: center; }
+.proof__cap { display: grid; gap: var(--sp-3); }
+.proof__big {
   font-family: var(--font-display);
-  font-size: var(--fs-display);
+  font-size: var(--fs-h1);
   font-weight: 400;
   line-height: 1;
   color: var(--paper);
-  font-variant-numeric: lining-nums tabular-nums;
+  font-variant-numeric: lining-nums;
 }
-.proof__text { font-size: var(--fs-lead); max-width: 28ch; color: color-mix(in srgb, var(--paper) 85%, var(--teal-deep)); }
-
+.proof__line {
+  font-size: var(--fs-lead);
+  max-width: 30ch;
+  color: color-mix(in srgb, var(--paper) 82%, var(--teal-deep));
+}
 .proof__progress { display: none; }
 
-/* Two columns from tablet up */
-@media (min-width: 768px) {
-  .proof__stage { grid-template-columns: 5fr 6fr; align-items: center; gap: var(--sp-8); }
-  .proof__media { max-height: none; }
+@media (min-width: 900px) {
+  .proof__pin { grid-template-columns: 7fr 4fr; align-items: center; gap: var(--sp-8); }
 }
 
-/* --- Proof sequence: pinned mode (desktop, motion allowed) --------------- */
-/* Facts stack in one place and arrive one at a time; JS drives opacity. */
-.proof.is-pinned .proof__stage { min-height: 100vh; padding-block: var(--sp-7); }
-.proof.is-pinned .proof__facts { position: relative; min-height: 22rem; }
-.proof.is-pinned .proof__fact {
-  position: absolute;
-  inset: 0 0 auto 0;
-  opacity: 0;
+/* --- Scrolly mode: one pinned screen, scenes driven by scroll ------------ */
+.proof.is-scrolly .proof__pin {
+  height: 100vh;
+  height: 100svh;
+  padding-block: var(--sp-6);
+  align-content: center;
+  grid-template-rows: auto auto;
 }
-.proof.is-pinned .proof__progress {
+@media (min-width: 900px) {
+  .proof.is-scrolly .proof__pin { grid-template-rows: none; }
+}
+.proof.is-scrolly .proof__stage { max-height: 62svh; margin-inline: auto; }
+@media (min-width: 900px) {
+  .proof.is-scrolly .proof__stage { max-height: 80vh; }
+}
+
+.proof.is-scrolly .proof__photo--b,
+.proof.is-scrolly .proof__svg { display: block; }
+.proof.is-scrolly .proof__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+/* Photo B sits above the 2018 pin on the timeline */
+.proof__photo--b { inset: 14% 8% auto auto; width: 34%; height: 30%; }
+
+/* Captions stack in one place; each line slides up out of a mask */
+.proof.is-scrolly .proof__caps { position: relative; min-height: 11rem; display: block; }
+@media (min-width: 900px) { .proof.is-scrolly .proof__caps { min-height: 16rem; } }
+.proof.is-scrolly .proof__cap { position: absolute; inset: 0 0 auto 0; }
+.proof__mask { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.proof__mask > span { display: block; }
+
+.proof.is-scrolly .proof__progress {
   display: flex;
   gap: var(--sp-2);
-  margin-top: var(--sp-6);
+  margin-top: var(--sp-5);
 }
-.proof__tick {
-  flex: 1;
-  height: 1px;
-  background: color-mix(in srgb, var(--paper) 22%, transparent);
+.proof__tick { flex: 1; height: 1px; position: relative; background: rgba(246, 243, 236, 0.18); }
+.proof__tick span { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; }
+
+/* SVG drawing styles (font sizes are set by motion.js to suit the screen) */
+.proof__svg text { font-family: var(--font-body); fill: rgba(246, 243, 236, 0.72); }
+.proof__svg .t-year { font-family: var(--font-display); fill: var(--paper); }
+.proof__svg .t-gold { fill: var(--gold); }
+.proof__svg .ln { stroke: var(--gold); stroke-width: 1.5; fill: none; }
+.proof__svg .ln-faint { stroke: rgba(246, 243, 236, 0.25); stroke-width: 1; fill: none; }
+.proof__svg .dot { fill: var(--gold); }
+.proof__svg .lamp-flame { fill: #E9B872; }
+.proof__svg .lamp-cup { fill: none; stroke: var(--mourning-muted); stroke-width: 1.5; }
+.proof__svg .lamp-num { fill: var(--mourning-muted); }
+
+
+/* ==========================================================================
+   2. THE YEAR — twelve Hijri months; horizontal on desktop, a list on phones
+   ========================================================================== */
+
+/* --- Static default (phones, reduced motion): a vertical list ------------ */
+.year { background: var(--paper); }
+.year__pin { padding-block: var(--sp-section); }
+.year__head { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-6); }
+.year__today { display: flex; align-items: center; gap: var(--sp-2); color: var(--gold-text); font-size: var(--fs-small); font-weight: 500; }
+.year__today::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+
+.year__track { position: relative; display: grid; }
+.year__month {
   position: relative;
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: var(--sp-1) var(--sp-4);
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+.year__num { grid-row: span 3; font-family: var(--font-display); font-style: italic; font-size: 1.5rem; color: var(--gold-text); line-height: 1; }
+.year__name { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 500; color: var(--teal); line-height: 1.2; }
+.year__ar { font-family: var(--font-arabic); font-size: 1.15rem; color: var(--gold-text); }
+.year__events { display: grid; gap: var(--sp-3); margin-top: var(--sp-3); }
+.year__month.is-quiet .year__name { color: color-mix(in srgb, var(--teal) 55%, var(--paper)); }
+
+/* A program inside its month */
+.year__event { padding: var(--sp-4); background: var(--paper-2); border-left: 2px solid var(--gold); display: grid; gap: var(--sp-1); }
+.year__event-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 500; color: var(--teal); line-height: 1.2; }
+.year__event-when { font-size: var(--fs-small); color: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.year__event--mourning { background: var(--mourning); border-left-color: var(--crimson); }
+.year__event--mourning .year__event-title { color: var(--mourning-text); }
+.year__event--mourning .year__event-when { color: var(--mourning-muted); }
+
+/* "We are here" — a gold line through today's month */
+.year__here {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  color: var(--gold-text);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.year__here::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+
+.year__progress { display: none; }
+
+/* --- Scrolly mode (desktop): the months slide sideways as you scroll ----- */
+.year.is-scrolly .year__pin {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--sp-6);
   overflow: hidden;
 }
-.proof__tick span {
+.year.is-scrolly .year__viewport { max-width: none; padding-inline: 0; }
+.year.is-scrolly .year__track {
+  display: flex;
+  width: max-content;
+  /* first month lines up with the page's content column */
+  padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  padding-top: 2.5rem;            /* room for the "We are here" tag */
+  will-change: transform;
+}
+.year.is-scrolly .year__month {
+  width: clamp(240px, 24vw, 340px);
+  min-height: 52vh;
+  grid-template-columns: 1fr;
+  align-content: start;
+  padding: var(--sp-5) var(--sp-5) var(--sp-5) 0;
+  margin-right: var(--sp-5);
+  border-top: 0;
+  border-left: 1px solid var(--line);
+  padding-left: var(--sp-4);
+}
+.year.is-scrolly .year__num { grid-row: auto; margin-bottom: var(--sp-2); }
+.year.is-scrolly .year__here {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  width: 0;
+  border-left: 1px solid var(--gold);
+  align-items: flex-start;
+}
+.year.is-scrolly .year__here::before { display: none; }
+.year.is-scrolly .year__here span {
+  position: absolute;
+  top: -1.9rem;
+  left: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.15em 0.6em;
+  background: var(--gold);
+  color: var(--teal-deep);
+  border-radius: var(--radius-pill);
+}
+.year.is-scrolly .year__progress {
+  display: block;
+  height: 1px;
+  margin: var(--sp-6) var(--gutter) 0;
+  background: var(--line);
+}
+.year__progress span { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; }
+
+
+/* ==========================================================================
+   3. MUHARRAM THRESHOLD — the page darkens and one line arrives, word by word
+   ========================================================================== */
+
+/* Static default: already in Muharram colors, text fully visible */
+.threshold {
+  position: relative;
+  background: var(--mourning);
+  color: var(--mourning-text);
+}
+/* Scrolly mode: a paper-colored sheet that drains upwards (added by JS) */
+.threshold__veil {
   position: absolute;
   inset: 0;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin: left;
+  z-index: 1;
+  background: var(--paper);
+  transform-origin: top;
+  pointer-events: none;
 }
+.threshold__inner {
+  min-height: 80vh;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--sp-6);
+  padding-block: var(--sp-section);
+}
+.threshold .section-label { color: inherit; opacity: 0.75; }
+.threshold .section-label::after { background: var(--crimson); opacity: 1; }
+.threshold__rule { width: 1px; height: 96px; background: var(--crimson); transform-origin: top; }
+.threshold__text {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  line-height: 1.15;
+  max-width: 18ch;
+}
+.threshold__text .w { display: inline; }
+.threshold.is-scrolly .threshold__inner { height: 100vh; min-height: 0; padding-block: var(--sp-6); }
