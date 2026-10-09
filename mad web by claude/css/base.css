@@ -7,23 +7,25 @@
 
 /* --- Design tokens ------------------------------------------------------- */
 :root {
-  /* Surfaces. Deep teal is the dominant surface; stone is the light one. */
-  --teal-deep: #0B2A30;      /* main dark surface, big blocks, footer */
-  --teal: #123D45;           /* brand teal, primary fills on light */
-  --teal-2: #1A4E57;         /* raised blocks on deep teal */
-  --teal-soft: #CFDEDC;      /* selected filters, tags on light */
-  --stone: #E6ECEA;          /* light surface: cool, not cream */
-  --stone-2: #D3DDDA;        /* blocks on stone */
-  --white: #F5F7F6;          /* text on dark */
-  --ink: #0D2226;            /* text on light */
-  --ink-soft: #3E5559;       /* secondary text on light */
-  --on-dark-soft: #A9BEBD;   /* secondary text on teal */
+  /* Page: white. Colour is used only where it has a job. */
+  --white: #FFFFFF;
+  --surface: #F4F7F7;        /* quiet blocks on white (form panel, rows) */
+  --ink: #172326;            /* body text */
+  --ink-soft: #4F5F62;       /* secondary text */
+  --border: #D5DFDF;         /* input and table borders (functional only) */
 
-  /* Accents */
-  --gold: #D0A564;           /* accents and fills on dark; gold text on dark */
-  --gold-ink: #6B4D1F;       /* gold for text on light surfaces */
+  /* Brand teal, from the dome in the logo */
+  --teal: #123D45;           /* headings, buttons, captions, feature bands */
+  --teal-hover: #0C2C33;
+  --teal-tint: #E8F0F0;      /* selected filters, tags, prayer tiles */
+  --teal-mid: #2F6670;       /* secondary teal text on white */
+  --on-teal-soft: #B9CFD1;   /* secondary text on teal */
+
+  /* Accents: small and rare */
+  --gold: #B8893F;           /* small marks only, never body text */
+  --gold-ink: #7E5A22;       /* gold when it must be text on white */
   --crimson: #8E1B1E;        /* poster red: Muharram and "Live now" only */
-  --crimson-bright: #C2353A; /* crimson for lines/marks on black */
+  --crimson-bright: #C2353A; /* red marks on black */
 
   /* Muharram mode */
   --mourning: #0A0C0D;
@@ -31,52 +33,50 @@
   --mourning-text: #E4E0DA;
   --mourning-muted: #9E9A94;
 
-  /* Lines: functional only (form fields, table rows), never decoration */
-  --line: rgba(13, 34, 38, 0.16);
-  --line-strong: rgba(13, 34, 38, 0.42);
-  --line-dark: rgba(245, 247, 246, 0.16);
-
-  /* Status colors (class finder) */
+  /* Status (class finder) */
   --status-open: #1D6B55;
-  --status-full: #5E6A68;
+  --status-full: #5E6A6C;
 
   /* Legacy names kept so older selectors still resolve */
-  --paper: var(--stone);
-  --paper-2: var(--stone-2);
+  --teal-deep: var(--teal);
+  --stone: var(--surface);
+  --stone-2: var(--teal-tint);
+  --paper: var(--white);
   --gold-text: var(--gold-ink);
+  --line-strong: var(--border);
+  --on-dark-soft: var(--on-teal-soft);
 
-  /* Fonts: Archivo for everything Latin (expanded width for headlines),
-     Reem Kufi for Arabic. Nothing below weight 400. */
-  --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
-  --font-body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Fonts: Plus Jakarta Sans for all Latin text, Reem Kufi for Arabic */
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-arabic: "Reem Kufi", "Noto Kufi Arabic", sans-serif;
 
   /* Type scale: 8 fixed steps, fluid from 375px to 1440px */
-  --fs-display: clamp(3rem, 1.4rem + 6.8vw, 7.5rem);      /* 48 → 120 */
-  --fs-h1: clamp(2.375rem, 1.5rem + 3.8vw, 5rem);         /* 38 → 80 */
-  --fs-h2: clamp(1.875rem, 1.35rem + 2.2vw, 3.25rem);     /* 30 → 52 */
-  --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);      /* 20 → 26 */
-  --fs-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);     /* 17 → 20 */
-  --fs-body: 1rem;                                        /* 16 */
-  --fs-small: 0.875rem;                                   /* 14 */
-  --fs-micro: 0.8125rem;                                  /* 13 */
+  --fs-display: clamp(2.5rem, 1.6rem + 3.9vw, 5rem);       /* 40 → 80 */
+  --fs-h1: clamp(2.125rem, 1.6rem + 2.3vw, 3.5rem);        /* 34 → 56 */
+  --fs-h2: clamp(1.625rem, 1.35rem + 1.2vw, 2.375rem);     /* 26 → 38 */
+  --fs-h3: clamp(1.1875rem, 1.1rem + 0.4vw, 1.4375rem);    /* 19 → 23 */
+  --fs-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);      /* 17 → 20 */
+  --fs-body: 1rem;                                         /* 16 */
+  --fs-small: 0.875rem;                                    /* 14 */
+  --fs-micro: 0.8125rem;                                   /* 13 */
 
-  /* Spacing: 4px base, tight */
+  /* Spacing: 4px base */
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
   --sp-4: 1rem;
   --sp-5: 1.5rem;
   --sp-6: 2rem;
-  --sp-7: 2.75rem;
-  --sp-8: 4rem;
-  --sp-section: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+  --sp-section: clamp(4rem, 3rem + 4vw, 7rem);
 
   /* Layout */
-  --container: 1320px;
-  --gutter: clamp(1rem, 0.5rem + 2vw, 2.5rem);
-  --radius: 4px;
-  --radius-lg: 10px;
+  --container: 1240px;
+  --gutter: clamp(1.125rem, 0.6rem + 2vw, 2.5rem);
+  --radius: 6px;
+  --radius-lg: 14px;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -96,12 +96,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--teal-deep);
-  color: var(--white);
+  background: var(--white);
+  color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--fs-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -113,32 +113,24 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 a { color: inherit; }
 
 /* --- Typography ---------------------------------------------------------- */
-/* Headlines: Archivo, expanded width, heavy. Size and weight do the work. */
+/* Headings: Plus Jakarta Sans 600. Size carries them, not heavy weight. */
 .t-display,
 .t-h1,
-.t-h2 {
-  font-family: var(--font-display);
-  font-stretch: 125%;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  text-wrap: balance;
-}
-.t-display { font-size: var(--fs-display); }
-.t-h1      { font-size: var(--fs-h1); }
-.t-h2      { font-size: var(--fs-h2); font-weight: 750; line-height: 1; }
+.t-h2,
 .t-h3 {
   font-family: var(--font-display);
-  font-stretch: 112%;
-  font-size: var(--fs-h3);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--teal);
+  text-wrap: balance;
 }
-.t-lead  { font-size: var(--fs-lead); line-height: 1.5; font-weight: 400; }
+.t-display { font-size: var(--fs-display); line-height: 1.04; letter-spacing: -0.03em; }
+.t-h1      { font-size: var(--fs-h1); line-height: 1.08; letter-spacing: -0.025em; }
+.t-h2      { font-size: var(--fs-h2); line-height: 1.15; letter-spacing: -0.02em; }
+.t-h3      { font-size: var(--fs-h3); line-height: 1.3; letter-spacing: -0.01em; }
+.t-lead  { font-size: var(--fs-lead); line-height: 1.6; color: var(--ink-soft); }
 .t-body  { font-size: var(--fs-body); }
-.t-small { font-size: var(--fs-small); line-height: 1.5; }
-.t-strong { font-weight: 600; }
+.t-small { font-size: var(--fs-small); line-height: 1.55; }
+.t-muted { color: var(--ink-soft); }
 .t-tabular { font-variant-numeric: tabular-nums; }
 
 /* Arabic: Reem Kufi, always right-to-left */
@@ -146,29 +138,28 @@ a { color: inherit; }
   font-family: var(--font-arabic);
   font-weight: 600;
   direction: rtl;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 /* --- Surfaces ------------------------------------------------------------ */
-.surface-teal  { background: var(--teal-deep); color: var(--white); }
-.surface-teal-2 { background: var(--teal-2); color: var(--white); }
-.surface-stone { background: var(--stone); color: var(--ink); }
+.surface-white { background: var(--white); color: var(--ink); }
+.surface-soft  { background: var(--surface); color: var(--ink); }
+.surface-teal  { background: var(--teal); color: var(--white); }
+.surface-teal .t-display, .surface-teal .t-h1, .surface-teal .t-h2, .surface-teal .t-h3 { color: var(--white); }
+.surface-teal .t-lead, .surface-teal .t-muted { color: var(--on-teal-soft); }
 .surface-mourning { background: var(--mourning); color: var(--mourning-text); }
-.surface-stone .t-muted { color: var(--ink-soft); }
-.surface-teal .t-muted,
-.surface-teal-2 .t-muted { color: var(--on-dark-soft); }
-.surface-mourning .t-muted { color: var(--mourning-muted); }
+.surface-mourning .t-display, .surface-mourning .t-h1, .surface-mourning .t-h2, .surface-mourning .t-h3 { color: var(--mourning-text); }
+.surface-mourning .t-lead, .surface-mourning .t-muted { color: var(--mourning-muted); }
 
 /* --- Visible placeholder for missing facts (see TODO.md) ----------------- */
 .todo {
   font-style: italic;
   color: var(--gold-ink);
-  background: rgba(208, 165, 100, 0.18);
-  padding: 0 0.25em;
-  border-radius: 2px;
+  background: #F6EEDF;
+  padding: 0 0.3em;
+  border-radius: 3px;
 }
-.surface-teal .todo,
-.surface-teal-2 .todo { color: var(--gold); background: rgba(208, 165, 100, 0.14); }
+.surface-teal .todo { color: #F1DDB5; background: rgba(255, 255, 255, 0.1); }
 .surface-mourning .todo { color: var(--mourning-text); background: rgba(228, 224, 218, 0.1); }
 
 /* --- Layout helpers ------------------------------------------------------ */
@@ -200,8 +191,8 @@ a { color: inherit; }
   left: var(--sp-4);
   top: -100px;
   padding: var(--sp-2) var(--sp-4);
-  background: var(--gold);
-  color: var(--teal-deep);
+  background: var(--teal);
+  color: var(--white);
   font-weight: 600;
   z-index: 100;
 }

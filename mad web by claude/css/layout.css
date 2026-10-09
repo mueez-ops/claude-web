@@ -1,17 +1,16 @@
 /* ==========================================================================
    AIAT — layout.css
-   Site navigation and the hero ("Now"). The hero is built in depth:
+   Site navigation and the hero ("Now").
 
-     1  background   the hall: clean plate, no people     (moves least)
-     2  subject      the speaker at the minbar, cut out
-     ·  headline     sits here, in front of the stage
-     3  foreground   the nearest rows of the crowd, cut out (moves most)
-     4  atmosphere   warm haze from the lamps
-
-   Layers 1, 2 and 4 live inside the dome-shaped frame taken from the logo.
-   The crowd breaks out of the frame across the full width, which is what
-   puts the headline "inside" the room rather than on top of a picture.
-   Desktop and phone are composed separately (see the media query).
+   The hero photo sits inside the dome shape from the logo, built in layers
+   that move at different rates as you scroll:
+     1  hall        clean plate, no people          (moves least)
+     2  minbar      the speaker at the minbar, cut out
+     3  crowd       the nearest rows, cut out         (moves most)
+     4  name        a white copy of the headline, only visible inside the dome
+     5  haze        warm light from the lamps
+   Outside the dome the same headline is teal on white, so the name changes
+   colour exactly where it crosses into the photo. Desktop and phone are composed separately.
    ========================================================================== */
 
 /* --- Navigation ---------------------------------------------------------- */
@@ -24,22 +23,22 @@
   gap: var(--sp-5);
   height: 76px;
 }
-.nav__brand { display: flex; align-items: center; gap: var(--sp-3); color: var(--white); text-decoration: none; }
-.nav__mark { width: 40px; height: 40px; color: var(--gold); }
-.nav__name { font-family: var(--font-display); font-stretch: 100%; font-weight: 700; font-size: 0.8125rem; line-height: 1.15; }
-@media (min-width: 600px) { .nav__name { font-stretch: 112%; font-size: 0.9375rem; } }
+.nav__brand { display: flex; align-items: center; gap: var(--sp-3); color: var(--teal); text-decoration: none; }
+.nav__mark { width: 38px; height: 38px; color: var(--teal); }
+.nav__name { font-weight: 700; font-size: 0.8125rem; line-height: 1.2; letter-spacing: -0.005em; }
+@media (min-width: 600px) { .nav__name { font-size: 0.9375rem; } }
 .nav__links { display: none; gap: var(--sp-5); font-weight: 500; font-size: 0.9375rem; }
-.nav__links a { text-decoration: none; color: var(--on-dark-soft); }
-.nav__links a:hover { color: var(--white); }
+.nav__links a { text-decoration: none; color: var(--ink-soft); }
+.nav__links a:hover { color: var(--teal); }
 .nav__end { display: flex; align-items: center; gap: var(--sp-2); }
 .nav__menu {
   display: inline-grid;
   place-items: center;
-  width: 46px; height: 46px;
-  border: 2px solid var(--line-dark);
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  background: transparent;
-  color: var(--white);
+  background: var(--white);
+  color: var(--teal);
   cursor: pointer;
 }
 @media (min-width: 1100px) {
@@ -48,191 +47,139 @@
 }
 
 /* --- Hero: shared ------------------------------------------------------- */
-.hero {
-  position: relative;
-  overflow: hidden;
-  background: var(--teal-deep);
-  color: var(--white);
-  isolation: isolate;
-}
-.hero__frame-wrap { position: absolute; z-index: 1; }
+.hero { position: relative; overflow: hidden; background: var(--white); color: var(--ink); }
+.hero__visual { position: relative; }
+.hero__frame-wrap { position: absolute; z-index: 2; }
 
-/* The dome frame (clip path defined once in the page as #domeClip) */
+/* The dome (clip path defined once in the page as #domeClip) */
 .hero__arch {
   position: absolute;
   inset: 0;
   clip-path: url(#domeClip);
-  background: #0E3239;
+  background: #173F46;
   overflow: hidden;
 }
-.hero__layer { position: absolute; will-change: transform; }
-.hero__bg { top: -28%; left: -4%; }
-.hero__bg { object-fit: cover; object-position: 50% 30%; width: 108%; height: 137%; max-width: none; }
-.hero__subject { object-fit: contain; object-position: 50% 100%; width: 84%; max-width: none; }
-.hero__fg { object-fit: cover; object-position: 50% 100%; max-width: none; }
-.hero__subject { left: 8%; right: 8%; bottom: 4%; height: 74%; }
+.hero__layer { position: absolute; will-change: transform; max-width: none; }
+.hero__bg { top: -24%; left: -4%; width: 108%; height: 128%; object-fit: cover; object-position: 50% 35%; }
+.hero__subject { left: 10%; width: 80%; bottom: 10%; height: 70%; object-fit: contain; object-position: 50% 100%; }
+.hero__fg {
+  left: -3%; width: 106%; bottom: -1px; height: 30%;
+  object-fit: cover; object-position: 50% 100%;
+  /* a floor in the crowd's colour travels with it, so nothing shows below */
+  box-shadow: 0 240px 0 #061A1E;
+}
 .hero__atmos {
-  inset: -10% -10% 20%;
+  inset: -10% -10% 30%;
   background:
-    radial-gradient(40% 30% at 50% 18%, rgba(255, 214, 150, 0.32), transparent 70%),
-    radial-gradient(60% 40% at 30% 60%, rgba(208, 165, 100, 0.10), transparent 70%),
-    radial-gradient(60% 40% at 75% 55%, rgba(208, 165, 100, 0.08), transparent 70%);
+    radial-gradient(40% 30% at 50% 16%, rgba(255, 214, 150, 0.34), transparent 70%),
+    radial-gradient(60% 40% at 30% 60%, rgba(201, 162, 98, 0.10), transparent 70%);
   mix-blend-mode: screen;
   pointer-events: none;
 }
-/* Gold outline that follows the dome, offset outward */
+/* A teal outline that follows the dome, set a little outside it */
 .hero__outline {
   position: absolute;
-  inset: -14px;
-  width: calc(100% + 28px);
-  height: calc(100% + 28px);
+  inset: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
   overflow: visible;
   pointer-events: none;
 }
-.hero__outline path { fill: none; stroke: var(--gold); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.hero__outline path { fill: none; stroke: var(--teal); stroke-width: 2; vector-effect: non-scaling-stroke; }
 
-/* Headline: in front of the stage, behind the crowd */
-.hero__title {
-  position: absolute;
-  z-index: 2;
+/* Headline. The teal one is the real h1; the white one inside the dome is a
+   visual copy that motion.js lines up on top of it. */
+.hero__title,
+.hero__title-copy {
   margin: 0;
   font-family: var(--font-display);
-  font-stretch: 125%;
-  font-weight: 800;
-  line-height: 0.88;
-  letter-spacing: -0.03em;
-  color: var(--white);
-}
-/* The name comes first in the markup (it is the h1's main text); the short
-   line sits visually above it */
-.hero__title { display: flex; flex-direction: column-reverse; }
-.hero__title-sub {
-  display: block;
-  margin-bottom: var(--sp-4);
-  font-stretch: 100%;
-  font-size: var(--fs-lead);
   font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.3;
-  color: var(--gold);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
 }
-.hero__title-name { display: block; }
+.hero__title { color: var(--teal); }
+.hero__title-copy { position: absolute; color: var(--white); display: none; pointer-events: none; }
+.hero.is-aligned .hero__title-copy { display: block; }
 
-/* Foreground crowd: full width, above the headline */
-.hero__fg {
-  z-index: 3; left: -2%; width: 104%; pointer-events: none;
-  /* A solid floor in the crowd's own colour travels with it, so nothing
-     behind shows through when the crowd moves up faster than the page */
-  box-shadow: 0 240px 0 #061A1E;
-}
+/* The text column: line above the name, the name, purpose line, action.
+   It sits under the dome (z-index 1); the name runs on into it. */
+.hero__text { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+.hero__kicker { font-size: var(--fs-lead); font-weight: 600; letter-spacing: -0.01em; color: var(--teal-mid); }
+.hero__purpose { max-width: 36ch; color: var(--ink-soft); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
 
-/* --- Next on the calendar (desktop only: top left, beside the dome) ----- */
-.hero__next { display: none; }
-@media (min-width: 900px) {
-  .hero__next {
-    position: absolute;
-    z-index: 2;
-    top: 132px;
-    left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
-    display: grid;
-    gap: var(--sp-2);
-    max-width: 330px;
-    padding: var(--sp-4) var(--sp-5);
-    background: var(--teal-2);
-    border-radius: var(--radius);
-    border-left: 4px solid var(--gold);
-  }
-  .hero__next small { color: var(--gold); font-weight: 600; font-size: var(--fs-small); }
-  .hero__next strong { font-family: var(--font-display); font-stretch: 112%; font-weight: 750; font-size: 1.5rem; line-height: 1.05; }
-  .hero__next span { color: var(--on-dark-soft); font-size: var(--fs-small); }
-}
-
-/* --- Live strip: date, prayer times, the main action --------------------- */
-.hero__live { position: relative; z-index: 4; }
-.live__date { display: grid; gap: 2px; }
-.live__hijri { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1.375rem; line-height: 1.1; }
-.live__hijri-ar { font-family: var(--font-arabic); font-weight: 600; color: var(--gold); font-size: 1.125rem; }
-.live__greg { color: var(--on-dark-soft); font-size: var(--fs-small); }
+/* --- Live strip: dates, Quetta prayer times, next on the calendar --------- */
+.hero__live { position: relative; z-index: 4; background: var(--white); }
+.hero__live-inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-5); }
+.live__date { display: grid; gap: 1px; }
+.live__greg { color: var(--ink-soft); font-size: var(--fs-small); }
+.live__hijri { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; color: var(--teal); line-height: 1.25; }
+.live__hijri-ar { font-family: var(--font-arabic); font-weight: 600; color: var(--teal-mid); font-size: 1.125rem; }
 
 .prayers { display: grid; gap: var(--sp-2); }
-.prayers__head { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-small); color: var(--on-dark-soft); }
-.prayers__list {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.prayers__item {
-  display: grid;
-  gap: 2px;
-  padding: var(--sp-2) var(--sp-3);
-  background: rgba(245, 247, 246, 0.07);
-  border-radius: var(--radius);
-}
-.prayers__name { font-size: var(--fs-micro); color: var(--on-dark-soft); font-weight: 500; }
-.prayers__time { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1.125rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
-.prayers__time small { font-size: 0.7em; font-weight: 600; margin-left: 2px; }
-.prayers__item.is-next { background: var(--gold); color: var(--teal-deep); }
-.prayers__item.is-next .prayers__name { color: var(--teal-deep); font-weight: 600; }
-.prayers__in { font-weight: 600; color: var(--gold); }
+.prayers__head { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-small); color: var(--ink-soft); }
+.prayers__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.prayers__item { display: grid; gap: 1px; padding: var(--sp-2) var(--sp-3); background: var(--teal-tint); border-radius: var(--radius); }
+.prayers__name { font-size: var(--fs-micro); color: var(--teal-mid); font-weight: 500; }
+.prayers__time { font-weight: 600; font-size: 1.0625rem; font-variant-numeric: tabular-nums; line-height: 1.2; color: var(--teal); }
+.prayers__time small { font-size: 0.72em; font-weight: 600; margin-left: 2px; }
+.prayers__item.is-next { background: var(--teal); }
+.prayers__item.is-next .prayers__name,
+.prayers__item.is-next .prayers__time { color: var(--white); }
+.prayers__in { font-weight: 600; color: var(--teal); }
+
+.live__next { display: grid; gap: 1px; }
+.live__next small { color: var(--ink-soft); font-size: var(--fs-small); }
+.live__next strong { font-size: 1.125rem; font-weight: 600; color: var(--teal); line-height: 1.25; }
+.live__next span { font-size: var(--fs-small); color: var(--ink-soft); }
 
 /* --- Hero: phone composition (default) ---------------------------------- */
-/* Tall dome at the top, the name set across its lower half, the crowd
-   rising over the name, and the live block underneath on solid teal. */
-.hero__frame-wrap { left: var(--gutter); right: var(--gutter); top: 84px; height: 54svh; max-height: 520px; }
-.hero__visual { position: relative; height: calc(84px + min(54svh, 520px) + 8px); }
-.hero__title { left: var(--gutter); right: var(--gutter); bottom: 21%; font-size: clamp(2.6rem, 11.5vw, 3.6rem); }
-.hero__title-sub { font-size: var(--fs-body); margin-bottom: var(--sp-2); }
-.hero__fg { bottom: -1px; height: 20%; }
-.hero__live {
-  display: grid;
-  gap: var(--sp-4);
-  padding: var(--sp-4) 0 var(--sp-6);
-  background: #061A1E;            /* same tone as the nearest crowd row */
+/* The dome fills the width. The name straddles the dome's lower edge: its
+   top is white inside the photo, its bottom teal on the page below. */
+.hero { --dome-h: min(54svh, 500px); --title-size: clamp(2.6rem, 12.4vw, 3.6rem); }
+.hero__frame-wrap { left: var(--gutter); right: var(--gutter); top: 12px; height: var(--dome-h); }
+.hero__title, .hero__title-copy { font-size: var(--title-size); }
+.hero__text {
+  padding: calc(12px + var(--dome-h) - 1.42 * var(--title-size)) var(--gutter) 0;
 }
-.hero__live .prayers__item { padding: var(--sp-2); }
-.hero__live .prayers__time { font-size: 1rem; }
-.hero__live .prayers__name { font-size: 0.75rem; }
-.hero__cta { width: 100%; }
-@media (min-width: 900px) { .hero__cta { width: auto; } }
+.hero__title { position: relative; order: -1; }
+.hero__actions { width: 100%; }
+.hero__actions .btn--teal { flex: 1; }
+.prayers__list { gap: 4px; }
+.prayers__item { padding: var(--sp-2); }
+.prayers__time { font-size: 0.9375rem; }
+.prayers__name { font-size: 0.75rem; }
+.live__next { padding: var(--sp-3) var(--sp-4); background: var(--surface); border-radius: var(--radius); }
 
 /* --- Hero: desktop composition ------------------------------------------ */
-/* Dome to the right, the name across the left running into the dome, the
-   crowd across the full width, and the live strip sitting in the crowd. */
+/* The dome stands to the right; the text column sits to the left, centred
+   in the height, and the name runs on into the dome. */
 @media (min-width: 900px) {
-  .hero { min-height: max(100vh, 720px); }
-  .hero__visual { position: absolute; inset: 0; height: auto; }
+  .hero { --title-size: clamp(4.5rem, 1.5rem + 7.4vw, 8.75rem); }
+  .hero__visual { height: max(calc(100vh - 76px - 128px), 580px); }
   .hero__frame-wrap {
     left: auto;
-    right: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter) + 20px));
-    top: 112px;
-    bottom: -6%;
+    right: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter) + 12px));
+    top: 20px;
+    bottom: 0;
     height: auto;
-    max-height: none;
-    width: min(44vw, 600px);
+    width: min(47vw, 670px);
   }
-  .hero__title {
-    left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
-    right: auto;
-    bottom: calc(160px + 8vh);
-    font-size: clamp(4.5rem, 1rem + 7.6vw, 9rem);
-  }
-  .hero__title-sub { font-size: var(--fs-lead); margin-bottom: var(--sp-4); }
-  .hero__fg { bottom: -1px; height: 31%; }
-  .hero__live {
+  .hero__text {
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 0 0 var(--sp-6);
-    background: none;
+    top: 0; bottom: 0;
+    left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+    padding: 0;
+    justify-content: center;
+    gap: var(--sp-5);
   }
-  .hero__live-inner {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: end;
-    gap: var(--sp-6);
-  }
-  .hero__live .prayers__item { padding: var(--sp-2) var(--sp-3); }
-  .hero__live .prayers__time { font-size: 1.25rem; }
+  .hero__title { order: 0; }
+  .hero__actions { width: auto; }
+  .hero__actions .btn--teal { flex: none; }
+  .hero__live-inner { grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; gap: var(--sp-7); padding-block: var(--sp-6); }
+  .prayers__item { padding: var(--sp-2) var(--sp-3); }
+  .prayers__time { font-size: 1.125rem; }
+  .prayers__name { font-size: var(--fs-micro); }
+  .live__next { padding: 0; background: none; text-align: right; }
 }

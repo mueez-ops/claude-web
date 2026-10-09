@@ -6,10 +6,10 @@
   <meta name="robots" content="noindex, nofollow">
   <title>AIAT Styleguide</title>
 
-  <!-- Fonts: Archivo (variable width and weight) and Reem Kufi for Arabic -->
+  <!-- Fonts: Plus Jakarta Sans (headings and body) and Reem Kufi (Arabic) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Reem+Kufi:wght@500..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Reem+Kufi:wght@500..700&display=swap">
 
   <!-- Site stylesheets (shared with the real pages) -->
   <link rel="stylesheet" href="css/base.css">
@@ -17,104 +17,100 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/motion.css">
 
+  <!-- Without JavaScript the white copy of the hero name can't be lined up,
+       so the teal name is lifted above the dome instead -->
+  <noscript><style>.hero__text { z-index: 3; }</style></noscript>
+
   <!-- Styleguide-only layout: not used on the real site -->
   <style>
-    /* Notes between chapters: what the reviewer is looking at */
-    .sg-note { background: var(--stone-2); color: var(--ink); }
-    .sg-note__inner { display: grid; gap: var(--sp-3) var(--sp-7); padding-block: var(--sp-6); }
-    .sg-note__title { font-family: var(--font-display); font-stretch: 112%; font-weight: 750; font-size: 1.5rem; line-height: 1.1; color: var(--teal); }
-    .sg-note p { max-width: 68ch; }
-    .sg-note p + p { margin-top: var(--sp-3); }
-    @media (min-width: 900px) { .sg-note__inner { grid-template-columns: 280px 1fr; } }
+    /* Notes for the reviewer between chapters */
+    .sg-note { background: var(--surface); }
+    .sg-note__inner { display: grid; gap: var(--sp-2) var(--sp-7); padding-block: var(--sp-5); font-size: var(--fs-small); color: var(--ink-soft); }
+    .sg-note__inner b { color: var(--teal); font-weight: 600; font-size: var(--fs-body); }
+    @media (min-width: 900px) { .sg-note__inner { grid-template-columns: 220px 1fr; align-items: baseline; } }
+    .sg-note p { max-width: 80ch; }
 
     /* Reference sections */
     .sg-sec { padding-block: var(--sp-section); }
-    .sg-split { display: grid; gap: var(--sp-5) var(--sp-8); }
+    .sg-head { display: grid; gap: var(--sp-3) var(--sp-8); margin-bottom: var(--sp-7); }
+    .sg-head p { max-width: 48ch; }
     @media (min-width: 900px) {
-      .sg-split { grid-template-columns: 5fr 7fr; align-items: end; }
-      .sg-split--right { grid-template-columns: 7fr 5fr; }
-      .sg-split--right > :first-child { order: 2; text-align: right; }
+      .sg-head { grid-template-columns: 5fr 7fr; align-items: end; }
+      .sg-head--right > :first-child { order: 2; }
+      .sg-head--right { grid-template-columns: 7fr 5fr; }
     }
-    .sg-head { margin-bottom: var(--sp-7); }
-    .sg-head p { max-width: 46ch; }
 
-    /* Palette tiles: color fills the tile, its name sits inside it */
-    .sg-tiles { display: grid; gap: 6px; grid-template-columns: repeat(2, 1fr); }
-    @media (min-width: 700px) { .sg-tiles { grid-template-columns: repeat(4, 1fr); } }
-    @media (min-width: 1100px) { .sg-tiles { grid-template-columns: repeat(6, 1fr); } }
-    .sg-tile { display: flex; flex-direction: column; justify-content: space-between; gap: var(--sp-5); min-height: 150px; padding: var(--sp-4); border-radius: var(--radius); }
-    .sg-tile--big { grid-column: span 2; grid-row: span 2; min-height: 306px; outline: 2px solid var(--line-dark); outline-offset: -2px; }
-    .sg-tile__name { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1.125rem; line-height: 1.1; }
-    .sg-tile__hex { font-size: var(--fs-small); font-variant-numeric: tabular-nums; opacity: 0.85; }
-    .sg-tile__role { font-size: var(--fs-small); opacity: 0.85; line-height: 1.35; }
+    .sg-swatches { display: grid; gap: var(--sp-4); grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 700px) { .sg-swatches { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1100px) { .sg-swatches { grid-template-columns: repeat(5, 1fr); } }
+    .sg-swatch { display: grid; gap: var(--sp-2); font-size: var(--fs-small); }
+    .sg-swatch__chip { height: 92px; border-radius: var(--radius); box-shadow: inset 0 0 0 1px rgba(23, 35, 38, 0.08); }
+    .sg-swatch b { font-weight: 600; color: var(--ink); }
+    .sg-swatch span { color: var(--ink-soft); }
 
-    .sg-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: var(--fs-small); min-width: 560px; }
     .sg-table-wrap { overflow-x: auto; margin-top: var(--sp-7); }
-    .sg-table th { text-align: left; padding: var(--sp-2) var(--sp-4); font-weight: 600; color: var(--on-dark-soft); }
-    .sg-table td { padding: var(--sp-3) var(--sp-4); background: var(--teal-2); }
-    .sg-table td:first-child { border-radius: var(--radius) 0 0 var(--radius); }
-    .sg-table td:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
-    .sg-pair { display: inline-block; padding: 0.25em 0.7em; border-radius: 3px; font-weight: 600; }
-    .sg-pass { color: #8FE0BE; font-weight: 600; }
-    .sg-fail { color: #FF9C9C; font-weight: 600; }
+    .sg-table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); min-width: 560px; }
+    .sg-table th { text-align: left; padding: var(--sp-3) var(--sp-4); font-weight: 600; color: var(--ink-soft); border-bottom: 1.5px solid var(--border); }
+    .sg-table td { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--teal-tint); }
+    .sg-pair { display: inline-block; padding: 0.25em 0.7em; border-radius: 4px; font-weight: 600; }
+    .sg-pass { color: var(--status-open); font-weight: 600; }
+    .sg-fail { color: var(--crimson); font-weight: 600; }
 
-    /* Type specimen */
-    .sg-specimen { font-family: var(--font-display); font-stretch: 125%; font-weight: 800; font-size: clamp(4rem, 1rem + 12vw, 13rem); line-height: 0.8; letter-spacing: -0.04em; color: var(--teal); }
-    .sg-weights { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); font-size: 1.5rem; color: var(--teal); }
-    .sg-scale { display: grid; gap: 4px; margin-top: var(--sp-7); }
-    .sg-scale__row { display: grid; gap: var(--sp-2) var(--sp-6); padding: var(--sp-4) var(--sp-5); background: var(--stone-2); border-radius: var(--radius); align-items: baseline; }
-    .sg-scale__meta { font-size: var(--fs-small); color: var(--ink-soft); }
-    .sg-scale__meta b { color: var(--teal); font-weight: 700; }
-    .sg-scale__row > p { color: var(--teal); }
-    @media (min-width: 900px) { .sg-scale__row { grid-template-columns: 200px 1fr; } }
-    .sg-kufi { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-6); justify-content: flex-end; font-family: var(--font-arabic); font-weight: 700; font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem); line-height: 1.2; color: var(--gold-ink); direction: rtl; }
+    .sg-type { display: grid; gap: var(--sp-7); }
+    @media (min-width: 900px) { .sg-type { grid-template-columns: 1fr 1fr; } }
+    .sg-specimen { font-size: clamp(5rem, 3rem + 8vw, 10rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.05em; color: var(--teal); }
+    .sg-weights { display: grid; gap: var(--sp-2); font-size: 1.375rem; color: var(--teal); margin-top: var(--sp-5); }
+    .sg-scale { display: grid; gap: 0; }
+    .sg-scale__row { display: grid; gap: var(--sp-1) var(--sp-5); padding-block: var(--sp-4); border-bottom: 1px solid var(--teal-tint); }
+    .sg-scale__meta { font-size: var(--fs-micro); color: var(--ink-soft); }
+    @media (min-width: 600px) { .sg-scale__row { grid-template-columns: 130px 1fr; align-items: baseline; } }
+    .sg-kufi { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-6); font-family: var(--font-arabic); font-weight: 600; font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); color: var(--teal); direction: rtl; justify-content: flex-start; }
 
-    /* Buttons: two halves, dark and light, side by side */
-    .sg-halves { display: grid; }
-    @media (min-width: 900px) { .sg-halves { grid-template-columns: 1fr 1fr; } }
-    .sg-half { padding: var(--sp-7) var(--gutter); display: grid; gap: var(--sp-5); align-content: start; }
-    .sg-half__title { font-family: var(--font-display); font-stretch: 112%; font-weight: 750; font-size: 1.375rem; }
+    .sg-kit { display: grid; gap: var(--sp-6); }
+    @media (min-width: 900px) { .sg-kit { grid-template-columns: 1fr 1fr; gap: var(--sp-7); } }
+    .sg-kit__block { display: grid; gap: var(--sp-4); align-content: start; }
+    .sg-kit__title { font-size: var(--fs-h3); font-weight: 600; color: var(--teal); }
     .sg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+    .sg-band { padding: var(--sp-6); border-radius: var(--radius-lg); display: grid; gap: var(--sp-4); }
 
-    /* Grids for tiles */
-    .sg-programs { display: grid; gap: 6px; }
+    .sg-programs { display: grid; gap: var(--sp-4); }
     @media (min-width: 900px) {
-      .sg-programs { grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: auto auto; }
-      .sg-programs > :first-child { grid-row: span 2; min-height: 560px; }
+      .sg-programs { grid-template-columns: 1.3fr 1fr 1fr; }
+      .sg-programs > :first-child { grid-row: span 2; min-height: 540px; }
     }
-    .sg-nights { display: grid; gap: 6px; }
-    @media (min-width: 900px) { .sg-nights { grid-template-columns: 1fr 1fr 1fr; } }
+    .sg-nights { display: grid; gap: var(--sp-3); }
+    @media (min-width: 900px) { .sg-nights { grid-template-columns: repeat(3, 1fr); } }
 
     .sg-form-wrap { display: grid; gap: var(--sp-7); }
-    @media (min-width: 900px) { .sg-form-wrap { grid-template-columns: 4fr 7fr; } .sg-form-wrap > :first-child { position: sticky; top: var(--sp-6); align-self: start; } }
-    .sg-form { display: grid; gap: var(--sp-5); padding: var(--sp-6); background: var(--stone-2); border-radius: var(--radius); }
+    @media (min-width: 900px) { .sg-form-wrap { grid-template-columns: 4fr 7fr; } }
+    .sg-form { display: grid; gap: var(--sp-5); padding: var(--sp-6); background: var(--surface); border-radius: var(--radius-lg); }
     .sg-form__pair { display: grid; gap: var(--sp-5); }
     @media (min-width: 640px) { .sg-form__pair { grid-template-columns: 1fr 1fr; } }
 
-    .sg-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; }
-    .sg-icon { display: grid; gap: var(--sp-3); padding: var(--sp-5) var(--sp-4); background: var(--teal-2); border-radius: var(--radius); font-size: var(--fs-small); }
-    .sg-icon .icon { width: 32px; height: 32px; color: var(--gold); }
+    .sg-icons { display: flex; flex-wrap: wrap; gap: var(--sp-5) var(--sp-7); }
+    .sg-icon { display: flex; align-items: center; gap: var(--sp-3); font-size: var(--fs-small); color: var(--ink-soft); }
+    .sg-icon .icon { width: 26px; height: 26px; color: var(--teal); }
 
-    .sg-decisions { display: grid; gap: 6px; padding: 0; list-style: none; }
+    .sg-decisions { display: grid; gap: var(--sp-5) var(--sp-7); padding: 0; list-style: none; }
     @media (min-width: 900px) { .sg-decisions { grid-template-columns: 1fr 1fr; } }
-    .sg-decisions li { padding: var(--sp-5); background: var(--teal-2); border-radius: var(--radius); }
-    .sg-decisions b { display: block; margin-bottom: var(--sp-2); font-family: var(--font-display); font-stretch: 112%; font-size: 1.125rem; font-weight: 700; }
+    .sg-decisions b { display: block; margin-bottom: var(--sp-1); font-weight: 600; color: var(--white); }
+    .sg-decisions li { color: var(--on-teal-soft); }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#hero-note">Skip to content</a>
+  <a class="skip-link" href="#journey">Skip to content</a>
 
   <!-- The dome shape from the logo, used to frame the hero (0 to 1 box units) -->
   <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
     <defs>
       <clipPath id="domeClip" clipPathUnits="objectBoundingBox">
-        <path d="M0,1 L0,0.40 C0,0.20 0.2,0.06 0.5,0 C0.8,0.06 1,0.20 1,0.40 L1,1 Z"/>
+        <path d="M0,1 L0,0.38 C0,0.19 0.2,0.06 0.5,0 C0.8,0.06 1,0.19 1,0.38 L1,1 Z"/>
       </clipPath>
     </defs>
   </svg>
 
   <!-- ================================================================
-       Hero ("Now"): depth layers, live date, prayer times, main action
+       Hero ("Now"): photo layers in the dome, name, live strip
        ================================================================ -->
   <header class="hero" data-hero>
     <div class="container">
@@ -131,15 +127,15 @@
         </a>
         <div class="nav__links">
           <a href="#classes">Learn</a>
-          <a href="#year-note">The Year</a>
-          <a href="#muharram-note">Muharram</a>
+          <a href="#year">The Year</a>
+          <a href="#muharram">Muharram</a>
           <a href="#programs">Library</a>
           <a href="#forms">Camp</a>
-          <a href="#buttons">Support</a>
+          <a href="#kit">Support</a>
           <a href="#review">Visit</a>
         </div>
         <div class="nav__end">
-          <a class="btn btn--gold btn--sm" href="#forms">Join a class</a>
+          <a class="btn btn--teal btn--sm" href="#classes">Join a class</a>
           <button class="nav__menu" type="button" aria-label="Open menu">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
           </button>
@@ -147,33 +143,36 @@
       </nav>
     </div>
 
-    <!-- Depth layers. Far to near: hall, minbar, haze, headline, crowd.
-         TODO: swap the three placeholder files for the real photo layers. -->
     <div class="hero__visual">
+      <!-- Photo layers, far to near. TODO: swap the placeholder files for the
+           real photo cut into layers (see "For review" at the end). -->
       <div class="hero__frame-wrap">
         <svg class="hero__outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,100 L0,40 C0,20 20,6 50,0 C80,6 100,20 100,40 L100,100"/>
+          <path d="M0,100 L0,38 C0,19 20,6 50,0 C80,6 100,19 100,38 L100,100"/>
         </svg>
         <div class="hero__arch">
-          <img class="hero__layer hero__bg" data-depth="0.16" src="images/placeholder/hero-1-hall.svg"
+          <img class="hero__layer hero__bg" data-depth="0.14" src="images/placeholder/hero-1-hall.svg"
                alt="Placeholder for a photo of the institute's hall on a Muharram night">
-          <img class="hero__layer hero__subject" data-depth="0.07" src="images/placeholder/hero-2-minbar.svg" alt="">
-          <div class="hero__layer hero__atmos" data-depth="0.26" aria-hidden="true"></div>
+          <img class="hero__layer hero__subject" data-depth="0.06" src="images/placeholder/hero-2-minbar.svg" alt="">
+          <img class="hero__layer hero__fg" data-depth="-0.09" src="images/placeholder/hero-3-crowd.svg" alt="">
+          <p class="hero__layer hero__title-copy" data-depth="-0.04" aria-hidden="true"></p>
+          <div class="hero__layer hero__atmos" data-depth="0.2" aria-hidden="true"></div>
         </div>
       </div>
 
-      <h1 class="hero__title" data-depth="-0.03">
-        <span class="hero__title-name">Ali Ibn-e-<br>Abitalib</span>
-        <span class="hero__title-sub">Islamic Institution, Quetta</span>
-      </h1>
-
-      <!-- Next on the calendar: from the program list (no date until confirmed) -->
-      <p class="hero__next"><small>Next on the calendar</small><strong>Winter camp</strong><span>January, for boys aged 10 to 17. <span class="todo">[dates]</span></span></p>
-
-      <img class="hero__layer hero__fg" data-depth="-0.1" src="images/placeholder/hero-3-crowd.svg" alt="">
+      <div class="hero__text">
+        <p class="hero__kicker">Islamic Institution, Quetta</p>
+        <h1 class="hero__title" data-depth="-0.04">Ali Ibn-e-<br>Abitalib</h1>
+        <!-- TODO: Mueez to confirm the one line of purpose -->
+        <p class="hero__purpose">Qur'an, Tajweed, Ahkam and Hawza studies, in Quetta and online for students abroad.</p>
+        <div class="hero__actions">
+          <a class="btn btn--teal" href="#classes">Join a class</a>
+          <a class="btn btn--outline" href="#journey">About the institute</a>
+        </div>
+      </div>
     </div>
 
-    <!-- Live: today's dates, Quetta prayer times, the one main action -->
+    <!-- Live: today's dates, Quetta prayer times, next on the calendar -->
     <div class="hero__live">
       <div class="container hero__live-inner">
         <div class="live__date">
@@ -185,104 +184,241 @@
           <div class="prayers__head"><span>Prayer times in Quetta</span><span class="prayers__in" data-prayer-in></span></div>
           <ol class="prayers__list" role="list" data-prayer-list></ol>
         </section>
-        <a class="btn btn--gold hero__cta" href="#forms">Join a class</a>
+        <p class="live__next"><small>Next on the calendar</small><strong>Winter camp</strong><span>January, boys aged 10 to 17 <span class="todo">[dates]</span></span></p>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Note: what the hero is made of, and the photo it needs -->
-    <section class="sg-note" id="hero-note" aria-labelledby="hero-note-title">
+    <div class="sg-note">
       <div class="container sg-note__inner">
-        <h2 class="sg-note__title" id="hero-note-title">Hero, in four layers</h2>
-        <div>
-          <p>The hall, the minbar and the haze sit inside the dome from the logo. The name stands in front of the minbar,
-          and the crowd rises in front of the name, so the headline is inside the room rather than pasted on a picture.
-          Each layer moves at its own rate as you scroll. The date and prayer times are live.</p>
-          <p>The shapes are placeholders for one real photo, cut into layers. The brief for it is at the end of this page.</p>
-        </div>
+        <b>Hero</b>
+        <p>The photo sits in the dome from the logo, in layers that move at different speeds as you scroll. The name is teal on the page and turns white where it crosses into the photo, with the crowd in front of it. The date and prayer times are live.</p>
       </div>
-    </section>
+    </div>
 
     <!-- ================================================================
-         Scroll chapter: Proof (homepage 8.2)
+         Scroll chapter: the institute from 1992 to today (homepage 8.2)
          ================================================================ -->
-    <!-- TODO: replace the two photo placeholders with real AIAT photos (WebP) -->
-    <section class="proof" data-proof aria-label="AIAT in four facts">
-      <div class="container proof__pin">
-        <div class="proof__stage">
-          <figure class="proof__photo proof__photo--a"><div class="photo-ph">The institute</div></figure>
-          <figure class="proof__photo proof__photo--b"><div class="photo-ph">A class in Quetta</div></figure>
-          <svg class="proof__svg" viewBox="0 0 800 600" aria-hidden="true"></svg>
-        </div>
-
-        <div>
-          <div class="proof__caps">
-            <div class="proof__cap">
-              <span class="proof__mask"><span class="proof__big">1992</span></span>
-              <span class="proof__mask"><span class="proof__line">The institution was founded.</span></span>
-            </div>
-            <div class="proof__cap">
-              <span class="proof__mask"><span class="proof__big">2018</span></span>
-              <span class="proof__mask"><span class="proof__line">Serving the community in Quetta since then.</span></span>
-            </div>
-            <div class="proof__cap">
-              <span class="proof__mask"><span class="proof__big">Ten nights</span></span>
-              <span class="proof__mask"><span class="proof__line">Of Muharram, every year. The head of the institute speaks each night, livestreamed on YouTube.</span></span>
-            </div>
-            <div class="proof__cap">
-              <span class="proof__mask"><span class="proof__big">Six programs</span></span>
-              <span class="proof__mask"><span class="proof__line">Through the year, from Muharram to the January winter camp.</span></span>
-            </div>
+    <!-- TODO: one real photo per moment (WebP), see the captions -->
+    <section class="journey" id="journey" data-journey aria-labelledby="journey-title">
+      <div class="container journey__pin">
+        <div class="journey__stage" aria-hidden="true"></div>
+        <div class="journey__side">
+          <div class="journey__head">
+            <h2 class="t-h1" id="journey-title">From 1992 to today</h2>
+            <p class="t-lead">The institute through its years and through its year.</p>
           </div>
-          <div class="proof__progress" aria-hidden="true">
-            <span class="proof__tick"><span></span></span>
-            <span class="proof__tick"><span></span></span>
-            <span class="proof__tick"><span></span></span>
-            <span class="proof__tick"><span></span></span>
+
+          <ol class="journey__steps" role="list">
+            <li class="journey__step">
+              <figure class="journey__photo"><div class="photo-ph photo-ph--warm">An early photo of the institution</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">1992</span></div>
+                <div class="journey__mask"><h3 class="journey__name">Founded</h3></div>
+                <div class="journey__mask"><p class="journey__text">Ali Ibn-e-Abitalib Islamic Institution is founded.</p></div>
+              </div>
+            </li>
+            <li class="journey__step">
+              <figure class="journey__photo"><div class="photo-ph">The building in Quetta</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">2018</span></div>
+                <div class="journey__mask"><h3 class="journey__name">Quetta</h3></div>
+                <div class="journey__mask"><p class="journey__text">The institute in Quetta begins serving the community.</p></div>
+              </div>
+            </li>
+            <li class="journey__step">
+              <figure class="journey__photo"><div class="photo-ph">A class in session</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">Every week</span></div>
+                <div class="journey__mask"><h3 class="journey__name">Classes</h3></div>
+                <div class="journey__mask"><p class="journey__text">Qur'an, Tajweed, Ahkam and Hawza studies. Some classes are online, for students abroad.</p></div>
+              </div>
+            </li>
+            <li class="journey__step" data-mood="mourning">
+              <figure class="journey__photo"><div class="photo-ph photo-ph--mourning">A Muharram night, the hall full</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">1 to 10 Muharram</span></div>
+                <div class="journey__mask"><h3 class="journey__name">The ten nights</h3></div>
+                <div class="journey__mask"><p class="journey__text">The head of the institute speaks every night. The hall is full, and every night is livestreamed on YouTube.</p></div>
+              </div>
+            </li>
+            <li class="journey__step">
+              <figure class="journey__photo"><div class="photo-ph photo-ph--warm">A night in Ramadan</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">Ramadan</span></div>
+                <div class="journey__mask"><h3 class="journey__name">Ramadan and Shab-e-Qadr</h3></div>
+                <div class="journey__mask"><p class="journey__text">Programs through the month and on the nights of Shab-e-Qadr.</p></div>
+              </div>
+            </li>
+            <li class="journey__step">
+              <figure class="journey__photo"><div class="photo-ph">Eid prayers</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">The Eids</span></div>
+                <div class="journey__mask"><h3 class="journey__name">Eid prayers and Eid al-Ghadir</h3></div>
+                <div class="journey__mask"><p class="journey__text">Prayers on Eid, and Eid al-Ghadir on 18 Dhu al-Hijjah.</p></div>
+              </div>
+            </li>
+            <li class="journey__step">
+              <figure class="journey__photo"><div class="photo-ph photo-ph--warm">The winter camp</div></figure>
+              <div>
+                <div class="journey__mask"><span class="journey__when">January</span></div>
+                <div class="journey__mask"><h3 class="journey__name">Winter camp</h3></div>
+                <div class="journey__mask"><p class="journey__text">A camp for boys aged 10 to 17.</p></div>
+              </div>
+            </li>
+          </ol>
+
+          <div class="journey__index-wrap" aria-hidden="true">
+            <span class="journey__bar"><span></span></span>
+            <ol class="journey__index"></ol>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Note -->
-    <section class="sg-note" id="year-note" aria-labelledby="year-note-title">
+    <div class="sg-note">
       <div class="container sg-note__inner">
-        <h2 class="sg-note__title" id="year-note-title">The Year</h2>
-        <p>On a computer, scrolling down moves the twelve Hijri months sideways, with a gold line where today falls.
-        On a phone it is a simple list. The programs are a sample; the real ones will come from <code>data/programs.js</code>.</p>
+        <b>From 1992 to today</b>
+        <p>On a computer the section holds still while you scroll: each moment brings its photo up over the last and its words into place, and the room goes dark for Muharram. On a phone it is a list of photos that open up as they come into view.</p>
       </div>
-    </section>
+    </div>
 
     <!-- ================================================================
-         Scroll chapter: The Year (homepage 8.4)
+         Scroll chapter: classes, moving sideways (homepage 8.3)
          ================================================================ -->
-    <section class="year" data-year aria-labelledby="year-title">
-      <div class="year__pin">
-        <div class="container year__head">
-          <h2 class="t-h1 year__title" id="year-title">The year at AIAT</h2>
+    <section class="classes" id="classes" data-classes aria-labelledby="classes-title">
+      <div class="classes__pin">
+        <div class="container classes__head">
+          <div style="display: grid; gap: var(--sp-3)">
+            <h2 class="t-h1" id="classes-title">Classes</h2>
+            <p class="t-lead" style="max-width: 44ch">In Quetta and online. Pick a class and request a seat; we reply on WhatsApp.</p>
+          </div>
+          <div class="classes__filters">
+            <div class="chip-group" data-demo-chips role="group" aria-label="How">
+              <button class="chip" type="button" aria-pressed="true"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>All</button>
+              <button class="chip" type="button" aria-pressed="false"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>In person</button>
+              <button class="chip" type="button" aria-pressed="false"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Online</button>
+            </div>
+            <div class="toggle" role="group" aria-label="Show class times in" data-demo-toggle>
+              <button class="toggle__opt" type="button" aria-pressed="true">Pakistan time</button>
+              <button class="toggle__opt" type="button" aria-pressed="false">Your time</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TODO: real class details from data/classes.js -->
+        <div class="classes__viewport">
+          <div class="classes__track">
+            <article class="class-panel">
+              <div class="class-panel__media"><div class="photo-ph">A Qur'an class</div></div>
+              <div class="class-panel__body">
+                <div class="class-panel__top"><h3 class="class-panel__subject">Qur'an</h3><span class="class-panel__ar" lang="ar">قرآن</span></div>
+                <dl class="class-panel__facts">
+                  <div><dt>Level</dt><dd><span class="todo">[level]</span></dd></div>
+                  <div><dt>Ages</dt><dd><span class="todo">[ages]</span></dd></div>
+                  <div><dt>When (PKT)</dt><dd><span class="todo">[days, time]</span></dd></div>
+                  <div><dt>How</dt><dd>In person</dd></div>
+                </dl>
+              </div>
+              <div class="class-panel__foot"><span class="badge badge--open">Open</span><button class="btn btn--teal btn--sm" type="button">Request a seat</button></div>
+            </article>
+            <article class="class-panel">
+              <div class="class-panel__media"><div class="photo-ph photo-ph--warm">A Tajweed class</div></div>
+              <div class="class-panel__body">
+                <div class="class-panel__top"><h3 class="class-panel__subject">Tajweed</h3><span class="class-panel__ar" lang="ar">تجويد</span></div>
+                <dl class="class-panel__facts">
+                  <div><dt>Level</dt><dd><span class="todo">[level]</span></dd></div>
+                  <div><dt>Ages</dt><dd><span class="todo">[ages]</span></dd></div>
+                  <div><dt>When (PKT)</dt><dd><span class="todo">[days, time]</span></dd></div>
+                  <div><dt>How</dt><dd>In person and online</dd></div>
+                </dl>
+              </div>
+              <div class="class-panel__foot"><span class="badge badge--soon">Starting soon</span><button class="btn btn--teal btn--sm" type="button">Request a seat</button></div>
+            </article>
+            <article class="class-panel">
+              <div class="class-panel__media"><div class="photo-ph">An Ahkam class</div></div>
+              <div class="class-panel__body">
+                <div class="class-panel__top"><h3 class="class-panel__subject">Ahkam</h3><span class="class-panel__ar" lang="ar">أحكام</span></div>
+                <dl class="class-panel__facts">
+                  <div><dt>Level</dt><dd><span class="todo">[level]</span></dd></div>
+                  <div><dt>Ages</dt><dd><span class="todo">[ages]</span></dd></div>
+                  <div><dt>When (PKT)</dt><dd><span class="todo">[days, time]</span></dd></div>
+                  <div><dt>How</dt><dd>In person</dd></div>
+                </dl>
+              </div>
+              <div class="class-panel__foot"><span class="badge badge--full">Full</span><button class="btn btn--outline btn--sm" type="button">Waiting list</button></div>
+            </article>
+            <article class="class-panel">
+              <div class="class-panel__media"><div class="photo-ph photo-ph--warm">A Hawza lesson</div></div>
+              <div class="class-panel__body">
+                <div class="class-panel__top"><h3 class="class-panel__subject">Hawza studies</h3><span class="class-panel__ar" lang="ar">حوزة</span></div>
+                <dl class="class-panel__facts">
+                  <div><dt>Level</dt><dd><span class="todo">[level]</span></dd></div>
+                  <div><dt>Ages</dt><dd><span class="todo">[ages]</span></dd></div>
+                  <div><dt>When (PKT)</dt><dd><span class="todo">[days, time]</span></dd></div>
+                  <div><dt>How</dt><dd>In person</dd></div>
+                </dl>
+              </div>
+              <div class="class-panel__foot"><span class="badge badge--open">Open</span><button class="btn btn--teal btn--sm" type="button">Request a seat</button></div>
+            </article>
+            <article class="class-panel">
+              <div class="class-panel__media"><div class="photo-ph">A student joining online</div></div>
+              <div class="class-panel__body">
+                <div class="class-panel__top"><h3 class="class-panel__subject">Online classes</h3></div>
+                <dl class="class-panel__facts">
+                  <div><dt>For</dt><dd>Students abroad</dd></div>
+                  <div><dt>Subjects</dt><dd><span class="todo">[which]</span></dd></div>
+                  <div><dt>When (PKT)</dt><dd><span class="todo">[days, time]</span></dd></div>
+                  <div><dt>How</dt><dd>Online</dd></div>
+                </dl>
+              </div>
+              <div class="class-panel__foot"><span class="badge badge--open">Open</span><button class="btn btn--teal btn--sm" type="button">Request a seat</button></div>
+            </article>
+            <article class="class-help">
+              <div>
+                <h3>Not sure which class is right?</h3>
+                <p>Send us a message on WhatsApp and we'll help you choose.</p>
+              </div>
+              <!-- TODO: WhatsApp number from data/settings.js -->
+              <a class="btn btn--white" href="#classes">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2z"/></svg>
+                Message us on WhatsApp
+              </a>
+            </article>
+          </div>
+        </div>
+        <div class="classes__progress" aria-hidden="true"><span></span></div>
+      </div>
+    </section>
+
+    <div class="sg-note">
+      <div class="container sg-note__inner">
+        <b>Classes</b>
+        <p>On a computer, scrolling down moves the row of classes sideways. On a phone you swipe through them. The last panel is for people who aren't sure which class to pick.</p>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         The Year: a still grid of the Hijri months (homepage 8.4)
+         ================================================================ -->
+    <section class="year" id="year" aria-labelledby="year-title">
+      <div class="container year__pin">
+        <div class="year__head">
+          <div style="display: grid; gap: var(--sp-3)">
+            <h2 class="t-h1" id="year-title">The year at the institute</h2>
+            <p class="t-lead" style="max-width: 46ch">The programs follow the Islamic calendar. Today's month is marked.</p>
+          </div>
           <p class="year__today"><small>Today</small><span data-hijri></span></p>
         </div>
-        <div class="container year__viewport">
-          <div class="year__track" data-year-track></div>
-        </div>
-        <div class="year__progress" aria-hidden="true"><span></span></div>
-      </div>
-    </section>
-
-    <!-- Note -->
-    <section class="sg-note" id="muharram-note" aria-labelledby="muharram-note-title">
-      <div class="container sg-note__inner">
-        <h2 class="sg-note__title" id="muharram-note-title">Into Muharram</h2>
-        <p>As you scroll in, the dark rises from the bottom of the screen, a red bar drops and one sentence arrives
-        word by word. Nothing else moves: it should feel quiet.</p>
+        <div class="year__track" data-year-track></div>
       </div>
     </section>
 
     <!-- ================================================================
          Scroll chapter: the way into Muharram (homepage 8.5)
          ================================================================ -->
-    <section class="threshold" data-threshold aria-labelledby="threshold-text">
+    <section class="threshold" id="muharram" data-threshold aria-labelledby="threshold-text">
       <div class="container threshold__inner">
         <div class="threshold__rule" aria-hidden="true"></div>
         <p class="threshold__text" id="threshold-text">For the first ten nights of Muharram, the head of the institute speaks every night.</p>
@@ -295,14 +431,13 @@
     <!-- ================================================================
          Reference: colour
          ================================================================ -->
-    <section class="sg-sec surface-teal" id="palette" aria-labelledby="palette-title">
+    <section class="sg-sec" id="palette" aria-labelledby="palette-title">
       <div class="container">
-        <div class="sg-split sg-head">
+        <div class="sg-head">
           <h2 class="t-h1" id="palette-title">Colour</h2>
-          <p class="t-lead t-muted">Deep teal carries the big blocks. Gold is the accent. The red from the Facebook posters is kept for Muharram and for "Live now". The light surface is a cool stone, not cream.</p>
+          <p class="t-lead">A white page. The teal from the logo is used where colour has a job: headings, buttons, captions and a few bands. Gold only in small marks. The poster red only for Muharram and "Live now".</p>
         </div>
-        <div class="sg-tiles" data-tiles></div>
-
+        <div class="sg-swatches" data-swatches></div>
         <div class="sg-table-wrap">
           <table class="sg-table">
             <thead>
@@ -317,168 +452,78 @@
     <!-- ================================================================
          Reference: type
          ================================================================ -->
-    <section class="sg-sec surface-stone" id="type" aria-labelledby="type-title">
-      <div class="container">
-        <p class="sg-specimen" aria-hidden="true">Archivo</p>
-        <div class="sg-split sg-split--right" style="margin-top: var(--sp-6)">
-          <div>
-            <h2 class="t-h2" id="type-title" style="color: var(--teal)">Type</h2>
-            <p class="t-lead" style="margin-top: var(--sp-3)">Archivo, expanded and heavy for headlines, normal width for reading. One font file does both, which matters on a slow connection.</p>
-          </div>
+    <section class="sg-sec surface-soft" id="type" aria-labelledby="type-title">
+      <div class="container sg-type">
+        <div>
+          <p class="sg-specimen" aria-hidden="true">Aa</p>
+          <h2 class="t-h2" id="type-title" style="margin-top: var(--sp-5)">Plus Jakarta Sans</h2>
+          <p class="t-lead" style="margin-top: var(--sp-2); max-width: 40ch">Headings at 600, body at 400, labels and buttons at 500 to 600. Arabic in Reem Kufi.</p>
           <div class="sg-weights">
             <span style="font-weight: 400">Regular 400</span>
             <span style="font-weight: 500">Medium 500</span>
             <span style="font-weight: 600">Semibold 600</span>
-            <span style="font-weight: 800; font-stretch: 125%">Expanded 800</span>
           </div>
+          <p class="sg-kufi" lang="ar" style="margin-top: var(--sp-6)"><span>محرم</span><span>رمضان</span><span>ليلة القدر</span><span>عيد الغدير</span></p>
         </div>
-
         <div class="sg-scale">
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>Display</b><br>48 to 120px, expanded 800</div><p class="t-display">Ten nights</p></div>
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>H1</b><br>38 to 80px, expanded 800</div><p class="t-h1">The year at AIAT</p></div>
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>H2</b><br>30 to 52px, expanded 750</div><p class="t-h2">Find a class that fits</p></div>
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>H3</b><br>20 to 26px, 700</div><p class="t-h3">Winter camp for boys aged 10 to 17</p></div>
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>Lead</b><br>17 to 20px, 400</div><p class="t-lead" style="color: var(--ink)">Classes in Qur'an, Tajweed, Ahkam and Hawza studies, in Quetta and online for students abroad.</p></div>
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>Body</b><br>16px, 400</div><p style="color: var(--ink); max-width: 64ch">Some classes are taught online, so students outside Pakistan can join. Times show in Pakistan time, and one tap shows them in your own time zone.</p></div>
-          <div class="sg-scale__row"><div class="sg-scale__meta"><b>Small</b><br>14px, 400 to 600</div><p class="t-small" style="color: var(--ink)">Card details, hints under form fields, the footer.</p></div>
-        </div>
-
-        <div class="sg-split" style="margin-top: var(--sp-7)">
-          <div>
-            <h3 class="t-h3" style="color: var(--teal)">Arabic in Reem Kufi</h3>
-            <p style="margin-top: var(--sp-2)">Program names, set solid and upright to stand beside the Latin headlines.</p>
-          </div>
-          <p class="sg-kufi" lang="ar"><span>محرم</span><span>رمضان</span><span>ليلة القدر</span><span>عيد الغدير</span></p>
+          <div class="sg-scale__row"><span class="sg-scale__meta">Display, 40 to 80</span><p class="t-display">Ten nights</p></div>
+          <div class="sg-scale__row"><span class="sg-scale__meta">H1, 34 to 56</span><p class="t-h1">The year at the institute</p></div>
+          <div class="sg-scale__row"><span class="sg-scale__meta">H2, 26 to 38</span><p class="t-h2">Find a class that fits</p></div>
+          <div class="sg-scale__row"><span class="sg-scale__meta">H3, 19 to 23</span><p class="t-h3">Winter camp for boys aged 10 to 17</p></div>
+          <div class="sg-scale__row"><span class="sg-scale__meta">Lead, 17 to 20</span><p class="t-lead">Classes in Qur'an, Tajweed, Ahkam and Hawza studies.</p></div>
+          <div class="sg-scale__row"><span class="sg-scale__meta">Body, 16</span><p>Some classes are taught online, so students outside Pakistan can join. Times show in Pakistan time, and one tap shows them in your own time zone.</p></div>
+          <div class="sg-scale__row"><span class="sg-scale__meta">Small, 14</span><p class="t-small">Card details, hints under form fields, the footer.</p></div>
         </div>
       </div>
     </section>
 
     <!-- ================================================================
-         Reference: buttons (dark half, light half, Muharram)
+         Reference: buttons, badges and a teal band
          ================================================================ -->
-    <section id="buttons" aria-labelledby="buttons-title">
-      <div class="sg-halves">
-        <div class="sg-half surface-teal">
-          <h2 class="t-h2" id="buttons-title">Buttons</h2>
-          <p class="t-muted" style="max-width: 40ch">At least 50px tall. One gold button per screen, for the action that matters most.</p>
-          <div class="sg-row">
-            <button class="btn btn--gold" type="button">Join a class</button>
-            <button class="btn btn--outline" type="button">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2z"/></svg>
-              Message on WhatsApp
-            </button>
-          </div>
-          <div class="sg-row">
-            <button class="btn btn--gold" type="button" data-demo-loading>
-              <span class="btn__spinner" aria-hidden="true"></span>
-              <span class="btn__text">Send request</span>
-            </button>
-            <button class="btn btn--gold" type="button" disabled>Disabled</button>
-            <span class="t-small t-muted">Tap "Send request" to see the loading state.</span>
-          </div>
-        </div>
-        <div class="sg-half surface-stone">
-          <h3 class="sg-half__title" style="color: var(--teal)">On the light surface</h3>
-          <div class="sg-row">
-            <button class="btn btn--teal" type="button">Request a seat</button>
-            <button class="btn btn--outline" type="button" style="color: var(--teal)">Get directions</button>
-            <a class="btn btn--link" href="#buttons" style="color: var(--teal)">See all lectures</a>
-          </div>
-          <div class="sg-row">
-            <button class="btn btn--teal btn--sm" type="button">Small</button>
-            <button class="btn btn--outline btn--sm" type="button" style="color: var(--teal)">Small outline</button>
-          </div>
-        </div>
-      </div>
-      <div class="sg-half surface-mourning">
-        <div class="container sg-row" style="padding: 0">
-          <button class="btn btn--crimson" type="button">Watch the livestream</button>
-          <button class="btn btn--outline" type="button">The ten nights</button>
-          <span class="badge badge--live">Live now</span>
-          <span class="t-small t-muted">Muharram mode: red is the only accent.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         Reference: class finder rows, filters, badges
-         ================================================================ -->
-    <section class="sg-sec surface-stone" id="classes" aria-labelledby="classes-title">
+    <section class="sg-sec" id="kit" aria-labelledby="kit-title">
       <div class="container">
-        <div class="sg-split sg-head">
-          <h2 class="t-h1" id="classes-title" style="color: var(--teal)">Classes</h2>
-          <p class="t-lead">A timetable, not a wall of cards. Filters on top, one row per class, the seat request at the end of each row.</p>
+        <div class="sg-head sg-head--right">
+          <h2 class="t-h1" id="kit-title">Buttons and badges</h2>
+          <p class="t-lead">One teal button per screen for the main action. Everything else is an outline or a link.</p>
         </div>
-
-        <div class="sg-row" style="justify-content: space-between; margin-bottom: var(--sp-5); align-items: flex-end">
-          <div style="display: grid; gap: var(--sp-3)">
-            <div class="chip-group" data-demo-chips role="group" aria-label="Subject">
-              <button class="chip" type="button" aria-pressed="true"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Qur'an</button>
-              <button class="chip" type="button" aria-pressed="false"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tajweed</button>
-              <button class="chip" type="button" aria-pressed="false"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Ahkam</button>
-              <button class="chip" type="button" aria-pressed="false"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hawza</button>
+        <div class="sg-kit">
+          <div class="sg-kit__block">
+            <div class="sg-row">
+              <button class="btn btn--teal" type="button">Join a class</button>
+              <button class="btn btn--outline" type="button">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2z"/></svg>
+                Message on WhatsApp
+              </button>
+              <a class="btn btn--link" href="#kit">See all lectures</a>
             </div>
-            <div class="chip-group" data-demo-chips role="group" aria-label="How">
-              <button class="chip" type="button" aria-pressed="false"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>In person</button>
-              <button class="chip" type="button" aria-pressed="true"><svg class="icon chip__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Online</button>
+            <div class="sg-row">
+              <button class="btn btn--teal" type="button" data-demo-loading>
+                <span class="btn__spinner" aria-hidden="true"></span>
+                <span class="btn__text">Send request</span>
+              </button>
+              <button class="btn btn--teal" type="button" disabled>Disabled</button>
+              <button class="btn btn--outline btn--sm" type="button">Small</button>
             </div>
-          </div>
-          <div class="toggle" role="group" aria-label="Show class times in" data-demo-toggle>
-            <button class="toggle__opt" type="button" aria-pressed="true">Pakistan time</button>
-            <button class="toggle__opt" type="button" aria-pressed="false">Your time</button>
-          </div>
-        </div>
-
-        <!-- TODO: real class details from data/classes.js -->
-        <div class="class-list">
-          <article class="class-row">
-            <div>
-              <h3 class="class-row__subject">Tajweed</h3>
-              <p class="class-row__level"><span class="todo">[level]</span></p>
-            </div>
-            <dl class="class-row__facts">
-              <div><dt>Ages</dt><dd><span class="todo">[age group]</span></dd></div>
-              <div><dt>When (PKT)</dt><dd><span class="todo">[days and time]</span></dd></div>
-              <div><dt>Teacher</dt><dd><span class="todo">[name]</span></dd></div>
-              <div><dt>How</dt><dd>In person and online</dd></div>
-            </dl>
-            <div class="class-row__act">
+            <p class="t-small t-muted">Tap "Send request" to see the loading state.</p>
+            <div class="sg-row">
               <span class="badge badge--open">Open</span>
-              <button class="btn btn--teal btn--sm" type="button">Request a seat</button>
-            </div>
-          </article>
-          <article class="class-row">
-            <div>
-              <h3 class="class-row__subject">Qur'an</h3>
-              <p class="class-row__level"><span class="todo">[level]</span></p>
-            </div>
-            <dl class="class-row__facts">
-              <div><dt>Ages</dt><dd><span class="todo">[age group]</span></dd></div>
-              <div><dt>When (PKT)</dt><dd><span class="todo">[days and time]</span></dd></div>
-              <div><dt>Teacher</dt><dd><span class="todo">[name]</span></dd></div>
-              <div><dt>How</dt><dd>Online</dd></div>
-            </dl>
-            <div class="class-row__act">
               <span class="badge badge--soon">Starting soon</span>
-              <button class="btn btn--teal btn--sm" type="button">Request a seat</button>
-            </div>
-          </article>
-          <article class="class-row">
-            <div>
-              <h3 class="class-row__subject">Ahkam</h3>
-              <p class="class-row__level"><span class="todo">[level]</span></p>
-            </div>
-            <dl class="class-row__facts">
-              <div><dt>Ages</dt><dd><span class="todo">[age group]</span></dd></div>
-              <div><dt>When (PKT)</dt><dd><span class="todo">[days and time]</span></dd></div>
-              <div><dt>Teacher</dt><dd><span class="todo">[name]</span></dd></div>
-              <div><dt>How</dt><dd>In person</dd></div>
-            </dl>
-            <div class="class-row__act">
               <span class="badge badge--full">Full</span>
-              <button class="btn btn--outline btn--sm" type="button" style="color: var(--teal)">Join the waiting list</button>
+              <span class="badge badge--tag">Online</span>
+              <span class="badge badge--live">Live now</span>
             </div>
-          </article>
+          </div>
+          <div class="sg-kit__block">
+            <div class="sg-band surface-teal">
+              <h3 class="t-h2">Support a student</h3>
+              <p class="t-muted">A teal band is used for one thing at a time, like this call to support a student. <span class="todo">[details TODO]</span></p>
+              <div class="sg-row"><a class="btn btn--white" href="#kit">How to help</a><a class="btn btn--outline" href="#kit">Ask for support</a></div>
+            </div>
+            <div class="sg-band surface-mourning">
+              <div class="sg-row"><button class="btn btn--crimson" type="button">Watch the livestream</button><span class="badge badge--live">Live now</span></div>
+              <p class="t-small t-muted">Muharram mode: black, with the poster red as the only accent.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -486,11 +531,11 @@
     <!-- ================================================================
          Reference: program and lecture tiles
          ================================================================ -->
-    <section class="sg-sec surface-teal" id="programs" aria-labelledby="programs-title">
+    <section class="sg-sec surface-soft" id="programs" aria-labelledby="programs-title">
       <div class="container">
-        <div class="sg-split sg-split--right sg-head">
+        <div class="sg-head">
           <h2 class="t-h1" id="programs-title">Programs and lectures</h2>
-          <p class="t-lead t-muted">Photographs lead. Program names are set big over a dark fade at the foot of the photo; lectures load the video only when tapped.</p>
+          <p class="t-lead">Photographs lead. Lectures show the thumbnail first and load the video only when tapped.</p>
         </div>
         <!-- TODO: program dates, photos and lecture details from the data files -->
         <div class="sg-programs">
@@ -500,39 +545,39 @@
               <span class="program-tile__ar" lang="ar">محرم</span>
               <h3 class="program-tile__name">The first ten nights</h3>
               <p class="program-tile__when">1 to 10 Muharram, livestreamed</p>
-              <div class="sg-row"><span class="badge badge--live">Live now</span></div>
+              <div class="sg-row" style="margin-top: var(--sp-2)"><span class="badge badge--live">Live now</span></div>
             </div>
           </article>
           <article class="program-tile">
-            <div class="program-tile__media"><div class="photo-ph">Eid al-Ghadir</div></div>
+            <div class="program-tile__media"><div class="photo-ph photo-ph--warm">Eid al-Ghadir</div></div>
             <div class="program-tile__body">
               <span class="program-tile__ar" lang="ar">عيد الغدير</span>
               <h3 class="program-tile__name">Eid al-Ghadir</h3>
               <p class="program-tile__when">18 Dhu al-Hijjah</p>
             </div>
           </article>
+          <article class="lecture-tile">
+            <button class="yt-lite" type="button" aria-label="Play lecture (placeholder)">
+              <span class="photo-ph" style="align-items: flex-start; justify-content: flex-end">Thumbnail from YouTube</span>
+              <span class="yt-lite__play"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+            </button>
+            <h3 class="lecture-tile__title"><span class="todo">[lecture title]</span></h3>
+            <p class="lecture-tile__meta"><span class="todo">[speaker, occasion, year]</span></p>
+          </article>
+          <article class="lecture-tile">
+            <button class="yt-lite" type="button" aria-label="Play lecture (placeholder)">
+              <span class="photo-ph photo-ph--warm" style="align-items: flex-start; justify-content: flex-end">Thumbnail from YouTube</span>
+              <span class="yt-lite__play"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+            </button>
+            <h3 class="lecture-tile__title"><span class="todo">[lecture title]</span></h3>
+            <p class="lecture-tile__meta"><span class="todo">[speaker, occasion, year]</span></p>
+          </article>
           <article class="program-tile">
             <div class="program-tile__media"><div class="photo-ph">Winter camp</div></div>
             <div class="program-tile__body">
               <h3 class="program-tile__name">Winter camp</h3>
-              <p class="program-tile__when">January, boys aged 10 to 17, <span class="todo">[dates]</span></p>
+              <p class="program-tile__when">January, boys aged 10 to 17 <span class="todo">[dates]</span></p>
             </div>
-          </article>
-          <article class="lecture-tile">
-            <button class="yt-lite" type="button" aria-label="Play lecture (placeholder)">
-              <span class="photo-ph" style="align-items: flex-start; justify-content: flex-end">Thumbnail from YouTube</span>
-              <span class="yt-lite__play"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-            </button>
-            <h3 class="lecture-tile__title"><span class="todo">[lecture title]</span></h3>
-            <p class="lecture-tile__meta"><span class="todo">[speaker, occasion, year]</span></p>
-          </article>
-          <article class="lecture-tile">
-            <button class="yt-lite" type="button" aria-label="Play lecture (placeholder)">
-              <span class="photo-ph" style="align-items: flex-start; justify-content: flex-end">Thumbnail from YouTube</span>
-              <span class="yt-lite__play"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-            </button>
-            <h3 class="lecture-tile__title"><span class="todo">[lecture title]</span></h3>
-            <p class="lecture-tile__meta"><span class="todo">[speaker, occasion, year]</span></p>
           </article>
         </div>
       </div>
@@ -543,9 +588,9 @@
          ================================================================ -->
     <section class="sg-sec surface-mourning" id="nights" aria-labelledby="nights-title">
       <div class="container">
-        <div class="sg-split sg-head">
+        <div class="sg-head sg-head--right">
           <h2 class="t-h1" id="nights-title">The ten nights</h2>
-          <p class="t-lead t-muted">On muharram.html each night gets its own tile: the night's number in red, the topic, the date and the recording.</p>
+          <p class="t-lead">On the Muharram page each night has its own tile: the night's number in red, the topic, the date and the recording.</p>
         </div>
         <!-- TODO: topics, dates and recording links from data/muharram.js -->
         <div class="sg-nights">
@@ -571,20 +616,18 @@
     <!-- ================================================================
          Reference: form fields
          ================================================================ -->
-    <section class="sg-sec surface-stone" id="forms" aria-labelledby="forms-title">
+    <section class="sg-sec" id="forms" aria-labelledby="forms-title">
       <div class="container sg-form-wrap">
-        <div>
-          <h2 class="t-h1" id="forms-title" style="color: var(--teal)">Forms</h2>
-          <p class="t-lead" style="margin-top: var(--sp-4); max-width: 34ch">Labels always visible, 16px text so phones don't zoom in, and errors that say what to fix. Try sending this demo empty.</p>
-          <div style="display: grid; gap: 6px; margin-top: var(--sp-6)">
-            <div class="notice notice--success" role="status">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>
-              <div><p class="notice__title">Request received</p><p>We'll reply on WhatsApp.</p></div>
-            </div>
-            <div class="notice notice--error" role="alert">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>
-              <div><p class="notice__title">That didn't send</p><p>Check your connection and try again, or send it on WhatsApp instead.</p></div>
-            </div>
+        <div style="display: grid; gap: var(--sp-4); align-content: start">
+          <h2 class="t-h1" id="forms-title">Forms</h2>
+          <p class="t-lead" style="max-width: 34ch">Labels always visible, 16px text so phones don't zoom in, and errors that say what to fix. Try sending this demo empty.</p>
+          <div class="notice notice--success" role="status">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>
+            <div><p class="notice__title">Request received</p><p>We'll reply on WhatsApp.</p></div>
+          </div>
+          <div class="notice notice--error" role="alert">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>
+            <div><p class="notice__title">That didn't send</p><p>Check your connection and try again, or send it on WhatsApp instead.</p></div>
           </div>
         </div>
 
@@ -651,7 +694,7 @@
               <span class="btn__spinner" aria-hidden="true"></span>
               <span class="btn__text">Send request</span>
             </button>
-            <a class="btn btn--link" href="#forms" style="color: var(--teal)">Or send this on WhatsApp</a>
+            <a class="btn btn--link" href="#forms">Or send this on WhatsApp</a>
           </div>
 
           <div aria-live="polite" data-demo-status></div>
@@ -662,39 +705,33 @@
     <!-- ================================================================
          Reference: icons
          ================================================================ -->
-    <section class="sg-sec surface-teal" id="icons" aria-labelledby="icons-title">
-      <div class="container">
-        <div class="sg-split sg-split--right sg-head">
-          <h2 class="t-h2" id="icons-title">Icons</h2>
-          <p class="t-muted">Line icons on a 24px grid, written inline so there's no icon library to load. Used beside a word, never instead of one.</p>
-        </div>
+    <section class="sg-sec surface-soft" id="icons" aria-labelledby="icons-title" style="padding-block: var(--sp-7)">
+      <div class="container" style="display: grid; gap: var(--sp-5)">
+        <h2 class="t-h2" id="icons-title">Icons</h2>
         <div class="sg-icons">
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Calendar</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Time</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.5A7 7 0 0 1 9.5 4.5a7.5 7.5 0 1 0 8 10z"/></svg>Hijri date</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Location</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2z"/></svg>WhatsApp</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg>YouTube</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.5c3-1 6-.5 8.5 1.5 2.5-2 5.5-2.5 8.5-1.5v13c-3-1-6-.5-8.5 1.5-2.5-2-5.5-2.5-8.5-1.5z"/><path d="M12 7v13"/></svg>Classes</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 3.5 5.5 3.5 8.5s-1 6-3.5 8.5c-2.5-2.5-3.5-5.5-3.5-8.5s1-6 3.5-8.5z"/></svg>Online</div>
-          <div class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.5-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.5-7.5 10-7.5 10z"/></svg>Support</div>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Calendar</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Time</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.5A7 7 0 0 1 9.5 4.5a7.5 7.5 0 1 0 8 10z"/></svg>Hijri date</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Location</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2z"/></svg>WhatsApp</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg>YouTube</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.5c3-1 6-.5 8.5 1.5 2.5-2 5.5-2.5 8.5-1.5v13c-3-1-6-.5-8.5 1.5-2.5-2-5.5-2.5-8.5-1.5z"/><path d="M12 7v13"/></svg>Classes</span>
+          <span class="sg-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 3.5 5.5 3.5 8.5s-1 6-3.5 8.5c-2.5-2.5-3.5-5.5-3.5-8.5s1-6 3.5-8.5z"/></svg>Online</span>
         </div>
       </div>
     </section>
 
     <!-- ================================================================
-         For review: decisions and the hero photo brief
+         For review
          ================================================================ -->
-    <section class="sg-sec surface-teal" id="review" aria-labelledby="review-title" style="padding-top: 0">
-      <div class="container">
-        <h2 class="t-h1" id="review-title" style="margin-bottom: var(--sp-6)">For review</h2>
+    <section class="sg-sec surface-teal" id="review" aria-labelledby="review-title">
+      <div class="container" style="display: grid; gap: var(--sp-6)">
+        <h2 class="t-h1" id="review-title">For review</h2>
         <ol class="sg-decisions">
-          <li><b>The hero photo</b>One wide photo of a full Muharram night, taken from the back of the hall on a tripod at standing eye level, with the minbar and speaker centred and the crowd filling the bottom third. From the same tripod position, one frame of the empty hall before people arrive. A tall phone version of both helps the phone layout.</li>
-          <li><b>What gets cut out</b>Three layers: the empty hall as the background, the speaker and minbar cut out with a transparent background, and the two nearest rows of heads and shoulders cut out with a transparent background. The haze is made in code. Each goes in as a WebP.</li>
-          <li><b>Type</b>Archivo replaces Cormorant Garamond and Manrope. Reem Kufi replaces Amiri for Arabic. Nothing is lighter than 400.</li>
-          <li><b>Colour</b>Deep teal is now the main surface. The light surface is a cool stone instead of ivory. The poster red is brighter (#8E1B1E) and only used for Muharram and "Live now".</li>
-          <li><b>Removed</b>Numbered section labels, hairline rules, small capitals, middle dots, dashes in text and arrows on buttons. Cards are now three different things: timetable rows, photo tiles and video tiles.</li>
-          <li><b>Still to confirm</b>Which Eid prayers the institute holds, the one line of purpose for the first screen, and the logo file. <span class="todo">[TODO]</span></li>
+          <li><b>The hero photo</b>One wide photo of a full Muharram night from the back of the hall, on a tripod at standing eye level, with the minbar and speaker in the middle. From the same spot, one photo of the empty hall before people arrive. A tall phone version of both helps.</li>
+          <li><b>What gets cut out</b>The empty hall is the background. The speaker with the minbar, and the two nearest rows of heads and shoulders, are each cut out with a transparent background and saved as WebP. The haze is made in code.</li>
+          <li><b>Photos for "From 1992 to today"</b>Seven: an early photo, the Quetta building, a class, a full Muharram night, a Ramadan night, Eid prayers, and the winter camp.</li>
+          <li><b>Still to confirm</b>The line of purpose under the name, which Eid prayers the institute holds, class details, and the logo file. <span class="todo">[TODO]</span></li>
         </ol>
       </div>
     </section>
@@ -707,15 +744,15 @@
   <script src="js/now.js"></script>
 
   <script>
-    /* --- Sample programs for the scroll chapters ------------------------- */
+    /* --- Sample programs for The Year ------------------------------------ */
     // Styleguide only. From Phase 1 the real list lives in data/programs.js.
     window.AIAT_PROGRAMS = [
-      { name: "The first ten nights", short: "Muharram", hijri: { month: 1, day: 5 }, when: "1 to 10 Muharram, livestreamed", mourning: true },
+      { name: "The first ten nights", hijri: { month: 1, day: 5 }, when: "1 to 10 Muharram, livestreamed", mourning: true },
       { name: "Ramadan", hijri: { month: 9, day: 1 }, when: "[dates TODO]" },
       { name: "Shab-e-Qadr", hijri: { month: 9, day: 21 }, when: "[nights TODO]" },
-      { name: "Eid prayers", hijri: { month: 10, day: 1 }, when: "[which Eids, time and place TODO]" },
+      { name: "Eid prayers", hijri: { month: 10, day: 1 }, when: "[which Eids TODO]" },
       { name: "Eid al-Ghadir", hijri: { month: 12, day: 18 }, when: "18 Dhu al-Hijjah" },
-      { name: "Winter camp", gregorian: function () { return AIATCalendar.nextJanuary(); }, when: "January, boys aged 10 to 17, [dates TODO]" }
+      { name: "Winter camp", gregorian: function () { return AIATCalendar.nextJanuary(); }, when: "January, boys aged 10 to 17" }
     ];
 
     /* --- The Year: build the twelve months from the sample programs ------ */
@@ -736,24 +773,18 @@
           var h = p.hijri || C.hijri(p.gregorian());
           return h && h.month === month;
         });
+        var isNow = today && today.month === month;
         var el = document.createElement("article");
-        el.className = "year__month" + (events.length ? " has-events" : " is-quiet");
+        el.className = "year__month" + (events.length ? " has-events" : " is-quiet") + (isNow ? " is-now" : "");
         el.innerHTML =
-          '<span class="year__num" aria-hidden="true">' + String(month).padStart(2, "0") + "</span>" +
           '<h3 class="year__name">' + m.en + "</h3>" +
           '<span class="year__ar" lang="ar" dir="rtl">' + m.ar + "</span>" +
           (events.length ? '<div class="year__events">' + events.map(function (p) {
             return '<div class="year__event' + (p.mourning ? " year__event--mourning" : "") + '">' +
               '<span class="year__event-title">' + p.name + "</span>" +
               '<span class="year__event-when">' + whenHtml(p.when) + "</span></div>";
-          }).join("") + "</div>" : "");
-        if (today && today.month === month) {
-          var here = document.createElement("div");
-          here.className = "year__here";
-          here.style.left = ((today.day - 1) / 30 * 100) + "%";
-          here.innerHTML = "<span>We are here: " + today.day + " " + m.en + "</span>";
-          el.appendChild(here);
-        }
+          }).join("") + "</div>" : "") +
+          (isNow ? '<p class="year__here"><span>We are here: ' + today.day + " " + m.en + "</span></p>" : "");
         track.appendChild(el);
       });
     })();
@@ -787,51 +818,44 @@
         return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
       }
 
-      /* --- Palette: color tiles (token, role, big?) --------------------- */
-      var TILES = [
-        ["--teal-deep", "Main surface, big blocks, footer", true],
-        ["--teal", "Brand teal, buttons on light"],
-        ["--teal-2", "Raised blocks on teal"],
-        ["--gold", "Accent, main buttons on teal"],
-        ["--crimson", "Muharram and Live now"],
-        ["--stone", "Light surface"],
-        ["--stone-2", "Blocks on stone"],
-        ["--ink", "Text on light"],
-        ["--gold-ink", "Gold text on light"],
+      /* --- Palette: swatches (token, role) ------------------------------ */
+      var SWATCHES = [
+        ["--white", "Page"],
+        ["--teal", "Headings, buttons, bands"],
+        ["--teal-tint", "Selected filters, tiles"],
+        ["--surface", "Quiet blocks"],
+        ["--ink", "Body text"],
+        ["--ink-soft", "Secondary text"],
+        ["--gold", "Small marks only"],
+        ["--crimson", "Muharram, Live now"],
         ["--mourning", "Muharram background"],
-        ["--teal-soft", "Tags on light"]
+        ["--teal-mid", "Secondary teal text"]
       ];
-      var tiles = document.querySelector("[data-tiles]");
-      TILES.forEach(function (t) {
-        var bg = token(t[0]);
-        // Pick whichever text color reads better on this tile
-        var fg = ratio(bg, token("--white")) >= ratio(bg, token("--ink")) ? token("--white") : token("--ink");
+      var sw = document.querySelector("[data-swatches]");
+      SWATCHES.forEach(function (s) {
         var el = document.createElement("div");
-        el.className = "sg-tile" + (t[2] ? " sg-tile--big" : "");
-        el.style.background = bg;
-        el.style.color = fg;
-        el.innerHTML = '<span class="sg-tile__name">' + t[0].slice(2) + "</span>" +
-          '<span><span class="sg-tile__role">' + t[1] + '</span><br><span class="sg-tile__hex">' + bg.toUpperCase() + "</span></span>";
-        tiles.appendChild(el);
+        el.className = "sg-swatch";
+        el.innerHTML = '<div class="sg-swatch__chip" style="background: var(' + s[0] + ')"></div>' +
+          "<b>" + s[0].slice(2) + "</b><span>" + token(s[0]).toUpperCase() + ", " + s[1] + "</span>";
+        sw.appendChild(el);
       });
 
       /* --- Contrast: the text pairings the site actually uses ---------- */
       var PAIRS = [
-        ["--white", "--teal-deep", "Text on the main surface"],
-        ["--on-dark-soft", "--teal-deep", "Secondary text on teal"],
-        ["--gold", "--teal-deep", "Gold text on teal"],
-        ["--teal-deep", "--gold", "Gold buttons"],
-        ["--white", "--teal-2", "Text on raised teal blocks"],
-        ["--ink", "--stone", "Text on stone"],
-        ["--ink-soft", "--stone-2", "Secondary text on stone blocks"],
-        ["--teal", "--stone", "Teal headings on stone"],
-        ["--gold-ink", "--stone", "Gold text on stone"],
-        ["--white", "--teal", "Teal buttons"],
+        ["--ink", "--white", "Body text"],
+        ["--ink-soft", "--white", "Secondary text"],
+        ["--teal", "--white", "Headings and links"],
+        ["--teal-mid", "--white", "Secondary teal text"],
+        ["--white", "--teal", "Teal buttons and bands"],
+        ["--on-teal-soft", "--teal", "Secondary text on teal"],
+        ["--teal", "--teal-tint", "Prayer tiles, tags"],
+        ["--ink", "--surface", "Text on quiet blocks"],
+        ["--gold-ink", "--white", "Gold text (rare)"],
         ["--white", "--crimson", "Red buttons, Live now"],
         ["--crimson", "--white", "Form errors"],
         ["--mourning-text", "--mourning", "Muharram text"],
         ["--mourning-muted", "--mourning", "Muharram secondary text"],
-        ["--crimson-bright", "--mourning", "Red night numbers on black (large only)"]
+        ["--gold", "--white", "Gold marks (never text)"]
       ];
       var tbody = document.querySelector("[data-contrast]");
       PAIRS.forEach(function (p) {
@@ -840,17 +864,20 @@
         var tr = document.createElement("tr");
         tr.innerHTML =
           "<td>" + p[2] + "</td>" +
-          '<td><span class="sg-pair" style="color:' + fg + ";background:" + bg + '">' + p[0].slice(2) + " on " + p[1].slice(2) + "</span></td>" +
+          '<td><span class="sg-pair" style="color:' + fg + ";background:" + bg + ';box-shadow: inset 0 0 0 1px rgba(23,35,38,.1)">' + p[0].slice(2) + " on " + p[1].slice(2) + "</span></td>" +
           '<td class="t-tabular">' + r.toFixed(2) + ":1</td>" +
           '<td class="' + (r >= 4.5 ? 'sg-pass">Pass' : 'sg-fail">Fail') + "</td>" +
           '<td class="' + (r >= 3 ? 'sg-pass">Pass' : 'sg-fail">Fail') + "</td>";
         tbody.appendChild(tr);
       });
 
-      /* --- Demo: filter chips toggle on tap ---------------------------- */
-      document.querySelectorAll("[data-demo-chips] .chip").forEach(function (chip) {
-        chip.addEventListener("click", function () {
-          chip.setAttribute("aria-pressed", chip.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      /* --- Demo: filter chips (one choice at a time in each group) ------ */
+      document.querySelectorAll("[data-demo-chips]").forEach(function (group) {
+        var chips = group.querySelectorAll(".chip");
+        chips.forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
+          });
         });
       });
 
@@ -907,7 +934,7 @@
     });
   </script>
 
-  <!-- Scroll chapters: hero depth, Proof, The Year, Muharram -->
+  <!-- Scroll chapters: hero layers, from 1992 to today, classes, Muharram -->
   <script src="js/motion.js"></script>
 </body>
 </html>
