@@ -1,7 +1,7 @@
 /* ==========================================================================
    AIAT — motion.css
-   Layout for the three scroll-driven chapters: Proof, The Year and the
-   Muharram threshold.
+   Layout for the scroll-driven chapters: Proof, The Year and the way into
+   Muharram (the hero's depth layers live in layout.css).
 
    Every chapter has a STATIC default: without JS, without GSAP, or with
    reduced motion, it is a plain, readable layout. js/motion.js adds the
@@ -11,14 +11,14 @@
 
 
 /* ==========================================================================
-   1. PROOF — a photo opens, a timeline draws, ten lamps light, the year turns
+   1. PROOF: a photo opens, a timeline draws, ten lamps light, the year turns
    ========================================================================== */
 
 /* --- Static default: facts as a list beside one photo -------------------- */
 .proof {
   position: relative;
   background: var(--teal-deep);
-  color: var(--paper);
+  color: var(--white);
   overflow: hidden;
 }
 .proof__pin {
@@ -36,6 +36,7 @@
   inset: 0;
   margin: 0;
   overflow: hidden;
+  border-radius: var(--radius);
 }
 .proof__photo--b,
 .proof__svg { display: none; }       /* scenes only exist in scrolly mode */
@@ -44,37 +45,38 @@
 .proof__cap { display: grid; gap: var(--sp-3); }
 .proof__big {
   font-family: var(--font-display);
+  font-stretch: 125%;
   font-size: var(--fs-h1);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--paper);
-  font-variant-numeric: lining-nums;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: var(--white);
 }
 .proof__line {
   font-size: var(--fs-lead);
   max-width: 30ch;
-  color: color-mix(in srgb, var(--paper) 82%, var(--teal-deep));
+  color: var(--on-dark-soft);
 }
 .proof__progress { display: none; }
 
 @media (min-width: 900px) {
-  .proof__pin { grid-template-columns: 7fr 4fr; align-items: center; gap: var(--sp-8); }
+  .proof__pin { grid-template-columns: 7fr 5fr; align-items: center; gap: var(--sp-7); }
 }
 
 /* --- Scrolly mode: one pinned screen, scenes driven by scroll ------------ */
 .proof.is-scrolly .proof__pin {
   height: 100vh;
   height: 100svh;
-  padding-block: var(--sp-6);
+  padding-block: var(--sp-5);
   align-content: center;
   grid-template-rows: auto auto;
 }
 @media (min-width: 900px) {
   .proof.is-scrolly .proof__pin { grid-template-rows: none; }
 }
-.proof.is-scrolly .proof__stage { max-height: 62svh; margin-inline: auto; }
+.proof.is-scrolly .proof__stage { max-height: 60svh; margin-inline: auto; }
 @media (min-width: 900px) {
-  .proof.is-scrolly .proof__stage { max-height: 80vh; }
+  .proof.is-scrolly .proof__stage { max-height: 82vh; }
 }
 
 .proof.is-scrolly .proof__photo--b,
@@ -85,77 +87,98 @@
 .proof__photo--b { inset: 14% 8% auto auto; width: 34%; height: 30%; }
 
 /* Captions stack in one place; each line slides up out of a mask */
-.proof.is-scrolly .proof__caps { position: relative; min-height: 11rem; display: block; }
-@media (min-width: 900px) { .proof.is-scrolly .proof__caps { min-height: 16rem; } }
+.proof.is-scrolly .proof__caps { position: relative; min-height: 12rem; display: block; }
+@media (min-width: 900px) { .proof.is-scrolly .proof__caps { min-height: 18rem; } }
 .proof.is-scrolly .proof__cap { position: absolute; inset: 0 0 auto 0; }
 .proof__mask { display: block; overflow: hidden; padding-bottom: 0.08em; }
 .proof__mask > span { display: block; }
 
 .proof.is-scrolly .proof__progress {
   display: flex;
-  gap: var(--sp-2);
+  gap: 6px;
   margin-top: var(--sp-5);
 }
-.proof__tick { flex: 1; height: 1px; position: relative; background: rgba(246, 243, 236, 0.18); }
+.proof__tick { flex: 1; height: 4px; position: relative; background: rgba(245, 247, 246, 0.14); border-radius: 2px; overflow: hidden; }
 .proof__tick span { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; }
 
 /* SVG drawing styles (font sizes are set by motion.js to suit the screen) */
-.proof__svg text { font-family: var(--font-body); fill: rgba(246, 243, 236, 0.72); }
-.proof__svg .t-year { font-family: var(--font-display); fill: var(--paper); }
-.proof__svg .t-gold { fill: var(--gold); }
-.proof__svg .ln { stroke: var(--gold); stroke-width: 1.5; fill: none; }
-.proof__svg .ln-faint { stroke: rgba(246, 243, 236, 0.25); stroke-width: 1; fill: none; }
+.proof__svg text { font-family: var(--font-body); font-weight: 500; fill: var(--on-dark-soft); }
+.proof__svg .t-year { font-family: var(--font-display); font-stretch: 125%; font-weight: 800; fill: var(--white); }
+.proof__svg .t-gold { fill: var(--gold); font-weight: 600; }
+.proof__svg .ln { stroke: var(--gold); stroke-width: 3; fill: none; stroke-linecap: round; }
+.proof__svg .ln-faint { stroke: rgba(245, 247, 246, 0.22); stroke-width: 2; fill: none; }
 .proof__svg .dot { fill: var(--gold); }
-.proof__svg .lamp-flame { fill: #E9B872; }
-.proof__svg .lamp-cup { fill: none; stroke: var(--mourning-muted); stroke-width: 1.5; }
-.proof__svg .lamp-num { fill: var(--mourning-muted); }
+.proof__svg .lamp-flame { fill: #EDBB74; }
+.proof__svg .lamp-cup { fill: none; stroke: var(--mourning-muted); stroke-width: 2.5; }
+.proof__svg .lamp-num { fill: var(--mourning-muted); font-weight: 600; }
 
 
 /* ==========================================================================
-   2. THE YEAR — twelve Hijri months; horizontal on desktop, a list on phones
+   2. THE YEAR: twelve Hijri months; sideways on desktop, a list on phones
    ========================================================================== */
 
 /* --- Static default (phones, reduced motion): a vertical list ------------ */
-.year { background: var(--paper); }
+.year { background: var(--stone); color: var(--ink); }
 .year__pin { padding-block: var(--sp-section); }
-.year__head { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-6); }
-.year__today { display: flex; align-items: center; gap: var(--sp-2); color: var(--gold-text); font-size: var(--fs-small); font-weight: 500; }
-.year__today::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+.year__head {
+  display: grid;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+@media (min-width: 900px) {
+  .year__head { grid-template-columns: 1fr auto; align-items: end; }
+}
+.year__title { color: var(--teal); }
+.year__today {
+  display: grid;
+  gap: 2px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--teal-deep);
+  color: var(--white);
+  border-radius: var(--radius);
+  justify-self: start;
+}
+.year__today small { color: var(--gold); font-weight: 600; font-size: var(--fs-micro); }
+.year__today span { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1.125rem; }
 
-.year__track { position: relative; display: grid; }
+.year__track { position: relative; display: grid; gap: 4px; }
 .year__month {
   position: relative;
   display: grid;
-  grid-template-columns: 3.25rem 1fr;
-  gap: var(--sp-1) var(--sp-4);
-  padding-block: var(--sp-5);
-  border-top: 1px solid var(--line);
+  grid-template-columns: 1fr auto;
+  gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--stone-2);
+  border-radius: var(--radius);
 }
-.year__num { grid-row: span 3; font-family: var(--font-display); font-style: italic; font-size: 1.5rem; color: var(--gold-text); line-height: 1; }
-.year__name { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 500; color: var(--teal); line-height: 1.2; }
-.year__ar { font-family: var(--font-arabic); font-size: 1.15rem; color: var(--gold-text); }
-.year__events { display: grid; gap: var(--sp-3); margin-top: var(--sp-3); }
-.year__month.is-quiet .year__name { color: color-mix(in srgb, var(--teal) 55%, var(--paper)); }
+.year__num { display: none; }
+.year__name { font-family: var(--font-display); font-stretch: 112%; font-size: 1.5rem; font-weight: 750; line-height: 1.05; color: var(--teal); }
+.year__ar { font-family: var(--font-arabic); font-weight: 700; font-size: 1.375rem; line-height: 1.1; color: var(--gold-ink); }
+.year__events { grid-column: 1 / -1; display: grid; gap: 4px; }
+.year__month.is-quiet { padding-block: var(--sp-3); }
+.year__month.is-quiet .year__name { font-size: 1.125rem; color: var(--ink-soft); }
+.year__month.is-quiet .year__ar { font-size: 1.125rem; color: var(--ink-soft); }
+.year__month.has-events { background: var(--teal); }
+.year__month.has-events .year__name { color: var(--white); }
+.year__month.has-events .year__ar { color: var(--gold); }
 
 /* A program inside its month */
-.year__event { padding: var(--sp-4); background: var(--paper-2); border-left: 2px solid var(--gold); display: grid; gap: var(--sp-1); }
-.year__event-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 500; color: var(--teal); line-height: 1.2; }
-.year__event-when { font-size: var(--fs-small); color: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
-.year__event--mourning { background: var(--mourning); border-left-color: var(--crimson); }
-.year__event--mourning .year__event-title { color: var(--mourning-text); }
-.year__event--mourning .year__event-when { color: var(--mourning-muted); }
+.year__event { padding: var(--sp-3) var(--sp-4); background: var(--teal-deep); color: var(--white); border-radius: 3px; display: grid; gap: 2px; }
+.year__event-title { font-family: var(--font-display); font-stretch: 112%; font-size: 1.125rem; font-weight: 700; line-height: 1.15; }
+.year__event-when { font-size: var(--fs-small); color: var(--on-dark-soft); }
+.year__event--mourning { background: var(--crimson); }
+.year__event--mourning .year__event-when { color: #F1D6D6; }
 
-/* "We are here" — a gold line through today's month */
+/* "We are here": a gold marker in today's month */
 .year__here {
+  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  margin-top: var(--sp-3);
-  color: var(--gold-text);
   font-size: var(--fs-small);
   font-weight: 600;
 }
-.year__here::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+.year__here span { padding: 0.2em 0.6em; background: var(--gold); color: var(--teal-deep); border-radius: 3px; }
 
 .year__progress { display: none; }
 
@@ -165,62 +188,71 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: var(--sp-6);
+  padding-block: var(--sp-5);
   overflow: hidden;
 }
 .year.is-scrolly .year__viewport { max-width: none; padding-inline: 0; }
 .year.is-scrolly .year__track {
   display: flex;
+  gap: 6px;
   width: max-content;
   /* first month lines up with the page's content column */
   padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
-  padding-top: 2.5rem;            /* room for the "We are here" tag */
+  padding-top: 2.75rem;            /* room for the "We are here" tag */
   will-change: transform;
 }
 .year.is-scrolly .year__month {
-  width: clamp(240px, 24vw, 340px);
-  min-height: 52vh;
+  width: clamp(250px, 22vw, 320px);
+  min-height: 54vh;
   grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
   align-content: start;
-  padding: var(--sp-5) var(--sp-5) var(--sp-5) 0;
-  margin-right: var(--sp-5);
-  border-top: 0;
-  border-left: 1px solid var(--line);
-  padding-left: var(--sp-4);
+  padding: var(--sp-5);
 }
-.year.is-scrolly .year__num { grid-row: auto; margin-bottom: var(--sp-2); }
+.year.is-scrolly .year__num {
+  display: block;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 0.9;
+  color: rgba(13, 34, 38, 0.18);
+  margin-bottom: var(--sp-2);
+}
+.year.is-scrolly .year__month.has-events .year__num { color: rgba(245, 247, 246, 0.2); }
+/* Months with nothing on keep the rhythm but take less room */
+.year.is-scrolly .year__month.is-quiet { width: clamp(150px, 11vw, 180px); }
+.year.is-scrolly .year__month.is-quiet .year__name { font-size: 1.125rem; }
+.year.is-scrolly .year__ar { text-align: left; }
+.year.is-scrolly .year__events { align-self: end; }
 .year.is-scrolly .year__here {
   position: absolute;
-  top: 0;
+  top: -2.75rem;
   bottom: 0;
-  margin: 0;
   width: 0;
-  border-left: 1px solid var(--gold);
+  border-left: 3px solid var(--gold);
   align-items: flex-start;
 }
-.year.is-scrolly .year__here::before { display: none; }
 .year.is-scrolly .year__here span {
   position: absolute;
-  top: -1.9rem;
-  left: 0;
+  top: 0;
+  left: -1.5px;
   transform: translateX(-50%);
   white-space: nowrap;
-  padding: 0.15em 0.6em;
-  background: var(--gold);
-  color: var(--teal-deep);
-  border-radius: var(--radius-pill);
 }
 .year.is-scrolly .year__progress {
   display: block;
-  height: 1px;
-  margin: var(--sp-6) var(--gutter) 0;
-  background: var(--line);
+  height: 4px;
+  margin: var(--sp-5) var(--gutter) 0;
+  background: var(--stone-2);
+  border-radius: 2px;
+  overflow: hidden;
 }
-.year__progress span { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; }
+.year__progress span { display: block; height: 100%; background: var(--teal); transform: scaleX(0); transform-origin: left; }
 
 
 /* ==========================================================================
-   3. MUHARRAM THRESHOLD — the page darkens and one line arrives, word by word
+   3. MUHARRAM THRESHOLD: the dark rises, one line arrives word by word
    ========================================================================== */
 
 /* Static default: already in Muharram colors, text fully visible */
@@ -229,12 +261,12 @@
   background: var(--mourning);
   color: var(--mourning-text);
 }
-/* Scrolly mode: a paper-colored sheet that drains upwards (added by JS) */
+/* Scrolly mode: a sheet in the page color that drains upwards (added by JS) */
 .threshold__veil {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: var(--paper);
+  background: var(--stone);
   transform-origin: top;
   pointer-events: none;
 }
@@ -242,19 +274,29 @@
   min-height: 80vh;
   display: grid;
   align-content: center;
-  justify-items: start;
   gap: var(--sp-6);
   padding-block: var(--sp-section);
 }
-.threshold .section-label { color: inherit; opacity: 0.75; }
-.threshold .section-label::after { background: var(--crimson); opacity: 1; }
-.threshold__rule { width: 1px; height: 96px; background: var(--crimson); transform-origin: top; }
+@media (min-width: 900px) {
+  /* The line sits to the right, the red rule to the left: a split, not centred */
+  .threshold__inner { grid-template-columns: 1fr 1.6fr; align-items: center; column-gap: var(--sp-8); }
+  .threshold .threshold__rule { grid-column: 1; grid-row: 1 / span 2; justify-self: end; height: 60vh; }
+  .threshold__text,
+  .threshold [data-threshold-after] { grid-column: 2; }
+}
+.threshold__rule { width: 6px; height: 96px; background: var(--crimson-bright); transform-origin: top; border-radius: 3px; }
 .threshold__text {
   font-family: var(--font-display);
+  font-stretch: 112%;
   font-size: var(--fs-h1);
-  font-weight: 400;
-  line-height: 1.15;
-  max-width: 18ch;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 17ch;
 }
 .threshold__text .w { display: inline; }
-.threshold.is-scrolly .threshold__inner { height: 100vh; min-height: 0; padding-block: var(--sp-6); }
+.threshold.is-scrolly .threshold__inner { height: 100vh; min-height: 0; padding-block: var(--sp-5); }
+
+/* Placeholders inside the dark program blocks */
+.year__event .todo { color: var(--gold); background: rgba(208, 165, 100, 0.16); }
+.year__event--mourning .todo { color: var(--white); background: rgba(245, 247, 246, 0.14); }

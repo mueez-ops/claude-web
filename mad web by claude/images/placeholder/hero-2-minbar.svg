@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PLACEHOLDER. Replace with the real AIAT photo layer (see styleguide notes). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" preserveAspectRatio="xMidYMax meet">
+<g fill="#07171A">
+  <!-- minbar: stepped stair with a pointed canopy -->
+  <path d="M120 700V560h50v-40h50v-40h50v-40h50v-40h40V250c0-50 25-85 60-105 35 20 60 55 60 105v450z"/>
+  <!-- speaker: seated at the top, turban and robe -->
+  <ellipse cx="400" cy="250" rx="34" ry="26"/>
+  <circle cx="400" cy="282" r="24"/>
+  <path d="M352 420c0-70 20-112 48-112s48 42 48 112v34h-96z"/>
+</g>
+<g fill="none" stroke="#E2B676" stroke-width="2.5" opacity="0.55">
+  <path d="M410 145c35 20 60 55 60 105"/>
+  <path d="M367 248c4-18 18-26 33-26"/>
+  <path d="M448 420c0-70-20-112-48-112"/>
+</g>
+</svg>

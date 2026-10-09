@@ -1,8 +1,10 @@
 /* ==========================================================================
    AIAT — motion.js
    Scroll-driven chapters, built on GSAP + ScrollTrigger (loaded from CDN
-   before this file). Three chapters, each started from its HTML hook:
+   before this file). Each is started from its HTML hook:
 
+     [data-hero]       Hero depth: layers move at different rates
+                       (each layer says how much with data-depth)
      [data-proof]      Proof — photo opens, timeline draws 1992 → 2018,
                        ten lamps light, the Hijri year turns as a ring
      [data-year]       The Year — months slide sideways (desktop only)
@@ -60,6 +62,28 @@
       return h ? { name: p.short || p.name, frac: C.yearFraction(h) } : null;
     }).filter(Boolean);
     return list.sort(function (a, b) { return a.frac - b.frac; });
+  }
+
+
+  /* ========================================================================
+     0. HERO DEPTH: each layer drifts at its own rate as the hero scrolls away
+     ======================================================================== */
+  // data-depth is the share of the hero's height a layer travels while the
+  // hero leaves the screen. Positive = lags behind (far away), negative =
+  // rushes ahead (close to the camera). Small numbers: depth, not a ride.
+  function initHero(root) {
+    var layers = root.querySelectorAll("[data-depth]");
+    var tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: 0.4 }
+    });
+    layers.forEach(function (el) {
+      var depth = parseFloat(el.getAttribute("data-depth")) || 0;
+      tl.to(el, { y: function () { return depth * root.offsetHeight; } }, 0);
+    });
+    var haze = root.querySelector(".hero__atmos");
+    if (haze) tl.to(haze, { opacity: 0.35 }, 0);
+    return function () { gsap.set(els(layers, haze), { clearProps: "all" }); };
   }
 
 
@@ -403,8 +427,9 @@
     }, function (ctx) {
       if (!ctx.conditions.motion) return;
       var undo = [];
-      document.querySelectorAll("[data-proof], [data-year], [data-threshold]").forEach(function (el) {
-        if (el.hasAttribute("data-proof")) undo.push(initProof(el));
+      document.querySelectorAll("[data-hero], [data-proof], [data-year], [data-threshold]").forEach(function (el) {
+        if (el.hasAttribute("data-hero")) undo.push(initHero(el));
+        else if (el.hasAttribute("data-proof")) undo.push(initProof(el));
         else if (el.hasAttribute("data-threshold")) undo.push(initThreshold(el));
         else if (ctx.conditions.wide) undo.push(initYear(el));
       });
