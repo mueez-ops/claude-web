@@ -4,11 +4,7 @@
      [data-hijri]        today's Hijri date, e.g. "28 Rabi al-Thani 1448"
      [data-hijri-ar]     the Hijri month in Arabic
      [data-greg]         today's date in Quetta, e.g. "Friday 9 October 2026"
-     [data-prayers]      Quetta prayer times with the next one highlighted;
-                         inside it [data-prayer-next], [data-prayer-next-time]
-                         and [data-prayer-in] show the next prayer on its own
-     [data-next-program] the next program on the calendar (data/programs.js),
-                         with [data-next-when] for its date
+     [data-prayers]      Quetta prayer times with the next one highlighted
 
    Prayer times come from the Aladhan API (free, no key). Today's answer is
    cached in localStorage. If anything fails the prayer block stays hidden;
@@ -100,8 +96,6 @@
   function render(block, times) {
     var list = block.querySelector("[data-prayer-list]");
     var inEl = block.querySelector("[data-prayer-in]");
-    var nextEl = block.querySelector("[data-prayer-next]");
-    var nextTimeEl = block.querySelector("[data-prayer-next-time]");
     var now = quettaNow().minutes;
 
     // Next prayer today, or Fajr tomorrow after Isha
@@ -116,10 +110,7 @@
         '<span class="prayers__name">' + p + (p === next ? " (next)" : "") + "</span>" +
         '<span class="prayers__time">' + t.time + "<small>" + t.ampm + "</small></span></li>";
     }).join("");
-    var nt = to12h(times[next]);
-    if (nextEl) nextEl.textContent = next;
-    if (nextTimeEl) nextTimeEl.textContent = nt.time + " " + nt.ampm;
-    if (inEl) inEl.textContent = untilText(diff);
+    if (inEl) inEl.textContent = next + " " + untilText(diff);
     block.hidden = false;
   }
 
@@ -135,25 +126,7 @@
     });
   }
 
-  /* --- Next on the calendar -------------------------------------------- */
-  // Hijri dates are shown with the Gregorian day they're expected to fall
-  // on ("around"), since the actual day depends on the moon sighting.
-  function fillNextProgram() {
-    var C = window.AIATCalendar;
-    var found = C && C.nextProgram(window.AIAT_PROGRAMS);
-    document.querySelectorAll("[data-next-program]").forEach(function (el) {
-      if (!found) { el.hidden = true; return; }
-      var p = found.program;
-      el.querySelector("[data-next-name]").textContent = p.name;
-      var when = p.when;
-      if (p.start.calendar === "hijri") {
-        when += ", around " + new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(found.date);
-      }
-      el.querySelector("[data-next-when]").textContent = when;
-    });
-  }
-
-  function start() { fillDates(); startPrayers(); fillNextProgram(); }
+  function start() { fillDates(); startPrayers(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
 })();

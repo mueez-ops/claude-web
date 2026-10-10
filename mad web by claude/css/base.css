@@ -1,87 +1,51 @@
 /* ==========================================================================
    AIAT — base.css
-   Design tokens (colors, type scale, spacing), reset, typography and small
-   shared utilities. Every other stylesheet builds on the variables here.
-   To retune the brand, change values in :root only.
+   Design tokens, reset, typography and small shared utilities.
+   The look: a white page, one quiet typeface (Geist), the logo teal as the
+   single brand colour, big photographs, lots of room. To retune the brand,
+   change values in :root only.
    ========================================================================== */
 
 /* --- Design tokens ------------------------------------------------------- */
 :root {
-  /* Page: white. Colour is used only where it has a job. */
+  /* Neutrals */
   --white: #FFFFFF;
-  --surface: #F4F7F7;        /* quiet blocks on white (form panel, rows) */
-  --ink: #172326;            /* body text */
-  --ink-soft: #4F5F62;       /* secondary text */
-  --border: #D5DFDF;         /* input and table borders (functional only) */
+  --gray-1: #F5F5F7;         /* alternate light sections */
+  --gray-2: #E8E8ED;         /* dividers, input borders */
+  --ink: #1D1D1F;            /* text */
+  --ink-2: #6E6E73;          /* secondary text */
+  --black: #0B0B0C;          /* the one dark section */
 
-  /* Brand teal, from the dome in the logo */
-  --teal: #123D45;           /* headings, buttons, captions, feature bands */
+  /* Brand: the teal from the logo, used for actions and small highlights */
+  --teal: #123D45;
   --teal-hover: #0C2C33;
-  --teal-tint: #E8F0F0;      /* selected filters, tags, prayer tiles */
-  --teal-mid: #2F6670;       /* secondary teal text on white */
-  --on-teal-soft: #B9CFD1;   /* secondary text on teal */
+  --teal-tint: #E7EFF0;
 
-  /* Accents: small and rare */
-  --gold: #B8893F;           /* small marks only, never body text */
-  --gold-ink: #7E5A22;       /* gold when it must be text on white */
-  --crimson: #8E1B1E;        /* poster red: Muharram and "Live now" only */
-  --crimson-bright: #C2353A; /* red marks on black */
+  /* Accent: poster red, only for the "Live now" badge */
+  --live: #8E1B1E;
 
-  /* Muharram mode */
-  --mourning: #0A0C0D;
-  --mourning-2: #16191A;
-  --mourning-text: #E4E0DA;
-  --mourning-muted: #9E9A94;
-
-  /* Status (class finder) */
-  --status-open: #1D6B55;
-  --status-full: #5E6A6C;
-
-  /* Legacy names kept so older selectors still resolve */
-  --teal-deep: var(--teal);
-  --stone: var(--surface);
-  --stone-2: var(--teal-tint);
-  --paper: var(--white);
-  --gold-text: var(--gold-ink);
-  --line-strong: var(--border);
-  --on-dark-soft: var(--on-teal-soft);
-
-  /* Fonts: Plus Jakarta Sans for all Latin text, Reem Kufi for Arabic */
-  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Type */
+  --font: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-arabic: "Reem Kufi", "Noto Kufi Arabic", sans-serif;
 
-  /* Type scale: 8 fixed steps, fluid from 375px to 1440px */
-  --fs-display: clamp(2.5rem, 1.6rem + 3.9vw, 5rem);       /* 40 → 80 */
-  --fs-h1: clamp(2.125rem, 1.6rem + 2.3vw, 3.5rem);        /* 34 → 56 */
-  --fs-h2: clamp(1.625rem, 1.35rem + 1.2vw, 2.375rem);     /* 26 → 38 */
-  --fs-h3: clamp(1.1875rem, 1.1rem + 0.4vw, 1.4375rem);    /* 19 → 23 */
-  --fs-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);      /* 17 → 20 */
-  --fs-body: 1rem;                                         /* 16 */
-  --fs-small: 0.875rem;                                    /* 14 */
-  --fs-micro: 0.8125rem;                                   /* 13 */
+  --fs-hero: clamp(2.75rem, 1.6rem + 5vw, 5.5rem);      /* 44 → 88 */
+  --fs-h1: clamp(2.25rem, 1.5rem + 3.2vw, 4rem);        /* 36 → 64 */
+  --fs-h2: clamp(1.75rem, 1.35rem + 1.7vw, 2.5rem);     /* 28 → 40 */
+  --fs-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);    /* 20 → 24 */
+  --fs-body: 1.0625rem;                                 /* 17 */
+  --fs-small: 0.875rem;                                 /* 14 */
+  --fs-tiny: 0.75rem;                                   /* 12 */
 
-  /* Spacing: 4px base */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.5rem;
-  --sp-6: 2rem;
-  --sp-7: 3rem;
-  --sp-8: 4.5rem;
-  --sp-section: clamp(4rem, 3rem + 4vw, 7rem);
-
-  /* Layout */
-  --container: 1240px;
-  --gutter: clamp(1.125rem, 0.6rem + 2vw, 2.5rem);
-  --radius: 6px;
-  --radius-lg: 14px;
+  /* Space and shape */
+  --container: 1200px;
+  --gutter: clamp(1.25rem, 0.6rem + 2.6vw, 2.75rem);
+  --section: clamp(4.5rem, 2.5rem + 7vw, 10rem);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --nav-h: 52px;
 
   /* Motion */
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --dur-fast: 160ms;
-  --dur: 320ms;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* --- Reset --------------------------------------------------------------- */
@@ -89,83 +53,46 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
   margin: 0;
   background: var(--white);
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--font);
   font-size: var(--fs-body);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.47;
+  letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img, svg, video { display: block; max-width: 100%; }
 img { height: auto; }
-button, input, select, textarea { font: inherit; color: inherit; }
-h1, h2, h3, h4, p, figure, blockquote, ul, ol { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+h1, h2, h3, h4, p, figure, ul, ol, dl, dd { margin: 0; }
 ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
-a { color: inherit; }
+a { color: inherit; text-decoration: none; }
 
 /* --- Typography ---------------------------------------------------------- */
-/* Headings: Plus Jakarta Sans 600. Size carries them, not heavy weight. */
-.t-display,
-.t-h1,
-.t-h2,
-.t-h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--teal);
-  text-wrap: balance;
-}
-.t-display { font-size: var(--fs-display); line-height: 1.04; letter-spacing: -0.03em; }
-.t-h1      { font-size: var(--fs-h1); line-height: 1.08; letter-spacing: -0.025em; }
-.t-h2      { font-size: var(--fs-h2); line-height: 1.15; letter-spacing: -0.02em; }
-.t-h3      { font-size: var(--fs-h3); line-height: 1.3; letter-spacing: -0.01em; }
-.t-lead  { font-size: var(--fs-lead); line-height: 1.6; color: var(--ink-soft); }
-.t-body  { font-size: var(--fs-body); }
-.t-small { font-size: var(--fs-small); line-height: 1.55; }
-.t-muted { color: var(--ink-soft); }
-.t-tabular { font-variant-numeric: tabular-nums; }
+.t-hero, .t-h1, .t-h2, .t-h3 { font-weight: 600; text-wrap: balance; }
+.t-hero { font-size: var(--fs-hero); line-height: 1.05; letter-spacing: -0.035em; }
+.t-h1   { font-size: var(--fs-h1);   line-height: 1.07; letter-spacing: -0.03em; }
+.t-h2   { font-size: var(--fs-h2);   line-height: 1.12; letter-spacing: -0.025em; }
+.t-h3   { font-size: var(--fs-h3);   line-height: 1.2;  letter-spacing: -0.02em; }
+.t-small { font-size: var(--fs-small); line-height: 1.45; }
+.t-tiny  { font-size: var(--fs-tiny); line-height: 1.4; letter-spacing: 0; }
+.t-muted { color: var(--ink-2); }
+.t-arabic { font-family: var(--font-arabic); direction: rtl; }
 
-/* Arabic: Reem Kufi, always right-to-left */
-.t-arabic {
-  font-family: var(--font-arabic);
-  font-weight: 600;
-  direction: rtl;
-  line-height: 1.35;
-}
-
-/* --- Surfaces ------------------------------------------------------------ */
-.surface-white { background: var(--white); color: var(--ink); }
-.surface-soft  { background: var(--surface); color: var(--ink); }
-.surface-teal  { background: var(--teal); color: var(--white); }
-.surface-teal .t-display, .surface-teal .t-h1, .surface-teal .t-h2, .surface-teal .t-h3 { color: var(--white); }
-.surface-teal .t-lead, .surface-teal .t-muted { color: var(--on-teal-soft); }
-.surface-mourning { background: var(--mourning); color: var(--mourning-text); }
-.surface-mourning .t-display, .surface-mourning .t-h1, .surface-mourning .t-h2, .surface-mourning .t-h3 { color: var(--mourning-text); }
-.surface-mourning .t-lead, .surface-mourning .t-muted { color: var(--mourning-muted); }
-
-/* --- Visible placeholder for missing facts (see TODO.md) ----------------- */
-.todo {
-  font-style: italic;
-  color: var(--gold-ink);
-  background: #F6EEDF;
-  padding: 0 0.3em;
-  border-radius: 3px;
-}
-.surface-teal .todo { color: #F1DDB5; background: rgba(255, 255, 255, 0.1); }
-.surface-mourning .todo { color: var(--mourning-text); background: rgba(228, 224, 218, 0.1); }
+/* --- Placeholder for a fact not yet confirmed (see TODO.md) -------------- */
+.todo { color: var(--ink-2); font-style: italic; }
 
 /* --- Layout helpers ------------------------------------------------------ */
 .container {
   width: 100%;
-  max-width: var(--container);
+  max-width: calc(var(--container) + var(--gutter) * 2);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
@@ -181,22 +108,20 @@ a { color: inherit; }
   border: 0;
 }
 
-:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 3px;
-}
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
 
 .skip-link {
   position: absolute;
-  left: var(--sp-4);
+  left: 1rem;
   top: -100px;
-  padding: var(--sp-2) var(--sp-4);
+  z-index: 200;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
   background: var(--teal);
   color: var(--white);
-  font-weight: 600;
-  z-index: 100;
+  font-size: var(--fs-small);
 }
-.skip-link:focus { top: var(--sp-4); }
+.skip-link:focus { top: 0.75rem; }
 
 /* Reduced motion: switch off all transitions and animations site-wide */
 @media (prefers-reduced-motion: reduce) {

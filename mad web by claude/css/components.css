@@ -1,358 +1,67 @@
 /* ==========================================================================
    AIAT — components.css
-   Reusable pieces: buttons, chips, badges, class panels, program and
-   lecture tiles, Muharram night tiles, form fields, icons.
-   Uses only the tokens defined in base.css.
+   Small reusable pieces: buttons, text links, badges, icons.
+   Uses only the tokens in base.css.
    ========================================================================== */
 
-/* --- Icons: line style, 1.75px stroke, inherit text color ---------------- */
+/* --- Icons: line style, inherit text colour ------------------------------ */
 .icon {
   width: 1.25em;
   height: 1.25em;
   flex: none;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.75;
+  stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-/* --- Buttons ------------------------------------------------------------- */
+/* --- Buttons: rounded pills, one teal action per screen ------------------ */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--sp-2);
-  min-height: 48px;
-  padding: 0 var(--sp-5);
-  border: 1.5px solid transparent;
-  border-radius: var(--radius);
+  gap: 0.5em;
+  min-height: 44px;
+  padding: 0 1.375rem;
+  border: 0;
+  border-radius: 999px;
   background: transparent;
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  text-decoration: none;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color var(--dur-fast) var(--ease),
-              color var(--dur-fast) var(--ease),
-              border-color var(--dur-fast) var(--ease);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
-
-/* Teal fill: the main action ("Join a class", "Request a seat") */
 .btn--teal { background: var(--teal); color: var(--white); }
 .btn--teal:hover { background: var(--teal-hover); }
+.btn--light { background: var(--white); color: var(--ink); }
+.btn--light:hover { background: var(--gray-1); }
+.btn--sm { min-height: 32px; padding: 0 0.875rem; font-size: var(--fs-small); }
 
-/* Outline: secondary actions; takes the current text colour */
-.btn--outline { border-color: currentColor; color: var(--teal); }
-.btn--outline:hover { background: var(--teal-tint); }
-.surface-teal .btn--outline,
-.surface-mourning .btn--outline { color: inherit; }
-.surface-teal .btn--outline:hover,
-.surface-mourning .btn--outline:hover { background: rgba(255, 255, 255, 0.1); }
-
-/* White fill: the main action on a teal band */
-.btn--white { background: var(--white); color: var(--teal); }
-.btn--white:hover { background: var(--teal-tint); }
-
-/* Crimson: Muharram mode only */
-.btn--crimson { background: var(--crimson); color: var(--white); }
-.btn--crimson:hover { background: #A52226; }
-
-/* Text link: underlined, no arrow */
-.btn--link {
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  color: var(--teal);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 5px;
-}
-.btn--link:hover { text-decoration-thickness: 2.5px; }
-
-.btn--sm { min-height: 40px; padding: 0 var(--sp-4); font-size: var(--fs-small); }
-
-/* Disabled and loading states */
-.btn:disabled,
-.btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
-.btn.is-loading { cursor: progress; }
-.btn.is-loading .btn__spinner { display: inline-block; }
-.btn__spinner {
-  display: none;
-  width: 1em; height: 1em;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: btn-spin 0.8s linear infinite;
-}
-@keyframes btn-spin { to { transform: rotate(360deg); } }
-
-/* --- Filter chips -------------------------------------------------------- */
-.chip-group { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  min-height: 40px;
-  padding: 0 var(--sp-4);
-  border: 1.5px solid var(--border);
-  border-radius: 999px;
-  background: var(--white);
-  color: var(--ink);
-  font-size: var(--fs-small);
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-}
-.chip:hover { border-color: var(--teal); }
-.chip[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: var(--white); }
-/* A check mark on selected chips, so state isn't shown by color alone */
-.chip__check { display: none; }
-.chip[aria-pressed="true"] .chip__check { display: block; }
-
-/* Two-way switch: Pakistan time / your time */
-.toggle {
-  display: inline-flex;
-  padding: 3px;
-  gap: 3px;
-  background: var(--teal-tint);
-  border-radius: 999px;
-}
-.toggle__opt {
-  min-height: 36px;
-  padding: 0 var(--sp-4);
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--teal);
-  font-size: var(--fs-small);
-  font-weight: 600;
-  cursor: pointer;
-}
-.toggle__opt[aria-pressed="true"] { background: var(--teal); color: var(--white); }
+/* Text link: no box, underline on hover only */
+.link { color: var(--teal); font-weight: 500; }
+.link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.link--light { color: var(--white); }
 
 /* --- Badges -------------------------------------------------------------- */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.45em;
-  padding: 0.25em 0.7em;
+  gap: 0.4em;
+  padding: 0.2em 0.65em;
   border-radius: 999px;
-  font-size: var(--fs-micro);
-  font-weight: 600;
-  line-height: 1.3;
-  white-space: nowrap;
+  font-size: var(--fs-tiny);
+  font-weight: 500;
+  letter-spacing: 0;
 }
-.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.badge--open { background: #E3F1EC; color: var(--status-open); }
-.badge--soon { background: #F6EEDF; color: var(--gold-ink); }
-.badge--full { background: #ECEFEF; color: var(--status-full); }
-.badge--tag  { background: var(--teal-tint); color: var(--teal); }
-.badge--tag::before { display: none; }
-.badge--live { background: var(--crimson); color: var(--white); }
-.badge--live::before { width: 7px; height: 7px; animation: live-pulse 2s ease-in-out infinite; }
-@keyframes live-pulse { 50% { opacity: 0.3; } }
-
-/* --- Photo placeholder: a graded block until the real photo arrives ------- */
-.photo-ph {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-  height: 100%;
-  min-height: 140px;
-  padding: var(--sp-4);
-  background:
-    radial-gradient(100% 80% at 70% 10%, rgba(201, 162, 98, 0.35), transparent 60%),
-    linear-gradient(160deg, #3A6A70 0%, #1E4A52 50%, #123D45 100%);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: var(--fs-small);
-  line-height: 1.4;
-}
-.photo-ph::before {
-  content: "Photo to come";
-  position: absolute;
-  top: var(--sp-4);
-  left: var(--sp-4);
-  padding: 0.15em 0.6em;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  font-size: var(--fs-micro);
-  font-weight: 600;
-  color: var(--white);
-}
-.photo-ph--mourning {
-  background:
-    radial-gradient(100% 80% at 50% 10%, rgba(142, 27, 30, 0.5), transparent 60%),
-    linear-gradient(160deg, #2A2523 0%, #151718 60%, #0A0C0D 100%);
-}
-.photo-ph--warm {
-  background:
-    radial-gradient(100% 80% at 30% 15%, rgba(232, 196, 130, 0.45), transparent 60%),
-    linear-gradient(160deg, #6E6550 0%, #3F4B45 55%, #24363A 100%);
-}
-
-/* --- Class panel (sits in the sideways class track) ----------------------- */
-.class-panel {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  width: 100%;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  color: var(--ink);
-}
-.class-panel__media { aspect-ratio: 16 / 10; }
-.class-panel__body { display: grid; gap: var(--sp-4); align-content: start; padding: var(--sp-5); }
-.class-panel__top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-3); }
-.class-panel__subject { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--teal); }
-.class-panel__ar { font-family: var(--font-arabic); font-weight: 600; font-size: 1.375rem; color: var(--teal-mid); direction: rtl; }
-.class-panel__facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3) var(--sp-4); margin: 0; font-size: var(--fs-small); }
-.class-panel__facts dt { color: var(--ink-soft); font-size: var(--fs-micro); }
-.class-panel__facts dd { margin: 0; font-weight: 500; }
-.class-panel__foot { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); padding: 0 var(--sp-5) var(--sp-5); }
-
-/* --- Program tile: photo-led, name over a local scrim --------------------- */
-.program-tile {
-  position: relative;
-  display: grid;
-  align-content: end;
-  min-height: 320px;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  color: var(--white);
-  isolation: isolate;
-}
-.program-tile__media { position: absolute; inset: 0; z-index: -2; }
-.program-tile::after {      /* scrim only where the text sits */
+.badge--live { background: var(--live); color: var(--white); }
+.badge--live::before {
   content: "";
-  position: absolute;
-  inset: 45% 0 0 0;
-  z-index: -1;
-  background: linear-gradient(to top, rgba(10, 30, 34, 0.88), rgba(10, 30, 34, 0));
-}
-.program-tile__body { padding: var(--sp-5); display: grid; gap: var(--sp-1); }
-.program-tile__ar { font-family: var(--font-arabic); font-weight: 600; font-size: 1.5rem; color: #F1DDB5; direction: rtl; text-align: left; line-height: 1.3; }
-.program-tile__name { font-size: 1.625rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
-.program-tile__when { font-size: var(--fs-small); color: rgba(255, 255, 255, 0.82); }
-
-/* --- Lecture tile: video first, title under it ---------------------------- */
-.lecture-tile { display: grid; gap: var(--sp-3); align-content: start; }
-.lecture-tile__title { font-size: 1.125rem; font-weight: 600; line-height: 1.3; color: var(--teal); }
-.lecture-tile__meta { font-size: var(--fs-small); color: var(--ink-soft); }
-
-/* Light YouTube embed: thumbnail and play button; the player loads on tap */
-.yt-lite {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-lg);
-  background: var(--teal);
-  cursor: pointer;
-  overflow: hidden;
-}
-.yt-lite .photo-ph::before { display: none; }
-.yt-lite__play {
-  position: absolute;
-  left: var(--sp-4);
-  bottom: var(--sp-4);
-  width: 52px; height: 52px;
-  display: grid;
-  place-items: center;
+  width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--white);
-  color: var(--teal);
+  background: currentColor;
+  animation: live-pulse 2s ease-in-out infinite;
 }
-.yt-lite__play .icon { fill: currentColor; stroke: none; }
-
-/* --- Muharram night tile -------------------------------------------------- */
-.night-tile { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-4); align-items: start; padding: var(--sp-5); background: var(--mourning-2); border-radius: var(--radius-lg); }
-.night-tile__num { font-size: 3rem; font-weight: 600; line-height: 0.9; letter-spacing: -0.03em; color: var(--crimson-bright); font-variant-numeric: tabular-nums; }
-.night-tile__title { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
-.night-tile__meta { margin-top: var(--sp-1); color: var(--mourning-muted); font-size: var(--fs-small); }
-.night-tile__act { grid-column: 1 / -1; display: flex; gap: var(--sp-3); align-items: center; flex-wrap: wrap; }
-
-/* --- Form fields --------------------------------------------------------- */
-.field { display: flex; flex-direction: column; gap: var(--sp-2); }
-.field__label { font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
-.field__optional { font-weight: 400; color: var(--ink-soft); }
-.field__hint { font-size: var(--fs-small); color: var(--ink-soft); }
-
-.input,
-.select,
-.textarea {
-  width: 100%;
-  min-height: 50px;
-  padding: var(--sp-3) var(--sp-4);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--white);
-  color: var(--ink);
-  font-size: var(--fs-body);         /* 16px stops phones zooming on focus */
-  transition: border-color var(--dur-fast) var(--ease);
-}
-.textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
-.select {
-  appearance: none;
-  padding-right: var(--sp-7);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23123D45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right var(--sp-4) center;
-  background-size: 18px;
-}
-.input::placeholder,
-.textarea::placeholder { color: #6B7A7D; }
-.input:hover, .select:hover, .textarea:hover { border-color: var(--teal-mid); }
-.input:focus-visible,
-.select:focus-visible,
-.textarea:focus-visible { outline: 3px solid rgba(18, 61, 69, 0.25); outline-offset: 0; border-color: var(--teal); }
-.input:disabled, .select:disabled, .textarea:disabled { background: var(--surface); opacity: 0.7; cursor: not-allowed; }
-
-/* Error state: border, icon and message, so it isn't color only */
-.field.is-invalid .input,
-.field.is-invalid .select,
-.field.is-invalid .textarea { border-color: var(--crimson); }
-.field__error {
-  display: none;
-  align-items: center;
-  gap: var(--sp-2);
-  font-size: var(--fs-small);
-  font-weight: 500;
-  color: var(--crimson);
-}
-.field.is-invalid .field__error { display: flex; }
-
-/* Segmented radio choice: In person / Online */
-.segmented { display: flex; flex-wrap: wrap; gap: var(--sp-2); border: 0; padding: 0; margin: 0; }
-.segmented legend { padding: 0; margin-bottom: var(--sp-2); }
-.segmented__opt { position: relative; }
-.segmented__opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-.segmented__opt span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 46px;
-  padding: 0 var(--sp-5);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--white);
-  font-weight: 500;
-}
-.segmented__opt input:checked + span { background: var(--teal); border-color: var(--teal); color: var(--white); }
-.segmented__opt input:focus-visible + span { outline: 3px solid rgba(18, 61, 69, 0.25); outline-offset: 2px; }
-
-/* Form outcomes: success / error */
-.notice {
-  display: flex;
-  gap: var(--sp-3);
-  padding: var(--sp-4) var(--sp-5);
-  border-radius: var(--radius);
-  font-size: var(--fs-small);
-}
-.notice--success { background: #E3F1EC; color: #12483A; }
-.notice--error { background: #F8E5E5; color: #6E1417; }
-.notice__title { font-weight: 600; font-size: var(--fs-body); }
+@keyframes live-pulse { 50% { opacity: 0.3; } }

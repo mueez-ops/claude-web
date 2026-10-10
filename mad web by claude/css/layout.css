@@ -1,185 +1,153 @@
 /* ==========================================================================
    AIAT — layout.css
-   Site navigation and the hero ("Now").
-
-   The hero photo sits inside the dome shape from the logo, built in layers
-   that move at different rates as you scroll:
-     1  hall        clean plate, no people          (moves least)
-     2  minbar      the speaker at the minbar, cut out
-     3  crowd       the nearest rows, cut out         (moves most)
-     4  name        a white copy of the headline, only visible inside the dome
-     5  haze        warm light from the lamps
-   Outside the dome the same headline is teal on white, so the name changes
-   colour exactly where it crosses into the photo. Desktop and phone are composed separately.
+   Page frame: navigation, the hero, the "Today" strip and the footer.
    ========================================================================== */
 
-/* --- Navigation ---------------------------------------------------------- */
+/* --- Navigation -----------------------------------------------------------
+   Sits over the hero photo with white text. Once the hero has scrolled
+   away, main.js adds .is-solid: white glass with dark text. */
 .nav {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-5);
-  height: 76px;
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--nav-h);
+  color: var(--white);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-.nav__brand { display: flex; align-items: center; gap: var(--sp-3); color: var(--teal); text-decoration: none; }
-.nav__mark { width: 38px; height: 38px; color: var(--teal); }
-.nav__name { font-weight: 700; font-size: 0.8125rem; line-height: 1.2; letter-spacing: -0.005em; }
-@media (min-width: 600px) { .nav__name { font-size: 0.9375rem; } }
-.nav__links { display: none; gap: var(--sp-5); font-weight: 500; font-size: 0.9375rem; }
-.nav__links a { text-decoration: none; color: var(--ink-soft); }
-.nav__links a:hover { color: var(--teal); }
-.nav__end { display: flex; align-items: center; gap: var(--sp-2); }
+.nav.is-solid,
+.nav.is-open {
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 100%; }
+.nav__brand { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.02em; }
+.nav__mark { width: 26px; height: 26px; }
+.nav__links { display: none; gap: 2.25rem; font-size: 0.8125rem; letter-spacing: -0.005em; }
+.nav__links a { opacity: 0.85; transition: opacity 0.2s var(--ease); }
+.nav__links a:hover { opacity: 1; }
+.nav__end { display: flex; align-items: center; gap: 0.25rem; }
+/* Over the photo the action is a white pill; teal once the nav is solid */
+.nav:not(.is-solid):not(.is-open) .nav__end .btn--teal { background: var(--white); color: var(--ink); }
 .nav__menu {
   display: inline-grid;
   place-items: center;
   width: 44px; height: 44px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--white);
-  color: var(--teal);
+  margin-right: -10px;
+  border: 0;
+  background: none;
+  color: inherit;
   cursor: pointer;
 }
-@media (min-width: 1100px) {
+.nav__menu .icon { width: 22px; height: 22px; }
+@media (min-width: 900px) {
   .nav__links { display: flex; }
   .nav__menu { display: none; }
 }
 
-/* --- Hero: shared ------------------------------------------------------- */
-.hero { position: relative; overflow: hidden; background: var(--white); color: var(--ink); }
-.hero__visual { position: relative; }
-.hero__frame-wrap { position: absolute; z-index: 2; }
+/* Phone menu: full screen, big links */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  padding: calc(var(--nav-h) + 1.5rem) var(--gutter) 2rem;
+  background: var(--white);
+  color: var(--ink);
+}
+.menu[hidden] { display: none; }
+.menu ul { display: grid; gap: 0.25rem; }
+.menu a { display: block; padding: 0.4rem 0; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.03em; }
 
-/* The dome (clip path defined once in the page as #domeClip) */
-.hero__arch {
+/* --- Hero ------------------------------------------------------------------
+   One full-screen photograph, a short heading, a small paragraph and two
+   actions. A dark scrim sits only where the words are. */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  max-height: 1080px;
+  overflow: hidden;
+  background: #0E1C1F;
+  color: var(--white);
+}
+.hero__media { position: absolute; inset: 0; }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+
+/* Placeholder until the real photo arrives: warm lamp light in a dark hall */
+.hero__placeholder {
   position: absolute;
   inset: 0;
-  clip-path: url(#domeClip);
-  background: #173F46;
-  overflow: hidden;
-}
-.hero__layer { position: absolute; will-change: transform; max-width: none; }
-.hero__bg { top: -24%; left: -4%; width: 108%; height: 128%; object-fit: cover; object-position: 50% 35%; }
-.hero__subject { left: 10%; width: 80%; bottom: 10%; height: 70%; object-fit: contain; object-position: 50% 100%; }
-.hero__fg {
-  left: -3%; width: 106%; bottom: -1px; height: 30%;
-  object-fit: cover; object-position: 50% 100%;
-  /* a floor in the crowd's colour travels with it, so nothing shows below */
-  box-shadow: 0 240px 0 #061A1E;
-}
-.hero__atmos {
-  inset: -10% -10% 30%;
   background:
-    radial-gradient(40% 30% at 50% 16%, rgba(255, 214, 150, 0.34), transparent 70%),
-    radial-gradient(60% 40% at 30% 60%, rgba(201, 162, 98, 0.10), transparent 70%);
-  mix-blend-mode: screen;
-  pointer-events: none;
+    radial-gradient(60% 45% at 50% 18%, rgba(255, 214, 160, 0.42), transparent 70%),
+    radial-gradient(35% 30% at 22% 30%, rgba(255, 200, 140, 0.16), transparent 70%),
+    radial-gradient(35% 30% at 78% 30%, rgba(255, 200, 140, 0.16), transparent 70%),
+    linear-gradient(180deg, #33504F 0%, #1B3236 45%, #0C1719 100%);
 }
-/* A teal outline that follows the dome, set a little outside it */
-.hero__outline {
+.hero__scrim {
   position: absolute;
-  inset: -12px;
-  width: calc(100% + 24px);
-  height: calc(100% + 24px);
-  overflow: visible;
-  pointer-events: none;
+  inset: 0;
+  background: radial-gradient(70% 50% at 50% 88%, rgba(0, 0, 0, 0.55), transparent 75%);
 }
-.hero__outline path { fill: none; stroke: var(--teal); stroke-width: 2; vector-effect: non-scaling-stroke; }
-
-/* Headline. The teal one is the real h1; the white one inside the dome is a
-   visual copy that motion.js lines up on top of it. */
-.hero__title,
-.hero__title-copy {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  white-space: nowrap;
+.hero__content {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: clamp(3rem, 2rem + 6vh, 7.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
 }
-.hero__title { color: var(--teal); }
-.hero__title-copy { position: absolute; color: var(--white); display: none; pointer-events: none; }
-.hero.is-aligned .hero__title-copy { display: block; }
+.hero__title { max-width: 14ch; }
+.hero__text { max-width: 38ch; font-size: var(--fs-small); color: rgba(255, 255, 255, 0.78); }
+.hero__actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.75rem; }
+.hero__note { position: absolute; right: var(--gutter); bottom: 1rem; font-size: var(--fs-tiny); color: rgba(255, 255, 255, 0.45); }
 
-/* The text column: line above the name, the name, purpose line, action.
-   It sits under the dome (z-index 1); the name runs on into it. */
-.hero__text { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
-.hero__kicker { font-size: var(--fs-lead); font-weight: 600; letter-spacing: -0.01em; color: var(--teal-mid); }
-.hero__purpose { max-width: 36ch; color: var(--ink-soft); }
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+/* Phone: text lower and a stronger fade from the bottom */
+@media (max-width: 899px) {
+  .hero__scrim { background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 55%); }
+  .hero__content { bottom: 3.5rem; gap: 0.75rem; }
+  .hero__note { left: var(--gutter); right: auto; bottom: 0.9rem; }
+}
 
-/* --- Live strip: dates, Quetta prayer times, next on the calendar --------- */
-.hero__live { position: relative; z-index: 4; background: var(--white); }
-.hero__live-inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-5); }
-.live__date { display: grid; gap: 1px; }
-.live__greg { color: var(--ink-soft); font-size: var(--fs-small); }
-.live__hijri { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; color: var(--teal); line-height: 1.25; }
-.live__hijri-ar { font-family: var(--font-arabic); font-weight: 600; color: var(--teal-mid); font-size: 1.125rem; }
+/* --- Today strip ------------------------------------------------------------
+   The live parts, small and tidy: dates, the next prayer, next on the
+   calendar. Prayer times come from now.js and hide if they can't load. */
+.today { border-bottom: 1px solid var(--gray-2); }
+.today__inner { display: grid; }
+.today__item { display: grid; gap: 0.15rem; align-content: start; padding: 1.4rem 0; }
+.today__item + .today__item { border-top: 1px solid var(--gray-2); }
+.today__label { font-size: var(--fs-tiny); color: var(--ink-2); letter-spacing: 0; }
+.today__value { font-size: var(--fs-body); font-weight: 600; letter-spacing: -0.02em; }
+.today__sub { font-size: var(--fs-small); color: var(--ink-2); }
+.today__sub .link { font-size: var(--fs-small); }
 
-.prayers { display: grid; gap: var(--sp-2); }
-.prayers__head { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-small); color: var(--ink-soft); }
-.prayers__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
-.prayers__item { display: grid; gap: 1px; padding: var(--sp-2) var(--sp-3); background: var(--teal-tint); border-radius: var(--radius); }
-.prayers__name { font-size: var(--fs-micro); color: var(--teal-mid); font-weight: 500; }
-.prayers__time { font-weight: 600; font-size: 1.0625rem; font-variant-numeric: tabular-nums; line-height: 1.2; color: var(--teal); }
-.prayers__time small { font-size: 0.72em; font-weight: 600; margin-left: 2px; }
-.prayers__item.is-next { background: var(--teal); }
+/* All five prayer times, opened from "All times" */
+.today__times summary { width: max-content; margin-top: 0.35rem; font-size: var(--fs-small); color: var(--teal); font-weight: 500; cursor: pointer; list-style: none; }
+.today__times summary::-webkit-details-marker { display: none; }
+.today__times summary::after { content: "+"; margin-left: 0.35em; }
+.today__times[open] summary::after { content: "\2212"; }
+.prayers__list { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin-top: 0.6rem; font-size: var(--fs-small); color: var(--ink-2); }
+.prayers__item { display: flex; gap: 0.4em; }
+.prayers__name { color: var(--ink-2); }
+.prayers__time { color: var(--ink); font-variant-numeric: tabular-nums; }
+.prayers__time small { font-size: 1em; margin-left: 0.15em; }
 .prayers__item.is-next .prayers__name,
-.prayers__item.is-next .prayers__time { color: var(--white); }
-.prayers__in { font-weight: 600; color: var(--teal); }
+.prayers__item.is-next .prayers__time { color: var(--teal); font-weight: 600; }
 
-.live__next { display: grid; gap: 1px; }
-.live__next small { color: var(--ink-soft); font-size: var(--fs-small); }
-.live__next strong { font-size: 1.125rem; font-weight: 600; color: var(--teal); line-height: 1.25; }
-.live__next span { font-size: var(--fs-small); color: var(--ink-soft); }
-
-/* --- Hero: phone composition (default) ---------------------------------- */
-/* The dome fills the width. The name straddles the dome's lower edge: its
-   top is white inside the photo, its bottom teal on the page below. */
-.hero { --dome-h: min(54svh, 500px); --title-size: clamp(2.6rem, 12.4vw, 3.6rem); }
-.hero__frame-wrap { left: var(--gutter); right: var(--gutter); top: 12px; height: var(--dome-h); }
-.hero__title, .hero__title-copy { font-size: var(--title-size); }
-.hero__text {
-  padding: calc(12px + var(--dome-h) - 1.42 * var(--title-size)) var(--gutter) 0;
-}
-.hero__title { position: relative; order: -1; }
-.hero__actions { width: 100%; }
-.hero__actions .btn--teal { flex: 1; }
-.prayers__list { gap: 4px; }
-.prayers__item { padding: var(--sp-2); }
-.prayers__time { font-size: 0.9375rem; }
-.prayers__name { font-size: 0.75rem; }
-.live__next { padding: var(--sp-3) var(--sp-4); background: var(--surface); border-radius: var(--radius); }
-
-/* --- Hero: desktop composition ------------------------------------------ */
-/* The dome stands to the right; the text column sits to the left, centred
-   in the height, and the name runs on into the dome. */
 @media (min-width: 900px) {
-  .hero { --title-size: clamp(4.5rem, 1.5rem + 7.4vw, 8.75rem); }
-  .hero__visual { height: max(calc(100vh - 76px - 128px), 580px); }
-  .hero__frame-wrap {
-    left: auto;
-    right: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter) + 12px));
-    top: 20px;
-    bottom: 0;
-    height: auto;
-    width: min(47vw, 670px);
-  }
-  .hero__text {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
-    padding: 0;
-    justify-content: center;
-    gap: var(--sp-5);
-  }
-  .hero__title { order: 0; }
-  .hero__actions { width: auto; }
-  .hero__actions .btn--teal { flex: none; }
-  .hero__live-inner { grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; gap: var(--sp-7); padding-block: var(--sp-6); }
-  .prayers__item { padding: var(--sp-2) var(--sp-3); }
-  .prayers__time { font-size: 1.125rem; }
-  .prayers__name { font-size: var(--fs-micro); }
-  .live__next { padding: 0; background: none; text-align: right; }
+  .today__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .today__item { padding: 1.75rem 2rem; }
+  .today__item:first-child { padding-left: 0; }
+  .today__item + .today__item { border-top: 0; border-left: 1px solid var(--gray-2); }
 }
+
+/* --- Footer --------------------------------------------------------------- */
+.footer { background: var(--gray-1); color: var(--ink-2); font-size: var(--fs-tiny); letter-spacing: 0; }
+.footer__inner { display: grid; gap: 1.25rem; padding-block: 2.5rem; }
+.footer__brand { color: var(--ink); font-size: var(--fs-small); font-weight: 600; }
+.footer__links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.footer__links a:hover { color: var(--ink); text-decoration: underline; }
+.footer__base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--gray-2); }

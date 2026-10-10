@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ali Ibn-e-Abitalib Islamic Institution, Quetta</title>
+  <meta name="description" content="Qur'an, Tajweed, Ahkam and Hawza studies in Quetta and online, since 1992.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Font: Geist (headings and body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/motion.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ================================================================
+       Navigation: over the hero, turns solid once you scroll past it
+       ================================================================ -->
+  <header class="nav" data-nav>
+    <div class="container nav__inner">
+      <!-- TODO: replace the line mark with images/logo.png once it is added -->
+      <a class="nav__brand" href="#top" aria-label="Ali Ibn-e-Abitalib Islamic Institution, home">
+        <svg class="nav__mark icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M12 26c0-8 5.4-14 12-16 6.6 2 12 8 12 16"/>
+          <path d="M24 6v4"/>
+          <path d="M8 30c6-2 11-1 16 3 5-4 10-5 16-3v10c-6-2-11-1-16 3-5-4-10-5-16-3z"/>
+          <path d="M24 33v10"/>
+        </svg>
+        <span>Ali Ibn-e-Abitalib</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Main">
+        <a href="#what-we-do">About</a>
+        <a href="#classes">Classes</a>
+        <a href="#events">Events</a>
+        <a href="#videos">Videos</a>
+        <a href="#visit">Visit</a>
+      </nav>
+
+      <div class="nav__end">
+        <a class="btn btn--teal btn--sm" href="#classes">Join a class</a>
+        <button class="nav__menu" type="button" data-menu-button aria-controls="menu" aria-expanded="false" aria-label="Open menu">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Phone menu -->
+  <div class="menu" id="menu" hidden>
+    <ul role="list">
+      <li><a href="#what-we-do">About</a></li>
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+  </div>
+
+  <main id="main">
+    <!-- ================================================================
+         Hero: one photograph, one line, one small paragraph
+         ================================================================ -->
+    <section class="hero" id="top" data-hero aria-labelledby="hero-title">
+      <div class="hero__media">
+        <!-- TODO: the real photo goes here, e.g.
+             <img src="images/hero.webp" alt="..." fetchpriority="high"> -->
+        <div class="hero__placeholder" role="img" aria-label="Placeholder for the main photo of the institute"></div>
+      </div>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <h1 class="t-hero hero__title" id="hero-title">Place to learn, and make progress.</h1>
+        <p class="hero__text">Qur'an, Tajweed, Ahkam and Hawza studies in Quetta and online, since 1992.</p>
+        <div class="hero__actions">
+          <a class="btn btn--light" href="#classes">Join a class</a>
+          <a class="link link--light" href="#classes">See the classes</a>
+        </div>
+      </div>
+
+      <p class="hero__note">Photo to come</p>
+    </section>
+
+    <!-- ================================================================
+         Today: dates, the next prayer in Quetta, next on the calendar
+         ================================================================ -->
+    <section class="today" aria-label="Today">
+      <div class="container today__inner">
+        <div class="today__item">
+          <span class="today__label">Today</span>
+          <span class="today__value" data-hijri></span>
+          <span class="today__sub" data-greg></span>
+        </div>
+
+        <!-- Hidden until prayer times load; stays hidden if they can't -->
+        <div class="today__item" data-prayers hidden>
+          <span class="today__label">Next prayer in Quetta</span>
+          <span class="today__value"><span data-prayer-next></span> <span data-prayer-next-time></span></span>
+          <span class="today__sub" data-prayer-in></span>
+          <details class="today__times">
+            <summary>All times</summary>
+            <ol class="prayers__list" role="list" data-prayer-list></ol>
+          </details>
+        </div>
+
+        <div class="today__item" data-next-program>
+          <span class="today__label">Next on the calendar</span>
+          <span class="today__value" data-next-name></span>
+          <span class="today__sub"><span data-next-when></span>. <a class="link" href="#events">See the year</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next sections, one at a time after review:
+         What we do, Classes, Events through the year, Videos,
+         then Winter camp, Support and Visit. -->
+  </main>
+
+  <!-- ================================================================
+       Footer
+       ================================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">Ali Ibn-e-Abitalib Islamic Institution</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#what-we-do">About</a>
+        <a href="#classes">Classes</a>
+        <a href="#events">Events</a>
+        <a href="#videos">Videos</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <div class="footer__base">
+        <!-- TODO: address from data/settings.js -->
+        <span>Quetta, Balochistan, Pakistan</span>
+        <span><span data-hijri></span>. &copy; 2026 AIAT</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Data (edit these, not the code) -->
+  <script src="data/settings.js"></script>
+  <script src="data/programs.js"></script>
+
+  <!-- Site scripts -->
+  <script src="js/calendar.js"></script>
+  <script src="js/now.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Scroll effects: GSAP + ScrollTrigger from CDN, then motion.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/motion.js" defer></script>
+</body>
+</html>

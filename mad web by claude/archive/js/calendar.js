@@ -63,44 +63,11 @@
     return new Date(y, 0, 15, 12);
   }
 
-  /* --- The next Gregorian date a program starts on ----------------------
-     start: { calendar: "hijri" | "gregorian", month, day } (see programs.js).
-     Hijri dates are found by checking each day ahead, up to just over a
-     year; returns null if the browser can't do Hijri dates. */
-  function nextDate(start, from) {
-    var today = from || new Date();
-    today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12);
-    if (start.calendar === "gregorian") {
-      var d = new Date(today.getFullYear(), start.month - 1, start.day, 12);
-      if (d < today) d.setFullYear(d.getFullYear() + 1);
-      return d;
-    }
-    for (var i = 0; i < 390; i++) {
-      var day = new Date(today.getTime() + i * 864e5);
-      var h = hijri(day);
-      if (!h) return null;
-      if (h.month === start.month && h.day === start.day) return day;
-    }
-    return null;
-  }
-
-  /* --- The program that comes next, with its date ----------------------- */
-  function nextProgram(programs, from) {
-    var best = null;
-    (programs || []).forEach(function (p) {
-      var d = p.start ? nextDate(p.start, from) : null;
-      if (d && (!best || d < best.date)) best = { program: p, date: d };
-    });
-    return best;
-  }
-
   window.AIATCalendar = {
     HIJRI_MONTHS: HIJRI_MONTHS,
     hijri: hijri,
     yearFraction: yearFraction,
     format: format,
-    nextJanuary: nextJanuary,
-    nextDate: nextDate,
-    nextProgram: nextProgram
+    nextJanuary: nextJanuary
   };
 })();
