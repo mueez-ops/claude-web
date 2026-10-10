@@ -177,7 +177,13 @@ Right-side button: **Join a class** (opens the enrollment drawer).
 > next on the calendar) → What we do → Classes → Events through the year
 > (horizontal; Muharram is one of the events) → Videos (Muharram nights,
 > Ramadan and other lectures) → Winter camp → Support → Visit → Footer.
-> Nav links: About, Classes, Events, Videos, Visit, with "Join a class" on the right.
+> Nav links: About, Classes, Events, Videos, Visit, with "Register" on the right.
+> Hero: "AIAT" as a small heading above the main line, a tiny paragraph, no
+> buttons; text on the left (wide screens) or centred (phones), a little below
+> the middle. What we do: one full-width video (`video/muharram-crowd.mp4`,
+> portrait version for phones) with "What we do" and a big heading in the
+> top-left, a round pause button top-right; the headings rise in once, nothing
+> else moves.
 > The section details below still apply where they fit this order.
 
 ### Homepage, in order

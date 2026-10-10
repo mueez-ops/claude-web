@@ -4,6 +4,8 @@
    CDN before this file). Each one starts from its HTML hook:
 
      [data-hero]       the hero photo settles and dims as you scroll past
+     [data-rise]       its children rise into place once, when it comes
+                       into view (the "What we do" headings)
 
    Motion only runs when the visitor hasn't asked for reduced motion and
    GSAP has loaded. Otherwise the page is simply still.
@@ -35,6 +37,20 @@
     return function () { gsap.set(els(media, shade), { clearProps: "all" }); };
   }
 
+  /* --- 2. Headings rise into place once, one after the other ------------- */
+  function initRise(el) {
+    var items = el.children;
+    var tween = gsap.from(items, {
+      y: 24,
+      autoAlpha: 0,
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.12,
+      scrollTrigger: { trigger: el, start: "top 75%", once: true }
+    });
+    return function () { tween.kill(); gsap.set(els(items), { clearProps: "all" }); };
+  }
+
   /* --- Start-up ------------------------------------------------------------ */
   function start() {
     if (!window.gsap || !window.ScrollTrigger) return;   // CDN failed: stay still
@@ -43,6 +59,7 @@
     gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
       var undo = [];
       document.querySelectorAll("[data-hero]").forEach(function (el) { undo.push(initHeroPhoto(el)); });
+      document.querySelectorAll("[data-rise]").forEach(function (el) { undo.push(initRise(el)); });
       return function () { undo.forEach(function (fn) { fn(); }); };
     });
 

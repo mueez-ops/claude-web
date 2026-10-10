@@ -4,7 +4,7 @@
    With reduced motion, or without JS, nothing here changes the layout.
 
      1. Hero photo: settles from a slight zoom and dims as you scroll past.
-     2. "What we do" statement: lights up word by word.      (next phase)
+     2. "What we do" headings: rise into place once, on arrival (motion.js).
      3. Events: the year's events move sideways when pinned. (next phase)
    ========================================================================== */
 

@@ -46,7 +46,8 @@
       </nav>
 
       <div class="nav__end">
-        <a class="btn btn--teal btn--sm" href="#classes">Join a class</a>
+        <!-- Opens the enrolment form once Classes is built -->
+        <a class="btn btn--teal btn--sm" href="#classes">Register</a>
         <button class="nav__menu" type="button" data-menu-button aria-controls="menu" aria-expanded="false" aria-label="Open menu">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
         </button>
@@ -67,7 +68,7 @@
 
   <main id="main">
     <!-- ================================================================
-         Hero: one photograph, one line, one small paragraph
+         Hero: one photograph, the name, one line, one small paragraph
          ================================================================ -->
     <section class="hero" id="top" data-hero aria-labelledby="hero-title">
       <div class="hero__media">
@@ -79,12 +80,9 @@
       <div class="hero__scrim" aria-hidden="true"></div>
 
       <div class="container hero__content">
+        <p class="hero__eyebrow"><abbr title="Ali Ibn-e-Abitalib Islamic Institution">AIAT</abbr></p>
         <h1 class="t-hero hero__title" id="hero-title">Place to learn, and make progress.</h1>
         <p class="hero__text">Qur'an, Tajweed, Ahkam and Hawza studies in Quetta and online, since 1992.</p>
-        <div class="hero__actions">
-          <a class="btn btn--light" href="#classes">Join a class</a>
-          <a class="link link--light" href="#classes">See the classes</a>
-        </div>
       </div>
 
       <p class="hero__note">Photo to come</p>
@@ -120,8 +118,37 @@
       </div>
     </section>
 
+
+    <!-- ================================================================
+         What we do: one full-width video, text in the top-left corner.
+         The video loads only when near the screen (js/video.js) and
+         doesn't autoplay with reduced motion or data saver.
+         ================================================================ -->
+    <section class="wwd" id="what-we-do" data-wwd aria-labelledby="wwd-title">
+      <video class="wwd__video" muted loop playsinline preload="none" aria-hidden="true"
+             poster="video/muharram-crowd-poster.webp"
+             data-src="video/muharram-crowd.mp4"
+             data-src-portrait="video/muharram-crowd-portrait.mp4"
+             data-poster-portrait="video/muharram-crowd-poster-portrait.webp"></video>
+      <div class="wwd__shade" aria-hidden="true"></div>
+
+      <!-- TODO: Mueez to confirm both lines -->
+      <div class="wwd__text" data-rise>
+        <p class="wwd__eyebrow">What we do</p>
+        <h2 class="t-hero wwd__title" id="wwd-title">This year</h2>
+      </div>
+
+      <button class="wwd__toggle" type="button" data-video-toggle aria-label="Pause video">
+        <svg class="icon wwd__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>
+        <svg class="icon wwd__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+      </button>
+
+      <!-- TODO: Mueez to confirm the year -->
+      <p class="wwd__caption">Muharram, Quetta</p>
+    </section>
+
     <!-- Next sections, one at a time after review:
-         What we do, Classes, Events through the year, Videos,
+         Classes, Events through the year, Videos,
          then Winter camp, Support and Visit. -->
   </main>
 
@@ -154,6 +181,7 @@
   <script src="js/calendar.js"></script>
   <script src="js/now.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/video.js"></script>
 
   <!-- Scroll effects: GSAP + ScrollTrigger from CDN, then motion.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>

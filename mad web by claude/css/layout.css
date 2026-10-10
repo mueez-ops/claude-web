@@ -88,28 +88,38 @@
 .hero__scrim {
   position: absolute;
   inset: 0;
-  background: radial-gradient(70% 50% at 50% 88%, rgba(0, 0, 0, 0.55), transparent 75%);
+  /* phones: a fade up from the bottom, behind the centred text */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 70%);
 }
+
+/* Text block: the name, the line, the small paragraph. Phones: centred,
+   a little below the middle. Wide screens: on the left, a little below
+   the middle. The rest of the frame is left to the photo. */
 .hero__content {
   position: absolute;
   left: 0; right: 0;
-  bottom: clamp(3rem, 2rem + 6vh, 7.5rem);
+  top: 58%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   text-align: center;
 }
+.hero__eyebrow { font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; }
+.hero__eyebrow abbr { text-decoration: none; }
 .hero__title { max-width: 14ch; }
 .hero__text { max-width: 38ch; font-size: var(--fs-small); color: rgba(255, 255, 255, 0.78); }
-.hero__actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.75rem; }
-.hero__note { position: absolute; right: var(--gutter); bottom: 1rem; font-size: var(--fs-tiny); color: rgba(255, 255, 255, 0.45); }
+.hero__note { position: absolute; left: var(--gutter); bottom: 0.9rem; font-size: var(--fs-tiny); color: rgba(255, 255, 255, 0.45); }
 
-/* Phone: text lower and a stronger fade from the bottom */
-@media (max-width: 899px) {
-  .hero__scrim { background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 55%); }
-  .hero__content { bottom: 3.5rem; gap: 0.75rem; }
-  .hero__note { left: var(--gutter); right: auto; bottom: 0.9rem; }
+@media (min-width: 900px) {
+  .hero__scrim {
+    /* a soft shade on the left only, behind the text */
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.25) 38%, rgba(0, 0, 0, 0) 62%);
+  }
+  .hero__content { top: 52%; transform: none; align-items: flex-start; text-align: left; gap: 1rem; }
+  .hero__title { max-width: 16ch; }
+  .hero__note { left: auto; right: var(--gutter); bottom: 1rem; }
 }
 
 /* --- Today strip ------------------------------------------------------------
@@ -142,6 +152,81 @@
   .today__item { padding: 1.75rem 2rem; }
   .today__item:first-child { padding-left: 0; }
   .today__item + .today__item { border-top: 0; border-left: 1px solid var(--gray-2); }
+}
+
+/* --- What we do: a full-width video with its text in the top-left -------
+   No full overlay: a soft dark corner sits behind the text only. */
+.wwd {
+  position: relative;
+  height: min(100svh, 1000px);
+  min-height: 560px;
+  overflow: hidden;
+  background: #0B0B0C;
+  color: var(--white);
+}
+.wwd__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% 50%;     /* the speaker is on the right of the frame */
+}
+.wwd__shade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(75% 60% at 0% 0%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 75%);
+  pointer-events: none;
+}
+.wwd__text {
+  position: absolute;
+  top: clamp(4.5rem, 3rem + 12vh, 13rem);
+  left: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  right: var(--gutter);
+  display: grid;
+  gap: 0.5rem;
+}
+.wwd__eyebrow { font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.375rem); font-weight: 600; letter-spacing: -0.015em; }
+.wwd__title { max-width: 12ch; }
+
+/* Pause / play: small and round, top-right, like Apple's */
+.wwd__toggle {
+  position: absolute;
+  top: calc(var(--nav-h) + 0.75rem);   /* clear of the fixed nav */
+  right: var(--gutter);
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(40, 40, 42, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease);
+}
+.wwd__toggle:hover { background: rgba(60, 60, 62, 0.7); }
+.wwd__toggle .icon { width: 18px; height: 18px; stroke-width: 2.2; }
+.wwd__icon-play { fill: currentColor; stroke: none; display: none; }
+.wwd.is-paused .wwd__icon-pause { display: none; }
+.wwd.is-paused .wwd__icon-play { display: block; }
+
+.wwd__caption {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 1.25rem;
+  font-size: var(--fs-tiny);
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 699px) {
+  .wwd { height: 92svh; }
+  .wwd__video { object-position: 50% 50%; }
+  .wwd__text { top: calc(var(--nav-h) + 4rem); }
+  .wwd__title { font-size: clamp(2.5rem, 11vw, 3.25rem); }
 }
 
 /* --- Footer --------------------------------------------------------------- */
