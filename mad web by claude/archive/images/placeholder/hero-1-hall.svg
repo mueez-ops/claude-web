@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PLACEHOLDER. Replace with the real AIAT photo layer (see styleguide notes). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1300" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2C5A5F"/><stop offset="0.55" stop-color="#173F45"/><stop offset="1" stop-color="#0B272C"/></linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.12" r="0.6"><stop offset="0" stop-color="#F2C98A" stop-opacity="0.75"/><stop offset="1" stop-color="#F2C98A" stop-opacity="0"/></radialGradient>
+<radialGradient id="lamp"><stop offset="0" stop-color="#FFD9A0" stop-opacity="0.8"/><stop offset="1" stop-color="#FFD9A0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1000" height="1300" fill="url(#wall)"/>
+<rect width="1000" height="1300" fill="url(#glow)"/>
+<path d="M330 1040V560c0-120 80-200 170-250 90 50 170 130 170 250v480z" fill="#0E3035" opacity="0.75"/>
+<path d="M370 1040V590c0-95 60-160 130-200 70 40 130 105 130 200v450z" fill="#D9AE6E" opacity="0.16"/>
+<path d="M70 210h110v680l-55.0 -46l-55.0 46z" fill="#081315" opacity="0.92"/><rect x="62" y="196" width="126" height="10" rx="3" fill="#C59A5A" opacity="0.7"/><path d="M210 210h80v720l-40.0 -46l-40.0 46z" fill="#7A1A1C" opacity="0.92"/><rect x="202" y="196" width="96" height="10" rx="3" fill="#C59A5A" opacity="0.7"/><path d="M730 210h80v669l-40.0 -46l-40.0 46z" fill="#7A1A1C" opacity="0.92"/><rect x="722" y="196" width="96" height="10" rx="3" fill="#C59A5A" opacity="0.7"/><path d="M840 210h110v685l-55.0 -46l-55.0 46z" fill="#081315" opacity="0.92"/><rect x="832" y="196" width="126" height="10" rx="3" fill="#C59A5A" opacity="0.7"/>
+<path d="M250 140h500" stroke="#C59A5A" stroke-width="3" opacity="0.6"/>
+<circle cx="260" cy="169.2" r="7" fill="#FFE3B0"/><circle cx="260" cy="169.2" r="34" fill="url(#lamp)"/><circle cx="322" cy="164.24" r="7" fill="#FFE3B0"/><circle cx="322" cy="164.24" r="34" fill="url(#lamp)"/><circle cx="384" cy="159.28" r="7" fill="#FFE3B0"/><circle cx="384" cy="159.28" r="34" fill="url(#lamp)"/><circle cx="446" cy="154.32" r="7" fill="#FFE3B0"/><circle cx="446" cy="154.32" r="34" fill="url(#lamp)"/><circle cx="508" cy="150.64" r="7" fill="#FFE3B0"/><circle cx="508" cy="150.64" r="34" fill="url(#lamp)"/><circle cx="570" cy="155.6" r="7" fill="#FFE3B0"/><circle cx="570" cy="155.6" r="34" fill="url(#lamp)"/><circle cx="632" cy="160.56" r="7" fill="#FFE3B0"/><circle cx="632" cy="160.56" r="34" fill="url(#lamp)"/><circle cx="694" cy="165.52" r="7" fill="#FFE3B0"/><circle cx="694" cy="165.52" r="34" fill="url(#lamp)"/><circle cx="756" cy="170.48" r="7" fill="#FFE3B0"/><circle cx="756" cy="170.48" r="34" fill="url(#lamp)"/>
+<rect y="1040" width="1000" height="260" fill="#0A2226"/>
+<rect y="1040" width="1000" height="6" fill="#C59A5A" opacity="0.35"/>
+</svg>

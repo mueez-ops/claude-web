@@ -1,0 +1,238 @@
+/* ==========================================================================
+   AIAT — layout.css
+   Page frame: navigation, the hero, the "Today" strip and the footer.
+   ========================================================================== */
+
+/* --- Navigation -----------------------------------------------------------
+   Sits over the hero photo with white text. Once the hero has scrolled
+   away, main.js adds .is-solid: white glass with dark text. */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--nav-h);
+  color: var(--white);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.nav.is-solid,
+.nav.is-open {
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 100%; }
+.nav__brand { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.02em; }
+.nav__mark { width: 26px; height: 26px; }
+.nav__links { display: none; gap: 2.25rem; font-size: 0.8125rem; letter-spacing: -0.005em; }
+.nav__links a { opacity: 0.85; transition: opacity 0.2s var(--ease); }
+.nav__links a:hover { opacity: 1; }
+.nav__end { display: flex; align-items: center; gap: 0.25rem; }
+/* Over the photo the action is a white pill; teal once the nav is solid */
+.nav:not(.is-solid):not(.is-open) .nav__end .btn--teal { background: var(--white); color: var(--ink); }
+.nav__menu {
+  display: inline-grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  margin-right: -10px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.nav__menu .icon { width: 22px; height: 22px; }
+@media (min-width: 900px) {
+  .nav__links { display: flex; }
+  .nav__menu { display: none; }
+}
+
+/* Phone menu: full screen, big links */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  padding: calc(var(--nav-h) + 1.5rem) var(--gutter) 2rem;
+  background: var(--white);
+  color: var(--ink);
+}
+.menu[hidden] { display: none; }
+.menu ul { display: grid; gap: 0.25rem; }
+.menu a { display: block; padding: 0.4rem 0; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.03em; }
+
+/* --- Hero ------------------------------------------------------------------
+   One full-screen photograph, a short heading, a small paragraph and two
+   actions. A dark scrim sits only where the words are. */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  max-height: 1080px;
+  overflow: hidden;
+  background: #0E1C1F;
+  color: var(--white);
+}
+.hero__media { position: absolute; inset: 0; }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+
+/* Placeholder until the real photo arrives: warm lamp light in a dark hall */
+.hero__placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 45% at 50% 18%, rgba(255, 214, 160, 0.42), transparent 70%),
+    radial-gradient(35% 30% at 22% 30%, rgba(255, 200, 140, 0.16), transparent 70%),
+    radial-gradient(35% 30% at 78% 30%, rgba(255, 200, 140, 0.16), transparent 70%),
+    linear-gradient(180deg, #33504F 0%, #1B3236 45%, #0C1719 100%);
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  /* phones: a fade up from the bottom, behind the centred text */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 70%);
+}
+
+/* Text block: the name, the line, the small paragraph. Phones: centred,
+   a little below the middle. Wide screens: on the left, a little below
+   the middle. The rest of the frame is left to the photo. */
+.hero__content {
+  position: absolute;
+  left: 0; right: 0;
+  top: 58%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+.hero__eyebrow { font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; }
+.hero__eyebrow abbr { text-decoration: none; }
+.hero__title { max-width: 14ch; }
+.hero__text { max-width: 38ch; font-size: var(--fs-small); color: rgba(255, 255, 255, 0.78); }
+.hero__note { position: absolute; left: var(--gutter); bottom: 0.9rem; font-size: var(--fs-tiny); color: rgba(255, 255, 255, 0.45); }
+
+@media (min-width: 900px) {
+  .hero__scrim {
+    /* a soft shade on the left only, behind the text */
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.25) 38%, rgba(0, 0, 0, 0) 62%);
+  }
+  .hero__content { top: 52%; transform: none; align-items: flex-start; text-align: left; gap: 1rem; }
+  .hero__title { max-width: 16ch; }
+  .hero__note { left: auto; right: var(--gutter); bottom: 1rem; }
+}
+
+/* --- Today strip ------------------------------------------------------------
+   The live parts, small and tidy: dates, the next prayer, next on the
+   calendar. Prayer times come from now.js and hide if they can't load. */
+.today { border-bottom: 1px solid var(--gray-2); }
+.today__inner { display: grid; }
+.today__item { display: grid; gap: 0.15rem; align-content: start; padding: 1.4rem 0; }
+.today__item + .today__item { border-top: 1px solid var(--gray-2); }
+.today__label { font-size: var(--fs-tiny); color: var(--ink-2); letter-spacing: 0; }
+.today__value { font-size: var(--fs-body); font-weight: 600; letter-spacing: -0.02em; }
+.today__sub { font-size: var(--fs-small); color: var(--ink-2); }
+.today__sub .link { font-size: var(--fs-small); }
+
+/* All five prayer times, opened from "All times" */
+.today__times summary { width: max-content; margin-top: 0.35rem; font-size: var(--fs-small); color: var(--teal); font-weight: 500; cursor: pointer; list-style: none; }
+.today__times summary::-webkit-details-marker { display: none; }
+.today__times summary::after { content: "+"; margin-left: 0.35em; }
+.today__times[open] summary::after { content: "\2212"; }
+.prayers__list { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin-top: 0.6rem; font-size: var(--fs-small); color: var(--ink-2); }
+.prayers__item { display: flex; gap: 0.4em; }
+.prayers__name { color: var(--ink-2); }
+.prayers__time { color: var(--ink); font-variant-numeric: tabular-nums; }
+.prayers__time small { font-size: 1em; margin-left: 0.15em; }
+.prayers__item.is-next .prayers__name,
+.prayers__item.is-next .prayers__time { color: var(--teal); font-weight: 600; }
+
+@media (min-width: 900px) {
+  .today__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .today__item { padding: 1.75rem 2rem; }
+  .today__item:first-child { padding-left: 0; }
+  .today__item + .today__item { border-top: 0; border-left: 1px solid var(--gray-2); }
+}
+
+/* --- What we do: a full-width video with its text in the top-left -------
+   No full overlay: a soft dark corner sits behind the text only. */
+.wwd {
+  position: relative;
+  height: min(100svh, 1000px);
+  min-height: 560px;
+  overflow: hidden;
+  background: #0B0B0C;
+  color: var(--white);
+}
+.wwd__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% 50%;     /* the speaker is on the right of the frame */
+}
+.wwd__shade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(75% 60% at 0% 0%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 75%);
+  pointer-events: none;
+}
+.wwd__text {
+  position: absolute;
+  top: clamp(4.5rem, 3rem + 12vh, 13rem);
+  left: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  right: var(--gutter);
+  display: grid;
+  gap: 0.5rem;
+}
+.wwd__eyebrow { font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.375rem); font-weight: 600; letter-spacing: -0.015em; }
+.wwd__title { max-width: 12ch; }
+
+/* Pause / play: small and round, top-right, like Apple's */
+.wwd__toggle {
+  position: absolute;
+  top: calc(var(--nav-h) + 0.75rem);   /* clear of the fixed nav */
+  right: var(--gutter);
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(40, 40, 42, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease);
+}
+.wwd__toggle:hover { background: rgba(60, 60, 62, 0.7); }
+.wwd__toggle .icon { width: 18px; height: 18px; stroke-width: 2.2; }
+.wwd__icon-play { fill: currentColor; stroke: none; display: none; }
+.wwd.is-paused .wwd__icon-pause { display: none; }
+.wwd.is-paused .wwd__icon-play { display: block; }
+
+.wwd__caption {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 1.25rem;
+  font-size: var(--fs-tiny);
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 699px) {
+  .wwd { height: 92svh; }
+  .wwd__video { object-position: 50% 50%; }
+  .wwd__text { top: calc(var(--nav-h) + 4rem); }
+  .wwd__title { font-size: clamp(2.5rem, 11vw, 3.25rem); }
+}
+
+/* --- Footer --------------------------------------------------------------- */
+.footer { background: var(--gray-1); color: var(--ink-2); font-size: var(--fs-tiny); letter-spacing: 0; }
+.footer__inner { display: grid; gap: 1.25rem; padding-block: 2.5rem; }
+.footer__brand { color: var(--ink); font-size: var(--fs-small); font-weight: 600; }
+.footer__links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.footer__links a:hover { color: var(--ink); text-decoration: underline; }
+.footer__base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--gray-2); }

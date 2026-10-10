@@ -115,69 +115,52 @@ the layout code. Each file starts with a comment explaining how to edit it.
 
 ## 7. Visual identity
 
-The logo colors are the base, extended the way a studio would extend them.
-Not a copy of any other site.
+> **Updated after Phase 0 review (October 2026).** The direction is a clean,
+> premium site in the spirit of apple.com and nothing.tech: a white page, one
+> quiet typeface, big photographs, lots of room, very little motion. This
+> replaces the earlier ivory/serif/numbered-label direction. Earlier rounds are
+> kept in `archive/styleguide.html` for reference only.
 
-### Palette (define all as CSS variables in `:root`)
-
-| Token | Value | Use |
-|---|---|---|
-| `--paper` | `#F6F3EC` | Main background (warm ivory, not pure white) |
-| `--paper-2` | `#ECE6DA` | Alternate surfaces, cards |
-| `--ink` | `#16262A` | Body text |
-| `--teal` | `#123D45` | Primary brand color, headings, primary buttons |
-| `--teal-deep` | `#0C2A30` | Dark sections, footer |
-| `--teal-soft` | `#DCE7E6` | Tints, tags, selected filters |
-| `--gold` | `#C29A5E` | Accents, rules, icons, on dark backgrounds |
-| `--gold-text` | `#8A6631` | Gold used for small text on light backgrounds (contrast) |
-| `--line` | `rgba(18, 61, 69, 0.14)` | Hairline borders and dividers |
-
-**Muharram mode** (used in the Muharram chapter and, during Muharram, the top
-of the homepage):
+### Palette (CSS variables in `css/base.css`)
 
 | Token | Value | Use |
 |---|---|---|
-| `--mourning` | `#0B0E0F` | Background |
-| `--mourning-text` | `#D9D6D0` | Text |
-| `--crimson` | `#7A1F1F` | The only accent — ties to AIAT's red Facebook posters |
+| `--white` | `#FFFFFF` | Page |
+| `--gray-1` | `#F5F5F7` | Alternate light sections, footer |
+| `--gray-2` | `#E8E8ED` | Dividers, input borders |
+| `--ink` | `#1D1D1F` | Text |
+| `--ink-2` | `#6E6E73` | Secondary text |
+| `--teal` | `#123D45` | Logo teal: the one brand colour, for actions, links, small highlights |
+| `--black` | `#0B0B0C` | The one dark section (videos) |
+| `--live` | `#8E1B1E` | Poster red, only for the "Live now" badge |
 
-Tune these if they don't sit well together on screen — that's expected — but
-keep the roles. All text must pass WCAG AA contrast.
+All text must pass WCAG AA contrast.
 
 ### Typography
 
-Elegant and calm. **No heavy bold weights** (nothing above 600).
-
-- **Display / headings:** *Cormorant Garamond*, weights 400–500, set large with
-  generous line spacing.
-- **Body / interface:** *Manrope*, weights 400–600.
-- **Arabic text** (calligraphic lines, names of programs): *Amiri*.
-- **Urdu** (if used): *Noto Nastaliq Urdu*.
-
-All from Google Fonts. If a pairing doesn't work in practice, propose an
-alternative in the styleguide before using it.
-
-Type scale is up to you, but keep it to a small fixed set and reuse it.
+- **Geist** (Google Fonts) for everything: headings 600, body 400, buttons 500.
+  Large, tightly spaced headlines; body 17px.
+- **Reem Kufi** only where Arabic appears.
+- No uppercase labels, no em dashes, no middle dots in visible text.
 
 ### Layout and feel
 
-- Generous space between sections, but not empty-looking — every screen should
-  feel considered and full of intent.
-- Thin gold hairlines and small numbered labels (e.g. `01 — The Year`) as the
-  recurring structural device instead of boxes and shadows.
-- Photography is real AIAT photography, never stock and never AI-generated.
-  Full-bleed where it matters, with a subtle warm grade for consistency.
-- Icons: thin line style, consistent stroke, used sparingly.
+- White space does the work: generous section padding, a 1200px container.
+- Big real photographs, rounded corners (12–20px), no shadows, no boxes for
+  decoration.
+- Muharram is one event among the others in the events row, not a theme that
+  repeats across the page.
+- Photography is real AIAT photography, never stock, never AI-generated.
 
 ### Motion
 
-- Motion has meaning: it follows time (the year, the ten nights) or reveals
-  proof. Never motion for decoration.
-- Scroll-driven chapters (pinned sections) are allowed in the places marked
-  **[scroll]** below.
-- Respect `prefers-reduced-motion`: everything still readable with no motion.
-- On phones, simplify pinned sequences into simple vertical reveals if they
-  feel cramped or slow.
+Only a few, meaningful effects (GSAP ScrollTrigger), all off with
+`prefers-reduced-motion`:
+1. Hero photo settles from a slight zoom and dims as you scroll past.
+2. "What we do" statement lights up word by word.
+3. Events through the year: a pinned horizontal row on desktop, a swipe row on
+   phones.
+Nothing else animates: no fade-ups on every block.
 
 ## 8. Site map
 
@@ -187,6 +170,21 @@ full-screen menu):
 **Learn · The Year · Muharram · Library · Camp · Support · Visit**
 Right-side button: **Join a class** (opens the enrollment drawer).
 (A login button replaces this in V2.)
+
+> **Current homepage order (approved October 2026), which takes priority over
+> the numbered order below:** Hero (one photo, the line "Place to learn, and
+> make progress.", a small paragraph) → Today strip (Hijri date, next prayer,
+> next on the calendar) → What we do → Classes → Events through the year
+> (horizontal; Muharram is one of the events) → Videos (Muharram nights,
+> Ramadan and other lectures) → Winter camp → Support → Visit → Footer.
+> Nav links: About, Classes, Events, Videos, Visit, with "Register" on the right.
+> Hero: "AIAT" as a small heading above the main line, a tiny paragraph, no
+> buttons; text on the left (wide screens) or centred (phones), a little below
+> the middle. What we do: one full-width video (`video/muharram-crowd.mp4`,
+> portrait version for phones) with "What we do" and a big heading in the
+> top-left, a round pause button top-right; the headings rise in once, nothing
+> else moves.
+> The section details below still apply where they fit this order.
 
 ### Homepage, in order
 
@@ -315,16 +313,15 @@ Hijri date, © 2026 AIAT.
 
 | Phase | Build | Stop for review |
 |---|---|---|
-| 0 | `styleguide.html`: palette, fonts, type scale, buttons, chips, cards, form fields, one scroll sample | Yes |
-| 1 | Navigation, footer, data files with sample structure, `TODO.md` | Yes |
-| 2 | 8.1 Now (prayer times, Hijri date, countdown, live badge, Muharram mode) | Yes |
-| 3 | 8.2 Proof | Yes |
-| 4 | 8.3 Learn + 8.10 Enrollment drawer | Yes |
-| 5 | 8.4 The Year | Yes |
-| 6 | 8.5 Muharram (homepage chapter + `muharram.html`) | Yes |
-| 7 | 8.6 Library (homepage + `library.html`) | Yes |
-| 8 | 8.7 Camp, 8.8 Support, 8.9 Visit | Yes |
-| 9 | Polish: performance, accessibility, SEO, sharing, mobile testing | Yes |
+| 0 | Styleguide rounds (done; archived in `archive/`) | Done |
+| 1 | `index.html`: navigation over the hero, hero, Today strip, footer stub, `data/settings.js`, `data/programs.js` | Yes |
+| 2 | What we do | Yes |
+| 3 | Classes + enrollment drawer (8.3, 8.10) | Yes |
+| 4 | Events through the year (horizontal) | Yes |
+| 5 | Videos (homepage) + `library.html` | Yes |
+| 6 | Winter camp, Support, Visit, full footer | Yes |
+| 7 | `muharram.html` (the ten nights page) | Yes |
+| 8 | Polish: performance, accessibility, SEO, sharing, mobile testing | Yes |
 
 ## 12. Not in V1
 

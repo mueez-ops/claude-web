@@ -1,0 +1,13 @@
+/* ==========================================================================
+   AIAT — motion.css
+   The few things that move, and only when js/motion.js turns them on.
+   With reduced motion, or without JS, nothing here changes the layout.
+
+     1. Hero photo: settles from a slight zoom and dims as you scroll past.
+     2. "What we do" headings: rise into place once, on arrival (motion.js).
+     3. Events: the year's events move sideways when pinned. (next phase)
+   ========================================================================== */
+
+/* 1. Hero photo */
+.hero__media { will-change: transform; transform-origin: 50% 40%; }
+.hero__shade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
